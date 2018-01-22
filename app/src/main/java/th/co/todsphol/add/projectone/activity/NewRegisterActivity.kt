@@ -113,8 +113,6 @@ class NewRegisterActivity : AppCompatActivity() {
                 })
                 dataLocation.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                    val longitude = dataSnapshot.child("Longtitude").getValue(Int::class.java)
-//                    val latitude = dataSnapshot.child("latitude").getValue(Int::class.java)
                         val vir = dataSnapshot.child("Vir").getValue(Int::class.java)
                         if (vir == 0) {
                             dataStatus.child("Salarm").setValue(0)
