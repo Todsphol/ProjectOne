@@ -35,7 +35,7 @@ class MessagingReceiver : FirebaseMessagingService() {
 
         @Suppress("DEPRECATION")
         val notificationBuilder = NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_correct)
+                .setSmallIcon(R.mipmap.map)
                 .setContentTitle(notificationPayload?.title)
                 .setContentText(notificationPayload?.body)
                 .setAutoCancel(true)

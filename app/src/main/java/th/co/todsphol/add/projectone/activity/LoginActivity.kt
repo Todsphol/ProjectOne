@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
@@ -20,7 +21,10 @@ import th.co.todsphol.add.projectone.PhoneNumberWatcher
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.fragment.FirstFragment
 
+import com.google.firebase.messaging.FirebaseMessaging.*
+
 class LoginActivity : AppCompatActivity() {
+
     @BindView(R.id.edt_phone_number) lateinit var edtPhone: EditText
     @BindView(R.id.edt_password) lateinit var edtPassword: EditText
     private var baseR = FirebaseDatabase.getInstance().reference
@@ -29,11 +33,19 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         val EXTRA_PHONE = "EXTRA_PHONE"
+        private val TAG = "FirstPageActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        if (intent.extras != null) {
+            for (key in intent.extras.keySet()) {
+                val value = intent.extras.get(key)
+                Log.d(TAG, "Key: $key Value: $value")
+            }
+        }
+
         ButterKnife.bind(this)
         onText(edtPhone.toString())
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
@@ -99,6 +111,9 @@ class LoginActivity : AppCompatActivity() {
         startActivity(homeIntent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         dataStatus.child("Slogin").setValue(1)
+        getInstance().subscribeToTopic("news")
+        Log.d(TAG, "SubscribeToTopic")
+        Toast.makeText(this,"SubscribeToTopic",Toast.LENGTH_SHORT).show()
     }
 
     private fun initFragment() {
@@ -120,4 +135,5 @@ class LoginActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

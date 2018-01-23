@@ -1,10 +1,15 @@
 package th.co.todsphol.add.projectone.notification
 
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import com.google.firebase.messaging.FirebaseMessaging
 
 
-open class FirebaseMessagingTopic {
+open class FirebaseMessagingTopic : AppCompatActivity(), View.OnClickListener {
+    override fun onClick(p0: View?) {
+
+    }
 
     val TAG = FirebaseMessagingTopic::class.java.simpleName
 
