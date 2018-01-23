@@ -13,6 +13,9 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.MapsActivity
+import android.os.Vibrator
+
+
 
 
 class MessagingReceiver : FirebaseMessagingService() {
@@ -42,7 +45,7 @@ class MessagingReceiver : FirebaseMessagingService() {
                 .setContentIntent(pendingIntent)
                 .setContentInfo(notificationPayload?.title)
                 .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-
+//                .setDefaults(Notification.DEFAULT_VIBRATE)
         val notificationManager = NotificationManagerCompat.from(applicationContext)
         notificationManager.notify(123, notificationBuilder.build())
     }
