@@ -7,8 +7,10 @@ import android.support.v4.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.MapsActivity
 
@@ -34,12 +36,12 @@ class MessagingReceiver : FirebaseMessagingService() {
                 .setContentTitle(notificationPayload?.title)
                 .setContentText(notificationPayload?.body)
                 .setAutoCancel(true)
-                .setColor(Color.parseColor("#40C4FF"))
+                .setColor(ContextCompat.getColor(this, R.color.colorGreen))
                 .setLights(Color.BLUE, 1000, 300)
-                .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
                 .setContentInfo(notificationPayload?.title)
+                .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
 
         val notificationManager = NotificationManagerCompat.from(applicationContext)
         notificationManager.notify(123, notificationBuilder.build())
