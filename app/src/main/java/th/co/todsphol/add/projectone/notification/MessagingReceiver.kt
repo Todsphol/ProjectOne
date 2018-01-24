@@ -44,7 +44,8 @@ class MessagingReceiver : FirebaseMessagingService() {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
                 .setContentInfo(notificationPayload?.title)
-                .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                .setVibrate(longArrayOf(1000, 3000, 1000, 3000, 1000))
+
 //                .setDefaults(Notification.DEFAULT_VIBRATE)
         val notificationManager = NotificationManagerCompat.from(applicationContext)
         notificationManager.notify(123, notificationBuilder.build())
