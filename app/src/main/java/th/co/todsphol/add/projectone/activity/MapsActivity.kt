@@ -14,6 +14,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
@@ -24,6 +25,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
@@ -172,6 +174,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         val logoutIntent = Intent(this, LoginActivity::class.java)
         logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(logoutIntent)
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("news")
+        Log.d(MapsActivity.TAG, "UnsubscribeToTopic")
+        Toast.makeText(this,"UnsubscribeToTopic",Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("MissingPermission")
@@ -183,6 +188,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
+    }
+
+    companion object {
+        private val TAG = "LoginActivity"
     }
 
 }
