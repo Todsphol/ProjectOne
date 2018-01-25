@@ -174,9 +174,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         val logoutIntent = Intent(this, LoginActivity::class.java)
         logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(logoutIntent)
-        FirebaseMessaging.getInstance().unsubscribeFromTopic("news")
-        Log.d(MapsActivity.TAG, "UnsubscribeToTopic")
-        Toast.makeText(this,"UnsubscribeToTopic",Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("MissingPermission")

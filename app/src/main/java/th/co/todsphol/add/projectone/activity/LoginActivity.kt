@@ -111,9 +111,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(homeIntent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         dataStatus.child("Slogin").setValue(1)
-        getInstance().subscribeToTopic("news")
-        Log.d(TAG, "SubscribeToTopic")
-        Toast.makeText(this,"SubscribeToTopic",Toast.LENGTH_SHORT).show()
     }
 
     private fun initFragment() {
