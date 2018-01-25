@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#313131"
     android:fillViewport="true">
 <RelativeLayout
     android:layout_width="match_parent"
@@ -25,7 +26,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/dp20"
                     android:text="เข้าสู่ระบบ"
-                    android:textColor="@color/colorBlueGray"
+                    android:textColor="#fff"
                     android:textSize="@dimen/textSize" />
 
                 <EditText
