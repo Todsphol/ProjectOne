@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ProjectOne.iml" filepath="$PROJECT_DIR$/ProjectOne.iml" />
       <module fileurl="file://C:\Users\Zerosx\Desktop\juniorProject\Android\ProjectOne-Add\ProjectOne.iml" filepath="C:\Users\Zerosx\Desktop\juniorProject\Android\ProjectOne-Add\ProjectOne.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ProjectOne-Add.iml" filepath="$PROJECT_DIR$/ProjectOne-Add.iml" />
+      <module fileurl="file://C:\Users\User\AndroidStudioProjects\ProjectOne\ProjectOne-Add.iml" filepath="C:\Users\User\AndroidStudioProjects\ProjectOne\ProjectOne-Add.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Zerosx\Desktop\juniorProject\Android\ProjectOne-Add\app\app.iml" filepath="C:\Users\Zerosx\Desktop\juniorProject\Android\ProjectOne-Add\app\app.iml" />
     </modules>
