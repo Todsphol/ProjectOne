@@ -49,6 +49,7 @@ class NewRegisterActivity : AppCompatActivity() {
         setToolbar()
         spinnerBrand()
         edtPhoneNumber.addTextChangedListener(PhoneNumberWatcher(edtPhoneNumber))
+        registerButtonClicked()
     }
 
     val EXTRA_PHONE = "EXTRA_PHONE"

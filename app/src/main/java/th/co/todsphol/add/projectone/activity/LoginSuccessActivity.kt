@@ -17,7 +17,6 @@ class LoginSuccessActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login_success)
         ButterKnife.bind(this)
         tvSuccess.text = intent.getStringExtra(EXTRA_PHONE)
-
     }
 
     @OnClick(R.id.btn_back_to_login)
