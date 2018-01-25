@@ -22,8 +22,9 @@
         <Button
             android:id="@+id/btn_back_to_login"
             style="@style/ButtonGreen"
+            android:background="#e6b40e"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/dp8"
             android:layout_marginLeft="@dimen/dp8"
@@ -34,8 +35,9 @@
         <Button
             android:id="@+id/btn_new_register"
             style="@style/ButtonGreen"
+            android:background="#535353"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/dp8"
             android:layout_marginLeft="@dimen/dp8"
