@@ -7,6 +7,12 @@
     android:background="#313131"
     tools:context=".activity.FirstPageActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:src="@drawable/splash" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,30 +22,30 @@
         <Button
             android:id="@+id/btn_back_to_login"
             style="@style/ButtonGreen"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/dp8"
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
-            android:text="เข้าสู่ระบบ"
-            />
+            android:textSize="20sp"
+            android:text="เข้าสู่ระบบ" />
+
         <Button
             android:id="@+id/btn_new_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             style="@style/ButtonGreen"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/dp8"
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
-            android:text="ลงทะเบียน"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:textSize="20sp"
+            android:text="ลงทะเบียน" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
 
 
     </LinearLayout>
