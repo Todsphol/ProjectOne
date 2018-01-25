@@ -6,94 +6,108 @@
     android:layout_height="match_parent"
     android:background="#313131"
     android:fillViewport="true">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="th.co.todsphol.add.projectone.fragment.FirstFragment">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:animateLayoutChanges="true"
-                android:gravity="center_horizontal">
-
-                <TextView
-                    android:id="@+id/tv_show_text_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:gravity="center"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/dp20"
-                    android:text="เข้าสู่ระบบ"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/textSize" />
-
-                <EditText
-                    android:id="@+id/edt_phone_number"
-                    style="@style/TestEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:hint="เบอร์โทรศัทพ์ของคุณ"
-                    android:textSize="@dimen/textSize"
-                    android:inputType="phone"
-                    android:maxLength="12"
-                    android:layout_below="@+id/tv_show_text_login"
-                    android:layout_marginLeft="@dimen/dp8"
-                    android:layout_marginRight="@dimen/dp8"
-                    android:ellipsize="end"
-                    android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                    android:maxLines="1"
-                    android:drawableLeft="@drawable/ic_phone"
-                    android:drawableStart="@drawable/ic_phone"
-
-                    />
-
-                <EditText
-                    android:id="@+id/edt_password"
-                    style="@style/EditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/edt_phone_number"
-                    android:layout_marginTop="@dimen/dp12"
-                    android:hint="รหัสผ่านของคุณ"
-                    android:textSize="@dimen/textSize"
-                    android:inputType="numberPassword"
-                    android:maxLength="6"
-                    android:layout_alignStart="@id/edt_phone_number"
-                    android:layout_alignLeft="@id/edt_phone_number"
-                    android:layout_alignRight="@+id/edt_phone_number"
-                    android:layout_alignEnd="@id/edt_phone_number"
-                    android:digits="0123456789"
-                    android:ellipsize="end"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:drawableStart="@drawable/ic_lock"
-                    />
-
-
-            </RelativeLayout>
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:gravity="center">
+        tools:context="th.co.todsphol.add.projectone.fragment.FirstFragment">
 
-        <Button
-            android:id="@+id/btn_login"
-            style="@style/ButtonGreen"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/login" />
+
+        <RelativeLayout
+            android:id="@+id/Re_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp20"
-            android:layout_marginLeft="@dimen/dp12"
-            android:layout_marginRight="@dimen/dp12"
-            android:text="เข้าสู่ระบบ" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="220dp"
+            android:animateLayoutChanges="true"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tv_show_text_login"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"/>
+            <!--android:text="เข้าสู่ระบบ"-->
+            <!--android:textColor="#fff"-->
+            <!--android:textSize="20sp" />-->
 
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edt_phone_number"
+                style="@style/TestEditText"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_show_text_login"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dp8"
+                android:layout_marginRight="@dimen/dp8"
+                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawableStart="@drawable/ic_phone"
+                android:ellipsize="end"
+                android:hint="เบอร์โทรศัทพ์ของคุณ"
+                android:inputType="phone"
+                android:maxLength="12"
+                android:maxLines="1"
+                android:textSize="@dimen/textSize"
 
-</RelativeLayout>
+                />
+
+            <EditText
+                android:id="@+id/edt_password"
+                style="@style/EditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/edt_phone_number"
+                android:layout_alignLeft="@id/edt_phone_number"
+                android:layout_alignRight="@+id/edt_phone_number"
+                android:layout_alignStart="@id/edt_phone_number"
+                android:layout_below="@+id/edt_phone_number"
+                android:layout_marginTop="@dimen/dp12"
+                android:digits="0123456789"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawableStart="@drawable/ic_lock"
+                android:ellipsize="end"
+                android:hint="รหัสผ่านของคุณ"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:textSize="@dimen/textSize" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/Re_text"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/ButtonGreen"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/edt_password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp20"
+                android:layout_marginLeft="@dimen/dp12"
+                android:layout_marginRight="@dimen/dp12"
+                android:layout_marginTop="10dp"
+                android:background="#d73e81"
+                android:text="เข้าสู่ระบบ" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </ScrollView>
