@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.OnTextChanged
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -27,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
     @BindView(R.id.edt_phone_number) lateinit var edtPhone: EditText
     @BindView(R.id.edt_password) lateinit var edtPassword: EditText
+    @BindView(R.id.bg_login_page) lateinit var imVlogin : ImageView
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataReg = baseR.child("User").child("user1").child("DATA_REG")
     var dataStatus = baseR.child("User").child("user1").child("STATUS")
@@ -44,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
         edtPhone.setText(intent.getStringExtra(EXTRA_PHONE), TextView.BufferType.EDITABLE)
         edtPhone.setSelection(edtPhone.text.length)
-//        Glide.with(this).load(drawable.shoot).crossFade().into(vImageBackground)
+        Glide.with(this).load(R.drawable.ic_logo_page_login).crossFade().into(imVlogin)
     }
 
 

@@ -10,7 +10,17 @@
     android:layout_height="wrap_content"
     tools:context="th.co.todsphol.add.projectone.fragment.FirstFragment">
 
+    <ImageView
+        android:id="@+id/bg_login_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rela_login_page"
+        android:contentDescription="bg_login_page"
+        android:src="@drawable/ic_logo_page_login"
+        />
+
             <RelativeLayout
+                android:id="@+id/rela_login_page"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -20,7 +30,7 @@
                 <TextView
                     android:id="@+id/tv_show_text_login"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/dp20"
