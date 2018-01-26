@@ -36,8 +36,8 @@
         <item name="android:foreground">?selectableItemBackground</item>
     </style>
 
-    <style name="ButtonGreen" parent="ButtonBase">
-        <item name="android:background">@drawable/s_bg_button_green</item>
+    <style name="ButtonPurple" parent="ButtonBase">
+        <item name="android:background">@drawable/s_bg_button_purple</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

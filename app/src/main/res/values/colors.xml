@@ -17,4 +17,6 @@
     <color name="colorGreenMidle">#8BC34A</color>
     <color name="colorRed">#F44336</color>
     <color name="colorGreenlearm">#64DD17</color>
+    <color name="colorPaletteGray">#3f3f3f</color>
+    <color name="colorPurpleKid">#bba3d0</color>
 </resources>

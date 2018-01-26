@@ -39,9 +39,9 @@ class SplashActivity : AppCompatActivity() {
         mDelayHandler = Handler()
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
 
-        Glide.with(this).load(R.drawable.splash)
+        Glide.with(this).load(R.drawable.scout)
                 .crossFade()
-                .error(R.drawable.splash)
+                .error(R.drawable.scout)
                 .into(imageBG)
 
     }

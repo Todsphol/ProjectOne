@@ -240,7 +240,7 @@
 
             <Button
                 android:id="@+id/btn_register"
-                style="@style/ButtonGreen"
+                style="@style/ButtonPurple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@id/liner_view_two"

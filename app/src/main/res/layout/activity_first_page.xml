@@ -6,7 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.FirstPageActivity">
 
+    <ImageView
+        android:id="@+id/bg_first_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/line_first_page"
+        android:contentDescription="bg_first_page"
+        android:layout_marginLeft="@dimen/dp12"
+        android:layout_marginRight="@dimen/dp12"
+        />
+
     <LinearLayout
+        android:id="@+id/line_first_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -14,7 +25,7 @@
 
         <Button
             android:id="@+id/btn_back_to_login"
-            style="@style/ButtonGreen"
+            style="@style/ButtonPurple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp8"
@@ -26,15 +37,12 @@
             android:id="@+id/btn_new_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/ButtonGreen"
+            style="@style/ButtonPurple"
             android:layout_marginBottom="@dimen/dp8"
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
             android:text="ลงทะเบียน"
             />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
