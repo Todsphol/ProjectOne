@@ -129,7 +129,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
                 val testCheck = LatLng(dataLatitude, dataLongitude)
                 mMap.addMarker(MarkerOptions().position(testCheck).title("Test"))
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(testCheck))
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f))
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f))
             }
 
             override fun onCancelled(p0: DatabaseError?) {
@@ -176,7 +176,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
 
     @SuppressLint("MissingPermission")
     private fun call() {
-        val callPhone = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "0821945021"))
+        val callPhone = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getString(R.string.phoneNumber)))
         startActivity(callPhone)
     }
 
