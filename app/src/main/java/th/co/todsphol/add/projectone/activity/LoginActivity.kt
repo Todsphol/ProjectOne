@@ -39,13 +39,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        if (intent.extras != null) {
-            for (key in intent.extras.keySet()) {
-                val value = intent.extras.get(key)
-                Log.d(TAG, "Key: $key Value: $value")
-            }
-        }
-
         ButterKnife.bind(this)
         onText(edtPhone.toString())
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
@@ -111,9 +104,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(homeIntent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         dataStatus.child("Slogin").setValue(1)
-        getInstance().subscribeToTopic("news")
-        Log.d(TAG, "SubscribeToTopic")
-        Toast.makeText(this,"SubscribeToTopic",Toast.LENGTH_SHORT).show()
     }
 
     private fun initFragment() {
