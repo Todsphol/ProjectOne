@@ -33,19 +33,11 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_PHONE = "EXTRA_PHONE"
-        private const val TAG = "FirstPageActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        if (intent.extras != null) {
-            for (key in intent.extras.keySet()) {
-                val value = intent.extras.get(key)
-                Log.d(TAG, "Key: $key Value: $value")
-            }
-        }
-
         ButterKnife.bind(this)
         onText(edtPhone.toString())
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
