@@ -6,4 +6,29 @@
     android:background="#313131"
     tools:context="th.co.todsphol.add.projectone.fragment.FirstFragment">
 
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.google.android.gms.maps.MapView>
+
+    <Button
+        android:id="@+id/btn_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="gravity"
+        android:layout_alignParentBottom="true"
+        style="@style/ButtonGreen"
+        android:layout_marginLeft="@dimen/dp8"
+        android:layout_marginRight="@dimen/dp8"
+        android:layout_marginBottom="@dimen/dp8"
+        android:drawableLeft="@drawable/ic_arrow_right_green"
+        android:drawableStart="@drawable/ic_arrow_right_green"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:drawableEnd="@drawable/ic_arrow_right"
+        android:padding="@dimen/dp8"
+        android:text="ข้อมูลรถของท่าน"
+        />
+
 </RelativeLayout>

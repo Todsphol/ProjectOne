@@ -16,7 +16,6 @@ class SecondFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_second, container, false)
         ButterKnife.bind(this,view)
-        getMainActivity().supportActionBar?.show()
         return view
 
     }
