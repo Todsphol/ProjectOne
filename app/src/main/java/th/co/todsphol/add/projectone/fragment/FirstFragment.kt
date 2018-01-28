@@ -27,10 +27,12 @@ class FirstFragment : Fragment(), OnMapReadyCallback {
     @BindView(R.id.btn_data) lateinit var nextData : Button
     var mgoogleMap: GoogleMap? = null
     @SuppressLint("MissingPermission")
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_first, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_first, container, false)
         ButterKnife.bind(this, view)
+        mMapView.onCreate(null)
+        mMapView.onResume()
+        mMapView.getMapAsync(this)
         nextData.setOnClickListener {
             getMainActivity().changeFragment(SecondFragment.newInstance())
         }
@@ -39,14 +41,6 @@ class FirstFragment : Fragment(), OnMapReadyCallback {
 
     fun getMainActivity() : DisplayActivity {
         return activity as DisplayActivity
-    }
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mMapView.onCreate(null)
-        mMapView.onResume()
-        mMapView.getMapAsync(this)
-
     }
 
     @SuppressLint("MissingPermission")
