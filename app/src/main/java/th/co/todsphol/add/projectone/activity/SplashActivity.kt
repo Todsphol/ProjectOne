@@ -62,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun gotoMaps() {
-        val mapIntent = Intent(this, MapsActivity::class.java)
+        val mapIntent = Intent(this, DisplayActivity::class.java)
         mapIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(mapIntent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

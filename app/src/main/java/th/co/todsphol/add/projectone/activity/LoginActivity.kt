@@ -95,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun isCorrect() {
-        val homeIntent = Intent(this@LoginActivity, MapsActivity::class.java)
+        val homeIntent = Intent(this@LoginActivity, DisplayActivity::class.java)
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(homeIntent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

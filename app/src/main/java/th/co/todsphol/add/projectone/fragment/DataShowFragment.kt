@@ -22,15 +22,24 @@ import th.co.todsphol.add.projectone.activity.DisplayActivity
 import th.co.todsphol.add.projectone.activity.LoginActivity
 
 class DataShowFragment : Fragment() {
-    @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var title: TextView
-    @BindView(R.id.tv_name_client) lateinit var nameClient: TextView
-    @BindView(R.id.tv_surname_client) lateinit var surNameClient: TextView
-    @BindView(R.id.tv_color_client) lateinit var colorCar: TextView
-    @BindView(R.id.tv_brand_client) lateinit var brandCar: TextView
-    @BindView(R.id.tv_county) lateinit var licencePlate: TextView
-    @BindView(R.id.tv_status) lateinit var alarmStatus: TextView
-    @BindView(R.id.imv_status) lateinit var imvStatus : ImageView
+    @BindView(R.id.toolbar)
+    lateinit var toolBar: Toolbar
+    @BindView(R.id.tv_toolbar_title)
+    lateinit var title: TextView
+    @BindView(R.id.tv_name_client)
+    lateinit var nameClient: TextView
+    @BindView(R.id.tv_surname_client)
+    lateinit var surNameClient: TextView
+    @BindView(R.id.tv_color_client)
+    lateinit var colorCar: TextView
+    @BindView(R.id.tv_brand_client)
+    lateinit var brandCar: TextView
+    @BindView(R.id.tv_county)
+    lateinit var licencePlate: TextView
+    @BindView(R.id.tv_status)
+    lateinit var alarmStatus: TextView
+    @BindView(R.id.imv_status)
+    lateinit var imViewStatus: ImageView
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -38,7 +47,7 @@ class DataShowFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_data_show, container, false)
-        ButterKnife.bind(this,view)
+        ButterKnife.bind(this, view)
         setToolbar()
         getDataCar()
         getDataname()
@@ -95,11 +104,7 @@ class DataShowFragment : Fragment() {
         dataStatus.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataStatusAlarm = dataSnapshot.child("Salarm").getValue(Int::class.java)
-                if (dataStatusAlarm == 0) {
-                    alarmStatus.text = "ปลอดภัย"
-                } else {
-                    alarmStatus.text = "ไม่ปลอดภัย"
-                }
+                changeColorStatus(dataStatusAlarm)
             }
 
             override fun onCancelled(p0: DatabaseError?) {
@@ -109,12 +114,32 @@ class DataShowFragment : Fragment() {
         })
     }
 
+    private fun changeColorStatus(dataStatusAlarm: Int?) {
+        if (dataStatusAlarm == 0) {
+            try {
+                imViewStatus.setColorFilter(ContextCompat.getColor(context!!, R.color.colorGreen))
+                alarmStatus.text = "ปลอดภัย"
+            } catch (e: NullPointerException) {
 
-    private fun getMainActivity() : DisplayActivity {
+            }
+
+        } else {
+            try {
+                imViewStatus.setColorFilter(ContextCompat.getColor(context!!, R.color.colorRed))
+                alarmStatus.text = "ไม่ปลอดภัย"
+            } catch (e: NullPointerException) {
+
+            }
+        }
+    }
+
+
+    private fun getMainActivity(): DisplayActivity {
         return activity as DisplayActivity
     }
+
     companion object {
-        fun newInstance() : Fragment {
+        fun newInstance(): Fragment {
             val bundle = Bundle()
             val fragment = DataShowFragment()
             fragment.arguments = bundle
