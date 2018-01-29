@@ -35,18 +35,27 @@ class DataShowFragment : Fragment() {
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
-    private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_data_show, container, false)
         ButterKnife.bind(this,view)
-        getMainActivity().setSupportActionBar(toolBar)
+        setToolbar()
         getDataCar()
         getDataname()
         getDataStatus()
         return view
 
     }
+
+    private fun setToolbar() {
+        getMainActivity().setSupportActionBar(toolBar)
+        getMainActivity().supportActionBar?.setDisplayShowTitleEnabled(false)
+        getMainActivity().supportActionBar?.setHomeButtonEnabled(true)
+        getMainActivity().supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title.text = "ข้อมูลรถของท่าน"
+
+    }
+
     fun getDataCar() {
         dataCar.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
