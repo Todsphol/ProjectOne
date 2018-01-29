@@ -18,6 +18,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.activity.DisplayActivity
 
 
@@ -25,6 +29,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     @BindView(R.id.mapView)lateinit var mMapView : MapView
     @BindView(R.id.btn_data) lateinit var nextData : Button
+    private var baseR = FirebaseDatabase.getInstance().reference
+    private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
     var mgoogleMap: GoogleMap? = null
     @SuppressLint("MissingPermission")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,12 +51,25 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap?) {
+        dataLocation.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
+                val dataLongitude = dataSnapshot.child("Longtitude").getValue(String::class.java)!!.toDouble()
+                val testCheck = LatLng(dataLatitude, dataLongitude)
+                mgoogleMap?.addMarker(MarkerOptions().position(testCheck).title("Test"))
+                mgoogleMap?.moveCamera(CameraUpdateFactory.newLatLng(testCheck))
+                mgoogleMap?.animateCamera(CameraUpdateFactory.zoomTo(17.0f))
+            }
+
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+        })
         mgoogleMap = googleMap
         MapsInitializer.initialize(context)
         mgoogleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
-        mgoogleMap?.addMarker(MarkerOptions().position(LatLng(13.903960,100.528231)).title("Central"))?.snippet = "I hope to go"
-        mgoogleMap?.moveCamera(CameraUpdateFactory.newLatLng(LatLng(13.903960,100.528231)))
-        mgoogleMap?.animateCamera(CameraUpdateFactory.zoomTo(16.0f))
+        mgoogleMap?.animateCamera(CameraUpdateFactory.zoomTo(15.0f))
         mgoogleMap?.uiSettings?.isTiltGesturesEnabled = true
         mgoogleMap?.uiSettings?.isRotateGesturesEnabled = true
         mgoogleMap?.uiSettings?.isScrollGesturesEnabled = true
