@@ -31,31 +31,33 @@
         android:text="ข้อมูลรถของท่าน"
         android:background="#d73e81"
         />
-    <ImageView
+
+    <Button
         android:id="@+id/btn_zoom_out"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/btn_data"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/dp12"
-        android:layout_marginEnd="@dimen/dp12"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/dp12"
-        android:src="@drawable/ic_minus"
-        android:background="@drawable/white_border"
-        android:padding="@dimen/dp8"
-        />
-    <ImageView
+        android:layout_marginEnd="@dimen/dp12"
+        android:layout_marginRight="@dimen/dp12"
+        android:padding="8dp"
+        android:text="-"
+        android:textSize="@dimen/textSize" />
+
+    <Button
         android:id="@+id/btn_zoom_in"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/btn_zoom_out"
-        android:layout_alignRight="@+id/btn_zoom_out"
         android:layout_alignEnd="@+id/btn_zoom_out"
-        android:src="@drawable/ic_plus"
-        android:background="@drawable/white_border"
-        android:layout_marginBottom="@dimen/dp8"
+        android:layout_alignRight="@+id/btn_zoom_out"
         android:padding="@dimen/dp8"
-        />
+        android:text="+"
+
+        android:textSize="@dimen/textSize" />
 
 </RelativeLayout>

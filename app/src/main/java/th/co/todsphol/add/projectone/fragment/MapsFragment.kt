@@ -30,6 +30,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     @BindView(R.id.mapView)lateinit var mMapView : MapView
     @BindView(R.id.btn_data) lateinit var nextData : Button
+    @BindView(R.id.btn_zoom_in) lateinit var zoomIn : Button
+    @BindView(R.id.btn_zoom_out) lateinit var zoomOut : Button
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
     var mgoogleMap: GoogleMap? = null
@@ -43,12 +45,23 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         nextData.setOnClickListener {
             getMainActivity().changeFragment(DataShowFragment.newInstance())
         }
+        setOnClickZoom()
         return view
+    }
+
+    private fun setOnClickZoom() {
+        zoomIn.setOnClickListener {
+            mgoogleMap?.animateCamera(CameraUpdateFactory.zoomIn())
+        }
+        zoomOut.setOnClickListener {
+            mgoogleMap?.animateCamera(CameraUpdateFactory.zoomOut())
+        }
     }
 
     fun getMainActivity() : DisplayActivity {
         return activity as DisplayActivity
     }
+
 
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -58,8 +71,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 val dataLongitude = dataSnapshot.child("Longtitude").getValue(String::class.java)!!.toDouble()
                 val testCheck = LatLng(dataLatitude, dataLongitude)
                 mgoogleMap?.addMarker(MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle"))
-                mgoogleMap?.moveCamera(CameraUpdateFactory.newLatLng(testCheck))
-                mgoogleMap?.animateCamera(CameraUpdateFactory.zoomTo(17.0f))
+                mgoogleMap?.animateCamera(CameraUpdateFactory.newLatLng(testCheck))
             }
 
             override fun onCancelled(p0: DatabaseError?) {
@@ -78,6 +90,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mgoogleMap?.isMyLocationEnabled = true
 
     }
+
 
 
     companion object {
