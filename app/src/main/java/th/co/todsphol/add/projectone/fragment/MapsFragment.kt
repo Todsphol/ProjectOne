@@ -2,6 +2,7 @@ package th.co.todsphol.add.projectone.fragment
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -56,7 +57,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
                 val dataLongitude = dataSnapshot.child("Longtitude").getValue(String::class.java)!!.toDouble()
                 val testCheck = LatLng(dataLatitude, dataLongitude)
-                mgoogleMap?.addMarker(MarkerOptions().position(testCheck).title("Test"))
+                mgoogleMap?.addMarker(MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle"))
                 mgoogleMap?.moveCamera(CameraUpdateFactory.newLatLng(testCheck))
                 mgoogleMap?.animateCamera(CameraUpdateFactory.zoomTo(17.0f))
             }
@@ -75,6 +76,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mgoogleMap?.uiSettings?.isScrollGesturesEnabled = true
         mgoogleMap?.uiSettings?.isMyLocationButtonEnabled = true
         mgoogleMap?.isMyLocationEnabled = true
+
     }
 
 

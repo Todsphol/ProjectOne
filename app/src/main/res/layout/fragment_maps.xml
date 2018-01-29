@@ -29,6 +29,7 @@
         android:drawableEnd="@drawable/ic_arrow_right"
         android:padding="@dimen/dp8"
         android:text="ข้อมูลรถของท่าน"
+        android:background="#d73e81"
         />
     <ImageView
         android:id="@+id/btn_zoom_out"

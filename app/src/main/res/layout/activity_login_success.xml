@@ -19,6 +19,7 @@
         android:layout_marginRight="@dimen/dp12"
         android:layout_marginLeft="@dimen/dp12"
         android:text="ไปหน้าล็อกอิน"
+        android:background="#d73e81"
         />
     <ImageView
         android:id="@+id/bg"
@@ -40,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/dp20"
         android:textSize="@dimen/textSize"
-        android:textColor="@color/colorGreen"
+        android:textColor="@color/colorWhite"
         />
     <TextView
         android:id="@+id/tv_show_success"
