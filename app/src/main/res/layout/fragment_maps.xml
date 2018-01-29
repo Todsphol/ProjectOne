@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#313131"
-    tools:context="th.co.todsphol.add.projectone.fragment.FirstFragment">
+    tools:context="th.co.todsphol.add.projectone.fragment.MapsFragment">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"

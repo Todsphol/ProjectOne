@@ -4,7 +4,6 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
@@ -19,9 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.PhoneNumberWatcher
 import th.co.todsphol.add.projectone.R
-import th.co.todsphol.add.projectone.fragment.FirstFragment
-
-import com.google.firebase.messaging.FirebaseMessaging.*
+import th.co.todsphol.add.projectone.fragment.MapsFragment
 
 class LoginActivity : AppCompatActivity() {
 
@@ -107,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initFragment() {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.container, FirstFragment.newInstance())
+                .replace(R.id.container, MapsFragment.newInstance())
                 .commit()
     }
 

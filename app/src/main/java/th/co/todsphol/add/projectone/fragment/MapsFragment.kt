@@ -21,20 +21,20 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import th.co.todsphol.add.projectone.activity.DisplayActivity
 
 
-class FirstFragment : Fragment(), OnMapReadyCallback {
+class MapsFragment : Fragment(), OnMapReadyCallback {
 
     @BindView(R.id.mapView)lateinit var mMapView : MapView
     @BindView(R.id.btn_data) lateinit var nextData : Button
     var mgoogleMap: GoogleMap? = null
     @SuppressLint("MissingPermission")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_first, container, false)
+        val view = inflater.inflate(R.layout.fragment_maps, container, false)
         ButterKnife.bind(this, view)
         mMapView.onCreate(null)
         mMapView.onResume()
         mMapView.getMapAsync(this)
         nextData.setOnClickListener {
-            getMainActivity().changeFragment(SecondFragment.newInstance())
+            getMainActivity().changeFragment(DataShowFragment.newInstance())
         }
         return view
     }
@@ -62,7 +62,7 @@ class FirstFragment : Fragment(), OnMapReadyCallback {
     companion object {
         fun newInstance(): Fragment {
             val bundle = Bundle()
-            val fragment = FirstFragment()
+            val fragment = MapsFragment()
             fragment.arguments = bundle
             return fragment
         }

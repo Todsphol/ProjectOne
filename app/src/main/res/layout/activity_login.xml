@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="th.co.todsphol.add.projectone.fragment.FirstFragment">
+        tools:context="th.co.todsphol.add.projectone.fragment.MapsFragment">
 
         <ImageView
             android:layout_width="match_parent"

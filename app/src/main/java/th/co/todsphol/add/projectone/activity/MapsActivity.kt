@@ -54,10 +54,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         ButterKnife.bind(this)
-        setToolBar()
-        getDataname()
-        getDataCar()
-        getDataStatus()
     }
 
     fun getDataCar() {

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#313131"
-    tools:context="th.co.todsphol.add.projectone.fragment.SecondFragment">
+    tools:context="th.co.todsphol.add.projectone.fragment.DataShowFragment">
 
 
     <include layout="@layout/custom_toolbar" />
