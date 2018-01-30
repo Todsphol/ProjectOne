@@ -229,6 +229,33 @@
                 android:contentDescription="color_status"
                 android:src="@drawable/ic_circle"
                 android:tint="@color/colorGreenlearm" />
+            <TextView
+                android:id="@+id/tv_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="รูปภาพรถของคุณ"
+                android:layout_below="@+id/tv_show_status"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp12"
+                android:textSize="@dimen/textSize"
+                android:textColor="@color/colorBlueGray"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@id/tv_image"
+                android:layout_marginTop="@dimen/dp8"
+                android:src="@mipmap/ic_launcher"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView"
+                android:text="เลือกภาพรถของคุณ"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp12"
+                />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
