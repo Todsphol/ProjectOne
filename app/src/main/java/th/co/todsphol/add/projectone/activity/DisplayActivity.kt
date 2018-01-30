@@ -9,10 +9,11 @@ import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import butterknife.ButterKnife
-import com.google.android.gms.tasks.Tasks.call
 import com.google.firebase.database.FirebaseDatabase
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.fragment.MapsFragment
+
+
 
 class DisplayActivity : AppCompatActivity() {
     private var baseR = FirebaseDatabase.getInstance().reference

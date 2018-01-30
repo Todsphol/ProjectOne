@@ -2,7 +2,6 @@ package th.co.todsphol.add.projectone.fragment
 
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -28,14 +27,17 @@ import th.co.todsphol.add.projectone.activity.DisplayActivity
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
-    @BindView(R.id.mapView)lateinit var mMapView : MapView
-    @BindView(R.id.btn_data) lateinit var nextData : Button
-    @BindView(R.id.btn_zoom_in) lateinit var zoomIn : Button
-    @BindView(R.id.btn_zoom_out) lateinit var zoomOut : Button
+    @BindView(R.id.mapView)
+    lateinit var mMapView: MapView
+    @BindView(R.id.btn_data)
+    lateinit var nextData: Button
+    @BindView(R.id.btn_zoom_in)
+    lateinit var zoomIn: Button
+    @BindView(R.id.btn_zoom_out)
+    lateinit var zoomOut: Button
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
     var mgoogleMap: GoogleMap? = null
-    @SuppressLint("MissingPermission")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_maps, container, false)
         ButterKnife.bind(this, view)
@@ -58,7 +60,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    fun getMainActivity() : DisplayActivity {
+    fun getMainActivity(): DisplayActivity {
         return activity as DisplayActivity
     }
 
@@ -90,7 +92,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mgoogleMap?.isMyLocationEnabled = true
 
     }
-
 
 
     companion object {
