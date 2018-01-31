@@ -2,7 +2,6 @@ package th.co.todsphol.add.projectone.fragment
 
 
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
@@ -25,8 +24,8 @@ import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.DisplayActivity
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.util.Util
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import java.util.*
 
 
@@ -48,6 +47,8 @@ class DataShowFragment : Fragment() {
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
     val storageRef = FirebaseStorage.getInstance().reference
     val imageRef = storageRef.child("images/User/0968613128/" + UUID.randomUUID().toString())
+
+    private val mContext = this
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_data_show, container, false)
@@ -77,14 +78,15 @@ class DataShowFragment : Fragment() {
                 val dataBrand = dataSnapshot.child("Type").getValue(String::class.java)
                 val dataLicencePlate = dataSnapshot.child("LP").getValue(String::class.java)
                 val dataUri = dataSnapshot.child("Images").getValue(String::class.java)
-                brandCar.text = dataBrand.toString()
-                colorCar.text = dataColorCar.toString()
-                licencePlate.text = dataLicencePlate.toString()
-                Glide.with(this@DataShowFragment)
-                        .load(dataUri)
-                        .crossFade()
-                        .error(R.drawable.ic_motorcycle)
-                        .into(ivShowImage)
+                try {
+
+                    brandCar.text = dataBrand.toString()
+                    colorCar.text = dataColorCar.toString()
+                    licencePlate.text = dataLicencePlate.toString()
+                    generateImage(dataUri)
+                }catch (e : IllegalArgumentException) {
+
+                }
             }
 
             override fun onCancelled(p0: DatabaseError?) {
@@ -92,6 +94,14 @@ class DataShowFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun generateImage(dataUri: String?) {
+        Glide.with(context)
+                .load(dataUri)
+                .crossFade()
+                .error(R.drawable.ic_motorcycle)
+                .into(ivShowImage)
     }
 
     fun getDataname() {
@@ -166,6 +176,14 @@ class DataShowFragment : Fragment() {
 
     private fun getMainActivity(): DisplayActivity {
         return activity as DisplayActivity
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (Util.isOnMainThread()) {
+            Glide.with(mContext).pauseRequests()
+        }
+
     }
 
     companion object {

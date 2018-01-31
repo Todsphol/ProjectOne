@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View
 import android.widget.*
 import butterknife.BindView
@@ -114,6 +113,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
+
 
     companion object {
         const val EXTRA_PHONE = "EXTRA_PHONE"
