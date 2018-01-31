@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import android.widget.*
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import th.co.todsphol.add.projectone.R
 import java.io.IOException
 import java.util.*
@@ -52,12 +54,12 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         if (p0 == btnSelected) {
-            isselected()
+            isSelected()
         } else if (p0 == btnConfirm) {
             isUploading()
         }
     }
-
+    var EXTRA_URI : Uri? = null
     private fun isUploading() {
         if (filePath != null) {
             val progressDialog = ProgressDialog(this)
@@ -69,7 +71,7 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                     .addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
-
+                        EXTRA_URI = it.downloadUrl
                         val gotoLoginSucIntent = Intent(this, LoginSuccessActivity::class.java)
                         gotoLoginSucIntent.putExtra("EXTRA_PHONE",tvSuccess.text.toString())
                         gotoLoginSucIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -88,7 +90,7 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun isselected() {
+    private fun isSelected() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT

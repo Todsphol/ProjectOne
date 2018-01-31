@@ -1,12 +1,15 @@
 package th.co.todsphol.add.projectone.fragment
 
 
+import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,31 +23,30 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.DisplayActivity
+import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+
+
 
 @Suppress("DEPRECATION")
 class DataShowFragment : Fragment() {
-    @BindView(R.id.toolbar)
-    lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title)
-    lateinit var title: TextView
-    @BindView(R.id.tv_name_client)
-    lateinit var nameClient: TextView
-    @BindView(R.id.tv_surname_client)
-    lateinit var surNameClient: TextView
-    @BindView(R.id.tv_color_client)
-    lateinit var colorCar: TextView
-    @BindView(R.id.tv_brand_client)
-    lateinit var brandCar: TextView
-    @BindView(R.id.tv_county)
-    lateinit var licencePlate: TextView
-    @BindView(R.id.tv_status)
-    lateinit var alarmStatus: TextView
-    @BindView(R.id.imv_status)
-    lateinit var imViewStatus: ImageView
+    @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
+    @BindView(R.id.tv_toolbar_title) lateinit var title: TextView
+    @BindView(R.id.tv_name_client) lateinit var nameClient: TextView
+    @BindView(R.id.tv_surname_client) lateinit var surNameClient: TextView
+    @BindView(R.id.tv_color_client) lateinit var colorCar: TextView
+    @BindView(R.id.tv_brand_client) lateinit var brandCar: TextView
+    @BindView(R.id.tv_county) lateinit var licencePlate: TextView
+    @BindView(R.id.tv_status) lateinit var alarmStatus: TextView
+    @BindView(R.id.imv_status) lateinit var imViewStatus: ImageView
+    @BindView(R.id.imageViewShow) lateinit var ivShowImage : ImageView
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
+    val storageRef = FirebaseStorage.getInstance().reference
+    val imageRef = storageRef.child("images/User/0968613128/axe.png")
     var REQUEST_CODE = 1
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,6 +56,7 @@ class DataShowFragment : Fragment() {
         getDataCar()
         getDataname()
         getDataStatus()
+        downloadDataViaUrl()
         return view
 
     }
@@ -134,6 +137,24 @@ class DataShowFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun downloadDataViaUrl() {
+        val progressDialog = ProgressDialog(context)
+        progressDialog.setTitle("Loading...")
+        progressDialog.show()
+        imageRef.downloadUrl.addOnSuccessListener({ uri ->
+            progressDialog.dismiss()
+            Glide.with(this)
+                    .load(uri)
+                    .crossFade()
+                    .error(R.drawable.ic_motorcycle)
+                    .into(ivShowImage)
+            Toast.makeText(context,"Downloaded",Toast.LENGTH_SHORT).show()
+        }).addOnFailureListener( {
+            progressDialog.dismiss()
+            Toast.makeText(context,"Download is Fail",Toast.LENGTH_SHORT).show()
+        })
     }
 
 
