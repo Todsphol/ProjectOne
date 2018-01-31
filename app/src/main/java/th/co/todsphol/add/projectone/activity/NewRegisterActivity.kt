@@ -1,9 +1,13 @@
 package th.co.todsphol.add.projectone.activity
 
+import android.app.Activity
+import android.app.Instrumentation
+import android.app.ProgressDialog
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -13,9 +17,8 @@ import butterknife.ButterKnife
 import com.jaredrummler.materialspinner.MaterialSpinner
 import th.co.todsphol.add.projectone.R
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v4.provider.FontsContractCompat
+import android.view.View
 import android.widget.*
 import butterknife.OnClick
 import com.bumptech.glide.Glide
@@ -23,11 +26,16 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.activity_new__register.*
 import th.co.todsphol.add.projectone.PhoneNumberWatcher
+import java.io.IOException
+import java.util.*
 
 
 @Suppress("DEPRECATION")
-class NewRegisterActivity : AppCompatActivity() {
+class NewRegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
@@ -35,7 +43,9 @@ class NewRegisterActivity : AppCompatActivity() {
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
     private var dataREG = baseR.child("User").child("user1").child("DATA_REG")
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
-
+    private var filePath : Uri? = null
+    var storage : FirebaseStorage? = null
+    var storageReference : StorageReference? = null
     @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
     @BindView(R.id.tv_toolbar_title) lateinit var titleToolbar: TextView
     @BindView(R.id.edt_first_name) lateinit var edtFirstName: EditText
@@ -49,7 +59,9 @@ class NewRegisterActivity : AppCompatActivity() {
     @BindView(R.id.edt_confirm_password) lateinit var edtConfirmPassword: EditText
     @BindView(R.id.btn_select) lateinit var btnSelected : Button
     @BindView(R.id.imageView) lateinit var ivSelected : ImageView
+    @BindView(R.id.btn_register) lateinit var btnRegister : Button
     var REQUEST_CODE = 1
+    val PICK_IMAGE_REQUEST = 1234
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,20 +69,63 @@ class NewRegisterActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         setToolbar()
         spinnerBrand()
+
         edtPhoneNumber.addTextChangedListener(PhoneNumberWatcher(edtPhoneNumber))
-        btnSelected.setOnClickListener {
-            val permissionCheck = ContextCompat.checkSelfPermission(this,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                startGallery()
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        Array(5, { android.Manifest.permission.READ_EXTERNAL_STORAGE }),
-                        2000)
-            }
-        }
+//        btnSelected.setOnClickListener {
+//            val permissionCheck = ContextCompat.checkSelfPermission(this,
+//                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
+//            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+//                startGallery()
+//            } else {
+//                ActivityCompat.requestPermissions(this,
+//                        Array(5, { android.Manifest.permission.READ_EXTERNAL_STORAGE }),
+//                        2000)
+//            }
+//        }
 //        val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 //            startActivityForResult(intent, REQUEST_CODE)
+        storage = FirebaseStorage.getInstance()
+        storageReference = storage?.reference
+        btnSelected.setOnClickListener(this)
+        btnRegister.setOnClickListener(this)
+    }
+    override fun onClick(p0: View?) {
+        if (p0 == btnSelected) {
+            showFileChooser()
+        }else if(p0 == btnRegister) {
+            uploadFile()
+        }
+    }
+
+    private fun uploadFile() {
+        if (filePath != null) {
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Uploading...")
+            progressDialog.show()
+
+            val imageRef = storageReference!!.child("images/" + UUID.randomUUID().toString())
+            imageRef.putFile(filePath!!)
+                    .addOnSuccessListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
+
+                    }
+                    .addOnFailureListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnProgressListener {taskSnapShot ->
+                        val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
+                        progressDialog.setMessage("Uploaded"+ progress.toInt() + "%...")
+                    }
+        }
+    }
+
+    private fun showFileChooser() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent,"SELECT PICTURE"),PICK_IMAGE_REQUEST)
     }
 
     private fun startGallery() {
@@ -82,17 +137,19 @@ class NewRegisterActivity : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode == FontsContractCompat.FontRequestCallback.RESULT_OK) {
-
+        if (requestCode == PICK_IMAGE_REQUEST &&
+                resultCode == Activity.RESULT_OK &&
+                data != null && data.data != null) {
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,filePath)
+                ivSelected.setImageBitmap(bitmap)
+            }catch (e: IOException) {
+                e.printStackTrace()
+            }
         }
-        val uri = data?.data
-        Glide.with(this)
-                .load(uri)
-                .override(300,300)
-                .centerCrop()
-                .crossFade()
-                .into(ivSelected)
     }
+
 
 
     val EXTRA_PHONE = "EXTRA_PHONE"

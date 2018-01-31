@@ -248,8 +248,8 @@
                 android:layout_marginTop="@dimen/dp12" />
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:contentDescription="selected"
                 android:layout_below="@id/tv_select"
                 android:layout_marginTop="@dimen/dp8" />
