@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SelectedActivity"
+    android:background="#313131">
+
+    <TextView
+        android:id="@+id/tv_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="รูปภาพรถของคุณ"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/textSize"
+        android:layout_marginTop="@dimen/dp12"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:contentDescription="selected"
+        android:layout_below="@id/tv_select"
+        android:layout_marginTop="@dimen/dp8" />
+    <Button
+        android:id="@+id/btn_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="เลือกรูปภาพ"
+        android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/btn_confirm_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ยืนยันการลงทะเบียน"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp12"
+        android:layout_marginLeft="@dimen/dp12"
+        android:layout_marginRight="@dimen/dp12"
+        />
+    <TextView
+        android:id="@+id/tv_show_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        />
+
+</RelativeLayout>
