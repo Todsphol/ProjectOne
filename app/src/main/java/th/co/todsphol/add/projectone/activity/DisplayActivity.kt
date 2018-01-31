@@ -62,5 +62,4 @@ class DisplayActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
-
 }
