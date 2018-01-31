@@ -7,30 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".activity.SelectedActivity"
     android:background="#313131">
-
-    <TextView
-        android:id="@+id/tv_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="รูปภาพรถของคุณ"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/textSize"
-        android:layout_marginTop="@dimen/dp12"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"/>
-    <ImageView
-        android:id="@+id/imageView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:contentDescription="selected"
-        android:layout_below="@id/tv_select"
-        android:layout_marginTop="@dimen/dp8" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include layout="@layout/custom_toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="selected"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_above="@+id/btn_select"
+            android:layout_marginBottom="@dimen/dp8"
+            android:background="@color/colorWhite"
+            android:src="@drawable/ic_motorcycle"
+            />
+
     <Button
         android:id="@+id/btn_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="เลือกรูปภาพ"
-        android:layout_below="@id/imageView"
+        android:layout_above="@id/btn_confirm_register"
         android:layout_centerHorizontal="true" />
     <Button
         android:id="@+id/btn_confirm_register"
@@ -51,4 +54,6 @@
         android:visibility="gone"
         />
 
+    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

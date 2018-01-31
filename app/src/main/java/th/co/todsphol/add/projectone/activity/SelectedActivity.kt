@@ -7,11 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.firebase.storage.FirebaseStorage
@@ -27,6 +25,8 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
     @BindView(R.id.btn_select) lateinit var btnSelected : Button
     @BindView(R.id.imageView) lateinit var ivSelected : ImageView
     @BindView(R.id.btn_confirm_register) lateinit var btnConfirm : Button
+    @BindView(R.id.toolbar) lateinit var toolBar : Toolbar
+    @BindView(R.id.tv_toolbar_title) lateinit var tvTitle : TextView
     private var filePath : Uri? = null
     var storage : FirebaseStorage? = null
     var storageReference : StorageReference? = null
@@ -40,8 +40,16 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
         storageReference = storage?.reference
         btnSelected.setOnClickListener(this)
         btnConfirm.setOnClickListener(this)
+        setToolBar()
 
     }
+
+    fun setToolBar() {
+        setSupportActionBar(toolBar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        tvTitle.text = "รูปภาพรถ"
+    }
+
     override fun onClick(p0: View?) {
         if (p0 == btnSelected) {
             isselected()
