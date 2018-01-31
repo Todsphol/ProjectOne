@@ -56,7 +56,6 @@ class DataShowFragment : Fragment() {
         getDataCar()
         getDataname()
         getDataStatus()
-        downloadDataViaUrl()
         return view
 
     }
@@ -77,9 +76,15 @@ class DataShowFragment : Fragment() {
                 val dataColorCar = dataSnapshot.child("color").getValue(String::class.java)
                 val dataBrand = dataSnapshot.child("Type").getValue(String::class.java)
                 val dataLicencePlate = dataSnapshot.child("LP").getValue(String::class.java)
+                val dataUri = dataSnapshot.child("Images").getValue(String::class.java)
                 brandCar.text = dataBrand.toString()
                 colorCar.text = dataColorCar.toString()
                 licencePlate.text = dataLicencePlate.toString()
+                Glide.with(this@DataShowFragment)
+                        .load(dataUri)
+                        .crossFade()
+                        .error(R.drawable.ic_motorcycle)
+                        .into(ivShowImage)
             }
 
             override fun onCancelled(p0: DatabaseError?) {
