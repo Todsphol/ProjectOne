@@ -1,8 +1,10 @@
 package th.co.todsphol.add.projectone.activity
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.support.annotation.Nullable
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.support.v7.widget.Toolbar
@@ -11,8 +13,12 @@ import butterknife.ButterKnife
 import com.jaredrummler.materialspinner.MaterialSpinner
 import th.co.todsphol.add.projectone.R
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v4.provider.FontsContractCompat
 import android.widget.*
 import butterknife.OnClick
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -41,7 +47,10 @@ class NewRegisterActivity : AppCompatActivity() {
     @BindView(R.id.edt_phone_number) lateinit var edtPhoneNumber: EditText
     @BindView(R.id.edt_password) lateinit var edtPassword: EditText
     @BindView(R.id.edt_confirm_password) lateinit var edtConfirmPassword: EditText
-
+    @BindView(R.id.btn_select) lateinit var btnSelected : Button
+    @BindView(R.id.imageView) lateinit var ivSelected : ImageView
+    var REQUEST_CODE = 1
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new__register)
@@ -49,7 +58,42 @@ class NewRegisterActivity : AppCompatActivity() {
         setToolbar()
         spinnerBrand()
         edtPhoneNumber.addTextChangedListener(PhoneNumberWatcher(edtPhoneNumber))
+        btnSelected.setOnClickListener {
+            val permissionCheck = ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                startGallery()
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        Array(5, { android.Manifest.permission.READ_EXTERNAL_STORAGE }),
+                        2000)
+            }
+        }
+//        val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//            startActivityForResult(intent, REQUEST_CODE)
     }
+
+    private fun startGallery() {
+        val cameraIntent = Intent(Intent.ACTION_GET_CONTENT)
+        cameraIntent.type = "image/*"
+        if (cameraIntent.resolveActivity(this.packageManager) != null) {
+            startActivityForResult(cameraIntent, REQUEST_CODE)
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE && resultCode == FontsContractCompat.FontRequestCallback.RESULT_OK) {
+
+        }
+        val uri = data?.data
+        Glide.with(this)
+                .load(uri)
+                .override(300,300)
+                .centerCrop()
+                .crossFade()
+                .into(ivSelected)
+    }
+
 
     val EXTRA_PHONE = "EXTRA_PHONE"
     @OnClick(R.id.btn_register)

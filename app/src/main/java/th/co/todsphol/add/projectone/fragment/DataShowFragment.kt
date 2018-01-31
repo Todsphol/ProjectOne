@@ -1,45 +1,25 @@
 package th.co.todsphol.add.projectone.fragment
 
 
-import android.annotation.SuppressLint
-import android.app.ActionBar
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.annotation.RequiresApi
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContentResolverCompat
 import android.support.v4.content.ContextCompat
-import android.support.v4.provider.FontsContractCompat.FontRequestCallback.RESULT_OK
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import th.co.todsphol.add.projectone.Manifest
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.DisplayActivity
-import th.co.todsphol.add.projectone.activity.LoginActivity
-import java.io.IOError
-import java.io.IOException
-import java.net.URI
 
 @Suppress("DEPRECATION")
 class DataShowFragment : Fragment() {
@@ -61,10 +41,6 @@ class DataShowFragment : Fragment() {
     lateinit var alarmStatus: TextView
     @BindView(R.id.imv_status)
     lateinit var imViewStatus: ImageView
-    @BindView(R.id.imageView)
-    lateinit var ivShow: ImageView
-    @BindView(R.id.btn_st)
-    lateinit var btnSelected: Button
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -78,44 +54,10 @@ class DataShowFragment : Fragment() {
         getDataCar()
         getDataname()
         getDataStatus()
-        btnSelected.setOnClickListener {
-            val permissionCheck = ContextCompat.checkSelfPermission(getMainActivity(),
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                startGallery()
-            } else {
-                ActivityCompat.requestPermissions(getMainActivity(),
-                        Array(5, { android.Manifest.permission.READ_EXTERNAL_STORAGE }),
-                        2000)
-            }
-//            val intent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//            startActivityForResult(intent, REQUEST_CODE)
-        }
         return view
 
     }
 
-    private fun startGallery() {
-        val cameraIntent = Intent(Intent.ACTION_GET_CONTENT)
-        cameraIntent.type = "image/*"
-        if (cameraIntent.resolveActivity(getMainActivity().packageManager) != null) {
-            startActivityForResult(cameraIntent, REQUEST_CODE)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-
-        }
-        val uri = data?.data
-        Glide.with(this)
-                .load(uri)
-                .override(300,300)
-                .centerCrop()
-                .crossFade()
-                .into(ivShow)
-    }
 
     private fun setToolbar() {
         getMainActivity().setSupportActionBar(toolBar)
