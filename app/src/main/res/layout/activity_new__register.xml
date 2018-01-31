@@ -6,14 +6,11 @@
     android:background="#313131"
     tools:context="th.co.todsphol.add.projectone.fragment.DataShowFragment">
 
-
-    <include layout="@layout/custom_toolbar" />
-
+    <include layout="@layout/custom_toolbar"/>
     <ScrollView
         android:id="@+id/scr_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <RelativeLayout
             android:id="@+id/rela_view"
             android:layout_width="match_parent"
@@ -238,6 +235,32 @@
                 android:hint="ยืนยันรหัสผ่านของคุณ"
                 android:inputType="numberPassword"
                 android:maxLength="6" />
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="รูปภาพรถของคุณ"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textSize"
+                android:layout_below="@+id/edt_confirm_password"
+                android:layout_alignLeft="@+id/tv_name"
+                android:layout_alignStart="@+id/tv_name"
+                android:layout_marginTop="@dimen/dp12" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:contentDescription="selected"
+                android:layout_below="@id/tv_select"
+                android:layout_marginTop="@dimen/dp8" />
+            <Button
+                android:id="@+id/btn_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="เลือกรูปภาพ"
+                android:layout_below="@id/imageView"
+                android:layout_centerHorizontal="true"
+                />
 
             <Button
                 android:id="@+id/btn_register"
@@ -249,7 +272,7 @@
                 android:layout_alignLeft="@id/liner_view_two"
                 android:layout_alignRight="@id/liner_view_two"
                 android:layout_alignStart="@id/liner_view_two"
-                android:layout_below="@+id/edt_confirm_password"
+                android:layout_below="@+id/btn_select"
                 android:layout_marginBottom="@dimen/dp12"
                 android:layout_marginTop="@dimen/dp12"
                 android:maxLength="15"
