@@ -13,15 +13,15 @@ import android.view.View
 import android.widget.*
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
 import th.co.todsphol.add.projectone.R
 import java.io.IOException
 import java.util.*
 
 @Suppress("DEPRECATION")
-class SelectedActivity : AppCompatActivity(), View.OnClickListener {
+open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
 
     @BindView(R.id.tv_show_success) lateinit var tvSuccess : TextView
     @BindView(R.id.btn_select) lateinit var btnSelected : Button
@@ -29,6 +29,8 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
     @BindView(R.id.btn_confirm_register) lateinit var btnConfirm : Button
     @BindView(R.id.toolbar) lateinit var toolBar : Toolbar
     @BindView(R.id.tv_toolbar_title) lateinit var tvTitle : TextView
+    private var baseR = FirebaseDatabase.getInstance().reference
+    private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
     private var filePath : Uri? = null
     var storage : FirebaseStorage? = null
     var storageReference : StorageReference? = null
@@ -59,7 +61,7 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
             isUploading()
         }
     }
-    var EXTRA_URI : Uri? = null
+    var EXTRA_URI  = ""
     private fun isUploading() {
         if (filePath != null) {
             val progressDialog = ProgressDialog(this)
@@ -71,7 +73,8 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                     .addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(applicationContext, "File Uploaded", Toast.LENGTH_SHORT).show()
-                        EXTRA_URI = it.downloadUrl
+                        EXTRA_URI = it.downloadUrl.toString()
+                        dataCar.child("Images").setValue(EXTRA_URI)
                         val gotoLoginSucIntent = Intent(this, LoginSuccessActivity::class.java)
                         gotoLoginSucIntent.putExtra("EXTRA_PHONE",tvSuccess.text.toString())
                         gotoLoginSucIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -87,6 +90,7 @@ class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                         val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
                         progressDialog.setMessage("Uploaded"+ progress.toInt() + "%...")
                     }
+
         }
     }
 

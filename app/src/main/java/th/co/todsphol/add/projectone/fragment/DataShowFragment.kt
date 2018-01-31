@@ -26,7 +26,8 @@ import th.co.todsphol.add.projectone.activity.DisplayActivity
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
-
+import com.google.firebase.storage.StorageReference
+import java.util.*
 
 
 @Suppress("DEPRECATION")
@@ -46,8 +47,7 @@ class DataShowFragment : Fragment() {
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
     val storageRef = FirebaseStorage.getInstance().reference
-    val imageRef = storageRef.child("images/User/0968613128/axe.png")
-    var REQUEST_CODE = 1
+    val imageRef = storageRef.child("images/User/0968613128/" + UUID.randomUUID().toString())
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_data_show, container, false)
@@ -145,6 +145,7 @@ class DataShowFragment : Fragment() {
         progressDialog.show()
         imageRef.downloadUrl.addOnSuccessListener({ uri ->
             progressDialog.dismiss()
+            Log.d("URI", uri.toString())
             Glide.with(this)
                     .load(uri)
                     .crossFade()
