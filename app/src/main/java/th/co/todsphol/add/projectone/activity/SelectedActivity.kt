@@ -1,7 +1,9 @@
 package th.co.todsphol.add.projectone.activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -62,8 +64,9 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
     }
     var EXTRA_URI  = ""
     private fun isUploading() {
+        val progressDialog = ProgressDialog(this)
+        val alertDialog = AlertDialog.Builder(this).create()
         if (filePath != null) {
-            val progressDialog = ProgressDialog(this)
             progressDialog.setTitle("Uploading...")
             progressDialog.show()
 
@@ -89,6 +92,14 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                         val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
                         progressDialog.setMessage("Uploaded"+ progress.toInt() + "%...")
                     }
+
+        } else {
+            alertDialog.setTitle("แจ้งเตือน")
+            alertDialog.setMessage("กรุณาเลือกรูปภาพรถของคุณ")
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",DialogInterface.OnClickListener { dialogInterface, i ->
+                alertDialog.dismiss()
+            })
+            alertDialog.show()
 
         }
     }

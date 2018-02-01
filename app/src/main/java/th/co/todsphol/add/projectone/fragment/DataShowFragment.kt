@@ -26,6 +26,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import com.google.firebase.storage.FirebaseStorage
+import me.rishabhkhanna.customtogglebutton.CustomToggleButton
 import java.util.*
 
 
@@ -41,6 +42,7 @@ class DataShowFragment : Fragment() {
     @BindView(R.id.tv_status) lateinit var alarmStatus: TextView
     @BindView(R.id.imv_status) lateinit var imViewStatus: ImageView
     @BindView(R.id.imageViewShow) lateinit var ivShowImage : ImageView
+    @BindView(R.id.tg_noti) lateinit var tgNotification : CustomToggleButton
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -57,6 +59,7 @@ class DataShowFragment : Fragment() {
         getDataCar()
         getDataname()
         getDataStatus()
+        
         return view
 
     }

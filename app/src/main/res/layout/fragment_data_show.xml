@@ -257,7 +257,7 @@
                 android:layout_marginBottom="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
                 android:contentDescription="showImage"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/ic_motorcycle" />
 
             <me.rishabhkhanna.customtogglebutton.CustomToggleButton
                 android:id="@+id/tg_noti"
