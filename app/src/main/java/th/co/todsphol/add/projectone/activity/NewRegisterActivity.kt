@@ -1,5 +1,8 @@
 package th.co.todsphol.add.projectone.activity
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +15,9 @@ import butterknife.ButterKnife
 import com.jaredrummler.materialspinner.MaterialSpinner
 import th.co.todsphol.add.projectone.R
 import android.support.design.widget.Snackbar
+import android.view.View
+import android.view.inputmethod.InputMethod
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import butterknife.OnClick
 import com.google.firebase.database.DataSnapshot
@@ -55,7 +61,7 @@ class NewRegisterActivity : AppCompatActivity(){
     val EXTRA_PHONE = "EXTRA_PHONE"
     @OnClick(R.id.btn_register)
     fun registerButtonClicked() {
-        val checkBlankInEdittext = (edtFirstName.text.toString() == "" || edtLastName.text.toString() == ""
+        val checkBlankInEdiText = (edtFirstName.text.toString() == "" || edtLastName.text.toString() == ""
                 || edtAge.text.toString() == "" || edtColor.text.toString() == ""
                 || edtLicencePlate.text.toString() == "" || edtPhoneNumber.text.toString() == ""
                 || edtPassword.text.toString() == "" || edtConfirmPassword.text.toString() == "")
@@ -64,7 +70,7 @@ class NewRegisterActivity : AppCompatActivity(){
         val checkLenPhone =  replacePhone.length < 10
         val checkPassword = edtPassword.text.toString() != edtConfirmPassword.text.toString()
         when {
-            checkBlankInEdittext -> Toast.makeText(this,"กรอกข้อมูลให้ครบ",Toast.LENGTH_SHORT).show()
+            checkBlankInEdiText -> Toast.makeText(this,"กรอกข้อมูลให้ครบ",Toast.LENGTH_SHORT).show()
             checkLenPhone -> Toast.makeText(this,"กรอกเบอร์โทรให้ครบ",Toast.LENGTH_SHORT).show()
             checkPassword-> Toast.makeText(this,"รหัสผ่านไม่เหมือนกัน",Toast.LENGTH_SHORT).show()
             else -> {
@@ -143,6 +149,7 @@ class NewRegisterActivity : AppCompatActivity(){
     }
 
      var getItem : Any? = "Honda"
+    @SuppressLint("ClickableViewAccessibility")
     fun spinnerBrand() {
 
         spinnerBrand.setTextColor(resources.getColor(R.color.colorGreen))
@@ -150,6 +157,10 @@ class NewRegisterActivity : AppCompatActivity(){
         spinnerBrand.textSize = resources.getDimension(R.dimen.textSizeInSpinner)
         spinnerBrand.setItems("Honda", "YAMAHA", "SUZUKI", "Kawasaki"
                 , "DUCATI", "Vespa", "HARLEY", "SHOPPER","BMW")
+        spinnerBrand.setOnTouchListener { _, _ ->
+            val inputMethodManager : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken,0)
+        }
         spinnerBrand.setOnItemSelectedListener { view, _, _,
                                                  item ->
             Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show()
@@ -157,6 +168,7 @@ class NewRegisterActivity : AppCompatActivity(){
 
         }
     }
+
 
     fun setToolbar() {
         setSupportActionBar(toolBar)

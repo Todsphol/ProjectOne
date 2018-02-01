@@ -121,7 +121,10 @@
                     android:layout_marginLeft="@dimen/dp8"
                     android:layout_marginRight="@dimen/dp8"
                     android:layout_marginStart="@dimen/dp8"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true" />
 
                 <EditText
                     android:id="@+id/edt_color"
