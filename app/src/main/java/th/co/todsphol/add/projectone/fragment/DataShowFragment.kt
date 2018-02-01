@@ -4,6 +4,7 @@ package th.co.todsphol.add.projectone.fragment
 import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -49,7 +50,6 @@ class DataShowFragment : Fragment() {
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
     val storageRef = FirebaseStorage.getInstance().reference
     val imageRef = storageRef.child("images/User/0968613128/" + UUID.randomUUID().toString())
-
     private val mContext = this
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,11 +59,17 @@ class DataShowFragment : Fragment() {
         getDataCar()
         getDataname()
         getDataStatus()
-        
         return view
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val dialog = ProgressDialog.show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)
+        dialog.show()
+        val handler = Handler()
+        handler.postDelayed(Runnable { dialog.dismiss() }, 2000)
+    }
 
     private fun setToolbar() {
         getMainActivity().setSupportActionBar(toolBar)
@@ -87,6 +93,7 @@ class DataShowFragment : Fragment() {
                     colorCar.text = dataColorCar.toString()
                     licencePlate.text = dataLicencePlate.toString()
                     generateImage(dataUri)
+
                 }catch (e : IllegalArgumentException) {
 
                 }
@@ -157,24 +164,24 @@ class DataShowFragment : Fragment() {
         }
     }
 
-    private fun downloadDataViaUrl() {
-        val progressDialog = ProgressDialog(context)
-        progressDialog.setTitle("Loading...")
-        progressDialog.show()
-        imageRef.downloadUrl.addOnSuccessListener({ uri ->
-            progressDialog.dismiss()
-            Log.d("URI", uri.toString())
-            Glide.with(this)
-                    .load(uri)
-                    .crossFade()
-                    .error(R.drawable.ic_motorcycle)
-                    .into(ivShowImage)
-            Toast.makeText(context,"Downloaded",Toast.LENGTH_SHORT).show()
-        }).addOnFailureListener( {
-            progressDialog.dismiss()
-            Toast.makeText(context,"Download is Fail",Toast.LENGTH_SHORT).show()
-        })
-    }
+//    private fun downloadDataViaUrl() {
+//        val progressDialog = ProgressDialog(context)
+//        progressDialog.setTitle("Loading...")
+//        progressDialog.show()
+//        imageRef.downloadUrl.addOnSuccessListener({ uri ->
+//            progressDialog.dismiss()
+//            Log.d("URI", uri.toString())
+//            Glide.with(this)
+//                    .load(uri)
+//                    .crossFade()
+//                    .error(R.drawable.ic_motorcycle)
+//                    .into(ivShowImage)
+//            Toast.makeText(context,"Downloaded",Toast.LENGTH_SHORT).show()
+//        }).addOnFailureListener( {
+//            progressDialog.dismiss()
+//            Toast.makeText(context,"Download is Fail",Toast.LENGTH_SHORT).show()
+//        })
+//    }
 
 
     private fun getMainActivity(): DisplayActivity {
