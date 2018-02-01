@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,22 +14,21 @@
 
     <Button
         android:id="@+id/btn_data"
+        style="@style/ButtonGreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="gravity"
         android:layout_alignParentBottom="true"
-        style="@style/ButtonGreen"
+        android:layout_marginBottom="@dimen/dp8"
         android:layout_marginLeft="@dimen/dp8"
         android:layout_marginRight="@dimen/dp8"
-        android:layout_marginBottom="@dimen/dp8"
-        android:drawableLeft="@drawable/ic_arrow_right_green"
-        android:drawableStart="@drawable/ic_arrow_right_green"
-        android:drawableRight="@drawable/ic_arrow_right"
+        android:background="#d73e81"
         android:drawableEnd="@drawable/ic_arrow_right"
+        android:drawableLeft="@drawable/ic_arrow_right_green"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:drawableStart="@drawable/ic_arrow_right_green"
         android:padding="@dimen/dp8"
         android:text="ข้อมูลรถของท่าน"
-        android:background="#d73e81"
-        />
+        android:textAlignment="gravity" />
 
     <Button
         android:id="@+id/btn_zoom_out"
@@ -57,7 +55,6 @@
         android:layout_alignRight="@+id/btn_zoom_out"
         android:padding="@dimen/dp8"
         android:text="+"
-
         android:textSize="@dimen/textSize" />
 
 </RelativeLayout>

@@ -268,7 +268,9 @@
                 android:layout_marginBottom="@dimen/dp12"
                 android:textOff="เปิดการแจ้งเตือน"
                 android:textOn="ปิดการแจ้งเตือน"
-                app:radius="0dp"/>
+                app:radius="0dp"
+                app:checkedColor="@color/colorIsChecked"
+                app:uncheckedColor="@color/colorIsNotChecked"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package th.co.todsphol.add.projectone.fragment
 
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
@@ -9,12 +11,12 @@ import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.firebase.database.DataSnapshot
@@ -23,12 +25,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.DisplayActivity
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
-import com.google.firebase.storage.FirebaseStorage
 import me.rishabhkhanna.customtogglebutton.CustomToggleButton
-import java.util.*
 
 
 @Suppress("DEPRECATION")
@@ -48,8 +47,6 @@ class DataShowFragment : Fragment() {
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
-    val storageRef = FirebaseStorage.getInstance().reference
-    val imageRef = storageRef.child("images/User/0968613128/" + UUID.randomUUID().toString())
     private val mContext = this
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,12 +60,17 @@ class DataShowFragment : Fragment() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val dialog = ProgressDialog.show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)
-        dialog.show()
-        val handler = Handler()
-        handler.postDelayed(Runnable { dialog.dismiss() }, 2000)
+
+    fun isCheckToggleStatus() {
+        tgNotification.setOnClickListener {
+            if (tgNotification.isChecked) {
+                Toast.makeText(context,"ทำการเปิดการแจ้งเตือนแล้ว",Toast.LENGTH_SHORT).show()
+                dataStatus.child("Sowner").setValue(1)
+            } else if (!tgNotification.isChecked) {
+            Toast.makeText(context,"ทำการปิดการแจ้งเตือนแล้ว",Toast.LENGTH_SHORT).show()
+                dataStatus.child("Sowner").setValue(0)
+         }
+        }
     }
 
     private fun setToolbar() {
@@ -133,9 +135,17 @@ class DataShowFragment : Fragment() {
 
     fun getDataStatus() {
         dataStatus.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("ResourceAsColor")
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataStatusAlarm = dataSnapshot.child("Salarm").getValue(Int::class.java)
+                val dataOwnerStatus = dataSnapshot.child("Sowner").getValue(Int::class.java)
                 changeColorStatus(dataStatusAlarm)
+                if (dataOwnerStatus == 0) {
+                    tgNotification.isChecked = false
+                } else if (dataOwnerStatus == 1) {
+                    tgNotification.isChecked = true
+                }
+                isCheckToggleStatus()
             }
 
             override fun onCancelled(p0: DatabaseError?) {
@@ -187,6 +197,14 @@ class DataShowFragment : Fragment() {
     private fun getMainActivity(): DisplayActivity {
         return activity as DisplayActivity
     }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val dialog = ProgressDialog.show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)
+        dialog.show()
+        val handler = Handler()
+        handler.postDelayed(Runnable { dialog.dismiss() }, 2000)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
