@@ -13,9 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp8">
+            android:layout_height="match_parent">
 
 
             <TextView
@@ -26,7 +24,10 @@
                 android:text="ชื่อเจ้าของ"
                 android:textColor="@color/colorBlueGray"
                 android:textSize="@dimen/textSize"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/dp12"
+                android:layout_marginStart="@dimen/dp12"
+                />
 
             <TextView
                 android:id="@+id/tv_colon_name"
@@ -64,7 +65,9 @@
                 android:layout_alignTop="@+id/tv_show_name"
                 android:text="Surname"
                 android:textColor="@color/colorBlueGray"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize"
+                android:layout_marginRight="@dimen/dp12"
+                android:layout_marginEnd="@dimen/dp12"/>
 
             <TextView
                 android:id="@+id/tv_show_brand"
@@ -97,11 +100,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_brand"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:text="Brand"
                 android:textColor="@color/colorBlueGray"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize"
+                android:layout_alignRight="@+id/tv_surname_client"
+                android:layout_alignEnd="@+id/tv_surname_client"/>
 
             <TextView
                 android:id="@+id/tv_show_color"
@@ -134,11 +137,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_color"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:text="เขียว"
                 android:textColor="@color/colorBlueGray"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize"
+                android:layout_alignRight="@+id/tv_surname_client"
+                android:layout_alignEnd="@+id/tv_surname_client"
+                />
 
             <TextView
                 android:id="@+id/tv_show_licence_plate"
@@ -174,8 +178,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_licence_plate"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignRight="@+id/tv_surname_client"
+                android:layout_alignEnd="@+id/tv_surname_client"
                 android:text="กทม"
                 android:textColor="@color/colorBlueGray"
                 android:textSize="@dimen/textSize" />
@@ -211,8 +215,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_status"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignRight="@+id/tv_surname_client"
+                android:layout_alignEnd="@+id/tv_surname_client"
                 android:text="ปลอดภัย"
                 android:textColor="@color/colorBlueGray"
                 android:textSize="@dimen/textSize" />
@@ -229,26 +233,39 @@
                 android:contentDescription="color_status"
                 android:src="@drawable/ic_circle"
                 android:tint="@color/colorGreenlearm" />
+
             <TextView
                 android:id="@+id/tv_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="รูปภาพรถของคุณ"
                 android:layout_below="@+id/tv_show_status"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp12"
-                android:textSize="@dimen/textSize"
+                android:text="รูปภาพรถของคุณ"
                 android:textColor="@color/colorBlueGray"
+                android:textSize="@dimen/textSize"
                 android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/imageViewShow"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/tg_noti"
                 android:layout_below="@id/tv_image"
+                android:layout_marginBottom="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
-                android:src="@mipmap/ic_launcher"
                 android:contentDescription="showImage"
-                />
+                android:src="@mipmap/ic_launcher" />
+
+            <me.rishabhkhanna.customtogglebutton.CustomToggleButton
+                android:id="@+id/tg_noti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp12"
+                android:textOff="เปิดการแจ้งเตือน"
+                android:textOn="ปิดการแจ้งเตือน" />
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
