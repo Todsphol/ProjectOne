@@ -4,7 +4,6 @@ package th.co.todsphol.add.projectone.fragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -28,11 +27,11 @@ import th.co.todsphol.add.projectone.activity.DisplayActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import me.rishabhkhanna.customtogglebutton.CustomToggleButton
-import java.io.IOException
 
 
 @Suppress("DEPRECATION")
 class DataShowFragment : Fragment() {
+
     @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
     @BindView(R.id.tv_toolbar_title) lateinit var title: TextView
     @BindView(R.id.tv_name_client) lateinit var nameClient: TextView
@@ -54,39 +53,49 @@ class DataShowFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_data_show, container, false)
         ButterKnife.bind(this, view)
         setToolbar()
-        getDataCar()
-        getDataname()
-        getDataStatus()
-        isCheckToggleStatus()
         return view
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        getDataCar()
+        getDataname()
+        getDataStatus()
+        isCheckToggleStatus()
+    }
 
     fun isCheckToggleStatus() {
-        try {
             tgNotification.setOnClickListener {
-                val alertDialog = AlertDialog.Builder(this.context!!).create()
+                val alertDialog = AlertDialog.Builder(context).create()
                 alertDialog.setTitle("ข้อความ")
                 if (tgNotification.isChecked) {
-                    alertDialog.setMessage("ทำการเปิดการแจ้งเตือนแล้ว")
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, i ->
-                        dataStatus.child("Sowner").setValue(1)
+                    alertDialog.setMessage("ต้องการเปิดการแจ้งเตือนหรือไม่?")
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
+                        if (tgNotification.isChecked) {
+                            tgNotification.isChecked = false
+                        }
+                        alertDialog.dismiss()
+                    })
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
+                        dataStatus.child("Sowner").setValue("1")
                         alertDialog.dismiss()
                     })
                 } else if (!tgNotification.isChecked) {
-                    alertDialog.setMessage("ทำการปิดการแจ้งเตือนแล้ว")
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, i ->
-                        dataStatus.child("Sowner").setValue(0)
+                    alertDialog.setMessage("ต้องการปิดการแจ้งเตือนหรือไม่?")
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
+                        if (!tgNotification.isChecked) {
+                            tgNotification.isChecked = true
+                        }
                         alertDialog.dismiss()
                     })
-
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
+                        dataStatus.child("Sowner").setValue("0")
+                        alertDialog.dismiss()
+                    })
                 }
                 alertDialog.show()
             }
-        }catch (e : IOException) {
-            e.printStackTrace()
-        }
     }
 
     private fun setToolbar() {
@@ -154,11 +163,11 @@ class DataShowFragment : Fragment() {
             @SuppressLint("ResourceAsColor")
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataStatusAlarm = dataSnapshot.child("Salarm").getValue(Int::class.java)
-                val dataOwnerStatus = dataSnapshot.child("Sowner").getValue(Int::class.java)
+                val dataOwnerStatus = dataSnapshot.child("Sowner").getValue(String::class.java)
                 changeColorStatus(dataStatusAlarm)
-                if (dataOwnerStatus == 0) {
+                if (dataOwnerStatus == "0") {
                     tgNotification.isChecked = false
-                } else if (dataOwnerStatus == 1) {
+                } else if (dataOwnerStatus == "1") {
                     tgNotification.isChecked = true
                 }
             }
