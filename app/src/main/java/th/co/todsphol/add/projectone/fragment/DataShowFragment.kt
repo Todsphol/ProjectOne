@@ -4,6 +4,7 @@ package th.co.todsphol.add.projectone.fragment
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -16,7 +17,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.firebase.database.DataSnapshot
@@ -28,6 +28,7 @@ import th.co.todsphol.add.projectone.activity.DisplayActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import me.rishabhkhanna.customtogglebutton.CustomToggleButton
+import java.io.IOException
 
 
 @Suppress("DEPRECATION")
@@ -56,20 +57,35 @@ class DataShowFragment : Fragment() {
         getDataCar()
         getDataname()
         getDataStatus()
+        isCheckToggleStatus()
         return view
 
     }
 
 
     fun isCheckToggleStatus() {
-        tgNotification.setOnClickListener {
-            if (tgNotification.isChecked) {
-                Toast.makeText(context,"ทำการเปิดการแจ้งเตือนแล้ว",Toast.LENGTH_SHORT).show()
-                dataStatus.child("Sowner").setValue(1)
-            } else if (!tgNotification.isChecked) {
-            Toast.makeText(context,"ทำการปิดการแจ้งเตือนแล้ว",Toast.LENGTH_SHORT).show()
-                dataStatus.child("Sowner").setValue(0)
-         }
+        try {
+            tgNotification.setOnClickListener {
+                val alertDialog = AlertDialog.Builder(this.context!!).create()
+                alertDialog.setTitle("ข้อความ")
+                if (tgNotification.isChecked) {
+                    alertDialog.setMessage("ทำการเปิดการแจ้งเตือนแล้ว")
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, i ->
+                        dataStatus.child("Sowner").setValue(1)
+                        alertDialog.dismiss()
+                    })
+                } else if (!tgNotification.isChecked) {
+                    alertDialog.setMessage("ทำการปิดการแจ้งเตือนแล้ว")
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, i ->
+                        dataStatus.child("Sowner").setValue(0)
+                        alertDialog.dismiss()
+                    })
+
+                }
+                alertDialog.show()
+            }
+        }catch (e : IOException) {
+            e.printStackTrace()
         }
     }
 
@@ -83,7 +99,7 @@ class DataShowFragment : Fragment() {
     }
 
     fun getDataCar() {
-        dataCar.addValueEventListener(object : ValueEventListener {
+        dataCar.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataColorCar = dataSnapshot.child("color").getValue(String::class.java)
                 val dataBrand = dataSnapshot.child("Type").getValue(String::class.java)
@@ -117,7 +133,7 @@ class DataShowFragment : Fragment() {
     }
 
     fun getDataname() {
-        dataName.addValueEventListener(object : ValueEventListener {
+        dataName.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val namePer = dataSnapshot.child("name").getValue(String::class.java)
                 val surNamePer = dataSnapshot.child("surname").getValue(String::class.java)
@@ -134,7 +150,7 @@ class DataShowFragment : Fragment() {
 
 
     fun getDataStatus() {
-        dataStatus.addValueEventListener(object : ValueEventListener {
+        dataStatus.addListenerForSingleValueEvent(object : ValueEventListener {
             @SuppressLint("ResourceAsColor")
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataStatusAlarm = dataSnapshot.child("Salarm").getValue(Int::class.java)
@@ -145,7 +161,6 @@ class DataShowFragment : Fragment() {
                 } else if (dataOwnerStatus == 1) {
                     tgNotification.isChecked = true
                 }
-                isCheckToggleStatus()
             }
 
             override fun onCancelled(p0: DatabaseError?) {
