@@ -152,8 +152,8 @@ class NewRegisterActivity : AppCompatActivity(){
     @SuppressLint("ClickableViewAccessibility")
     fun spinnerBrand() {
 
-        spinnerBrand.setTextColor(resources.getColor(R.color.colorGreen))
-        spinnerBrand.setArrowColor(resources.getColor(R.color.colorGreen))
+        spinnerBrand.setTextColor(resources.getColor(R.color.colorIsChecked))
+        spinnerBrand.setArrowColor(resources.getColor(R.color.colorIsChecked))
         spinnerBrand.textSize = resources.getDimension(R.dimen.textSizeInSpinner)
         spinnerBrand.setItems("Honda", "YAMAHA", "SUZUKI", "Kawasaki"
                 , "DUCATI", "Vespa", "HARLEY", "SHOPPER","BMW")

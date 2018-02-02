@@ -53,15 +53,15 @@ class DataShowFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_data_show, container, false)
         ButterKnife.bind(this, view)
         setToolbar()
+        getDataCar()
+        getDataname()
+        getDataStatus()
         return view
 
     }
 
     override fun onStart() {
         super.onStart()
-        getDataCar()
-        getDataname()
-        getDataStatus()
         isCheckToggleStatus()
     }
 
@@ -198,26 +198,6 @@ class DataShowFragment : Fragment() {
         }
     }
 
-//    private fun downloadDataViaUrl() {
-//        val progressDialog = ProgressDialog(context)
-//        progressDialog.setTitle("Loading...")
-//        progressDialog.show()
-//        imageRef.downloadUrl.addOnSuccessListener({ uri ->
-//            progressDialog.dismiss()
-//            Log.d("URI", uri.toString())
-//            Glide.with(this)
-//                    .load(uri)
-//                    .crossFade()
-//                    .error(R.drawable.ic_motorcycle)
-//                    .into(ivShowImage)
-//            Toast.makeText(context,"Downloaded",Toast.LENGTH_SHORT).show()
-//        }).addOnFailureListener( {
-//            progressDialog.dismiss()
-//            Toast.makeText(context,"Download is Fail",Toast.LENGTH_SHORT).show()
-//        })
-//    }
-
-
     private fun getMainActivity(): DisplayActivity {
         return activity as DisplayActivity
     }
@@ -226,7 +206,7 @@ class DataShowFragment : Fragment() {
         val dialog = ProgressDialog.show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)
         dialog.show()
         val handler = Handler()
-        handler.postDelayed(Runnable { dialog.dismiss() }, 2000)
+        handler.postDelayed(Runnable { dialog.dismiss() }, 1750)
     }
 
 
