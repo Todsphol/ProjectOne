@@ -9,6 +9,10 @@
         android:title="โทรด่วน"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_history"
+        android:title="ประวัติการเดินทาง"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/action_logout"
         android:title="ออกจากระบบ"
         app:showAsAction="never"

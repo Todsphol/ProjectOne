@@ -41,9 +41,17 @@ class DisplayActivity : AppCompatActivity() {
         when (item?.itemId) {
             android.R.id.home -> onBackPressed()
             R.id.action_call -> call()
+            R.id.action_history -> history()
             R.id.action_logout -> onClickLogout()
+
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun history() {
+        val intentHistory = Intent(this,MapsActivity::class.java)
+        startActivity(intentHistory)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     private fun onClickLogout() {
