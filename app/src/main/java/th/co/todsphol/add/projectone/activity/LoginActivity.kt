@@ -29,7 +29,6 @@ class LoginActivity : AppCompatActivity() {
 
     @BindView(R.id.edt_phone_number) lateinit var edtPhone: EditText
     @BindView(R.id.edt_password) lateinit var edtPassword: EditText
-    @BindView(R.id.bg_login_page) lateinit var imVlogin : ImageView
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataReg = baseR.child("User").child("user1").child("DATA_REG")
     var dataStatus = baseR.child("User").child("user1").child("STATUS")
@@ -47,7 +46,6 @@ class LoginActivity : AppCompatActivity() {
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
         edtPhone.setText(intent.getStringExtra(EXTRA_PHONE), TextView.BufferType.EDITABLE)
         edtPhone.setSelection(edtPhone.text.length)
-        Glide.with(this).load(R.drawable.ic_logo_page_login).crossFade().into(imVlogin)
     }
 
 
