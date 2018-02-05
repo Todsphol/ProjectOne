@@ -30,18 +30,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
 
     @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
     @BindView(R.id.tv_toolbar_title) lateinit var title: TextView
-    @BindView(R.id.tv_name_client) lateinit var nameClient: TextView
-    @BindView(R.id.tv_surname_client) lateinit var surNameClient: TextView
-    @BindView(R.id.tv_color_client) lateinit var colorCar: TextView
-    @BindView(R.id.tv_brand_client) lateinit var brandCar: TextView
-    @BindView(R.id.tv_county) lateinit var licencePlate: TextView
-    @BindView(R.id.tv_status) lateinit var alarmStatus: TextView
-    @BindView(R.id.imv_status) lateinit var imvStatus : ImageView
     lateinit var mMap: GoogleMap
     private var baseR = FirebaseDatabase.getInstance().reference
-    private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
-    private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
-    private var dataStatus = baseR.child("User").child("user1").child("STATUS")
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,67 +41,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         ButterKnife.bind(this)
-    }
-
-    fun getDataCar() {
-        dataCar.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataColorCar = dataSnapshot.child("color").getValue(String::class.java)
-                val dataBrand = dataSnapshot.child("Type").getValue(String::class.java)
-                val dataLicencePlate = dataSnapshot.child("LP").getValue(String::class.java)
-                brandCar.text = dataBrand.toString()
-                colorCar.text = dataColorCar.toString()
-                licencePlate.text = dataLicencePlate.toString()
-            }
-
-            override fun onCancelled(p0: DatabaseError?) {
-
-            }
-
-        })
-    }
-
-    fun getDataname() {
-        dataName.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val namePer = dataSnapshot.child("name").getValue(String::class.java)
-                val surNamePer = dataSnapshot.child("surname").getValue(String::class.java)
-                nameClient.text = namePer.toString()
-                surNameClient.text = surNamePer.toString()
-            }
-
-            override fun onCancelled(p0: DatabaseError?) {
-
-            }
-
-        })
-    }
-
-
-    fun getDataStatus() {
-        dataStatus.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataStatusAlarm = dataSnapshot.child("Salarm").getValue(Int::class.java)
-                if (dataStatusAlarm == 0) {
-                    alarmStatus.text = "ปลอดภัย"
-                    imvStatus.setColorFilter(ContextCompat.getColor(this@MapsActivity, R.color.colorGreenlearm))
-                } else {
-                    alarmStatus.text = "ไม่ปลอดภัย"
-                    imvStatus.setColorFilter(ContextCompat.getColor(this@MapsActivity, R.color.colorRed))
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError?) {
-
-            }
-
-        })
+        setToolBar()
     }
 
     fun setToolBar() {
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        title.text = "ตำแหน่งของรถ"
+        title.text = "ประวัติการเดินทางของรถ"
     }
 
 
@@ -154,32 +90,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> onBackPressed()
-            R.id.action_call -> call()
-            R.id.action_logout -> onClickLogout()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun onClickLogout() {
-        dataStatus.child("Slogin").setValue(0)
-        val logoutIntent = Intent(this, LoginActivity::class.java)
-        logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(logoutIntent)
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun call() {
-        val callPhone = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getString(R.string.phoneNumber)))
-        startActivity(callPhone)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
 }
