@@ -3,6 +3,7 @@ package th.co.todsphol.add.projectone.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
@@ -14,6 +15,7 @@ import butterknife.ButterKnife
 import com.jaredrummler.materialspinner.MaterialSpinner
 import th.co.todsphol.add.projectone.R
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import butterknife.OnClick
@@ -47,7 +49,7 @@ class NewRegisterActivity : AppCompatActivity(){
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new__register)
+        setContentView(R.layout.activity_new_register)
         ButterKnife.bind(this)
         setToolbar()
         spinnerBrand()
@@ -67,82 +69,83 @@ class NewRegisterActivity : AppCompatActivity(){
         val checkLenPhone =  replacePhone.length < 10
         val checkPassword = edtPassword.text.toString() != edtConfirmPassword.text.toString()
         when {
-            checkBlankInEdiText -> Toast.makeText(this,"กรอกข้อมูลให้ครบ",Toast.LENGTH_SHORT).show()
-            checkLenPhone -> Toast.makeText(this,"กรอกเบอร์โทรให้ครบ",Toast.LENGTH_SHORT).show()
-            checkPassword-> Toast.makeText(this,"รหัสผ่านไม่เหมือนกัน",Toast.LENGTH_SHORT).show()
+            checkBlankInEdiText -> Toast.makeText(this, "กรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show()
+            checkLenPhone -> Toast.makeText(this, "กรอกเบอร์โทรให้ครบ", Toast.LENGTH_SHORT).show()
+            checkPassword -> Toast.makeText(this, "รหัสผ่านไม่เหมือนกัน", Toast.LENGTH_SHORT).show()
             else -> {
+                if (!isConnected(this)) alertDialogIsNotConnect(this).show()
+                else {
+                    dataName.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            dataName.child("name").setValue(edtFirstName.text.toString())
+                            dataName.child("surname").setValue(edtLastName.text.toString())
+                            dataName.child("age").setValue(edtAge.text.toString())
 
-                dataName.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        dataName.child("name").setValue(edtFirstName.text.toString())
-                        dataName.child("surname").setValue(edtLastName.text.toString())
-                        dataName.child("age").setValue(edtAge.text.toString())
-
-                    }
-
-                    override fun onCancelled(p0: DatabaseError?) {
-
-                    }
-
-                })
-                dataCar.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot?) {
-                        spinnerBrand()
-                        dataCar.child("color").setValue(edtColor.text.toString())
-                        dataCar.child("LP").setValue(edtLicencePlate.text.toString())
-                    }
-
-                    override fun onCancelled(p0: DatabaseError?) {
-
-                    }
-
-                })
-                dataREG.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot?) {
-                        val edt = edtPhoneNumber.text.toString().replace("-".toRegex(), "")
-                                .replace("\\s+","")
-                        dataREG.child("telephone").setValue(edt)
-                        if (edtPassword.text.toString() != edtConfirmPassword.text.toString()) {
-                            Toast.makeText(this@NewRegisterActivity,"กรุณากรอก Password ให้เหมือนกัน", Toast.LENGTH_SHORT).show()
-                        } else {
-                            dataREG.child("password").setValue(edtPassword.text.toString())
-                        }
-                    }
-
-                    override fun onCancelled(p0: DatabaseError?) {
-
-                    }
-
-                })
-                dataLocation.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val vir = dataSnapshot.child("Vir").getValue(Int::class.java)
-                        if (vir == 0) {
-                            dataStatus.child("Salarm").setValue(0)
-                            dataStatus.child("Slogin").setValue(0)
-                        } else {
-                            dataStatus.child("Salarm").setValue(0)
-                            dataStatus.child("Slogin").setValue(0)
                         }
 
-                    }
+                        override fun onCancelled(p0: DatabaseError?) {
 
-                    override fun onCancelled(p0: DatabaseError?) {
+                        }
 
-                    }
+                    })
+                    dataCar.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot?) {
+                            spinnerBrand()
+                            dataCar.child("color").setValue(edtColor.text.toString())
+                            dataCar.child("LP").setValue(edtLicencePlate.text.toString())
+                        }
 
-                })
+                        override fun onCancelled(p0: DatabaseError?) {
 
-                val loginSuccess = Intent(this,SelectedActivity::class.java)
-                loginSuccess.putExtra(EXTRA_PHONE,edtPhoneNumber.text.toString())
-                loginSuccess.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(loginSuccess)
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                dataCar.child("Type").setValue(getItem)
+                        }
 
+                    })
+                    dataREG.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot?) {
+                            val edt = edtPhoneNumber.text.toString().replace("-".toRegex(), "")
+                                    .replace("\\s+", "")
+                            dataREG.child("telephone").setValue(edt)
+                            if (edtPassword.text.toString() != edtConfirmPassword.text.toString()) {
+                                Toast.makeText(this@NewRegisterActivity, "กรุณากรอก Password ให้เหมือนกัน", Toast.LENGTH_SHORT).show()
+                            } else {
+                                dataREG.child("password").setValue(edtPassword.text.toString())
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError?) {
+
+                        }
+
+                    })
+                    dataLocation.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            val vir = dataSnapshot.child("Vir").getValue(Int::class.java)
+                            if (vir == 0) {
+                                dataStatus.child("Salarm").setValue(0)
+                                dataStatus.child("Slogin").setValue(0)
+                            } else {
+                                dataStatus.child("Salarm").setValue(0)
+                                dataStatus.child("Slogin").setValue(0)
+                            }
+
+                        }
+
+                        override fun onCancelled(p0: DatabaseError?) {
+
+                        }
+
+                    })
+
+                    val loginSuccess = Intent(this, SelectedActivity::class.java)
+                    loginSuccess.putExtra(EXTRA_PHONE, edtPhoneNumber.text.toString())
+                    loginSuccess.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(loginSuccess)
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    dataCar.child("Type").setValue(getItem)
+
+                }
             }
         }
-
     }
 
      private var getItem : Any? = "Honda"
@@ -173,6 +176,30 @@ class NewRegisterActivity : AppCompatActivity(){
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         titleToolbar.text = getString(R.string.register)
+    }
+    fun isConnected(context: Context): Boolean {
+        val cm : ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = cm.activeNetworkInfo
+
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting) {
+            val wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+            val mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+
+            return mobile != null && mobile.isConnectedOrConnecting || (wifi != null && wifi.isConnectedOrConnecting)
+        }else {
+            return false
+        }
+    }
+
+    fun alertDialogIsNotConnect(c: Context): AlertDialog.Builder {
+        val builder : AlertDialog.Builder = AlertDialog.Builder(c)
+        builder.setTitle("ไม่มีการเชื่อมต่ออินเทอร์เน็ต")
+        builder.setMessage("คุณต้องการต่ออินเทอร์เน็ตหรือ Wifi ")
+        builder.setPositiveButton("Ok", { _, _ ->
+            finish()
+        })
+
+        return builder
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

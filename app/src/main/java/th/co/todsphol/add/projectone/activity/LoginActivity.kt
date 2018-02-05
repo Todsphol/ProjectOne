@@ -1,9 +1,12 @@
 package th.co.todsphol.add.projectone.activity
 
+import android.content.Context
 import android.content.Intent
-import android.support.v4.app.Fragment
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
@@ -18,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.PhoneNumberWatcher
 import th.co.todsphol.add.projectone.R
-import th.co.todsphol.add.projectone.fragment.MapsFragment
 
 class LoginActivity : AppCompatActivity() {
 
@@ -36,11 +38,40 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
+        if (!isConnected(this)) alertDialogIsNotConnect(this).show()
+        else {
+            setContentView(R.layout.activity_login)
+        }
         onText(edtPhone.toString())
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
         edtPhone.setText(intent.getStringExtra(EXTRA_PHONE), TextView.BufferType.EDITABLE)
         edtPhone.setSelection(edtPhone.text.length)
 
+    }
+
+    fun isConnected(context: Context): Boolean {
+        val cm : ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = cm.activeNetworkInfo
+
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting) {
+            val wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+            val mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+
+            return mobile != null && mobile.isConnectedOrConnecting || (wifi != null && wifi.isConnectedOrConnecting)
+        }else {
+            return false
+        }
+    }
+
+    fun alertDialogIsNotConnect(c: Context): AlertDialog.Builder {
+        val builder : AlertDialog.Builder = AlertDialog.Builder(c)
+        builder.setTitle("ไม่มีการเชื่อมต่ออินเทอร์เน็ต")
+        builder.setMessage("คุณต้องการต่ออินเทอร์เน็ตหรือ Wifi ")
+        builder.setPositiveButton("Ok", { _, _ ->
+            finish()
+        })
+
+        return builder
     }
 
 
@@ -56,6 +87,12 @@ class LoginActivity : AppCompatActivity() {
 
     @OnClick(R.id.btn_login)
     fun checkLogin() {
+        if (!isConnected(this)) {
+            alertDialogIsNotConnect(this).show()
+        }
+        else {
+            setContentView(R.layout.activity_login)
+        }
         dataReg.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -100,19 +137,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(homeIntent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         dataStatus.child("Slogin").setValue(1)
-    }
-
-    private fun initFragment() {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MapsFragment.newInstance())
-                .commit()
-    }
-
-    fun changeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
