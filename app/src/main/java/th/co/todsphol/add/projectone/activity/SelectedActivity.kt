@@ -33,9 +33,9 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
     private var filePath : Uri? = null
-    var storage : FirebaseStorage? = null
-    var storageReference : StorageReference? = null
-    val PICK_IMAGE_REQUEST = 1234
+    private var storage : FirebaseStorage? = null
+    private var storageReference : StorageReference? = null
+    private val PICK_IMAGE_REQUEST = 1234
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selected)
@@ -49,7 +49,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    fun setToolBar() {
+    private fun setToolBar() {
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         tvTitle.text = "รูปภาพรถ"
@@ -62,7 +62,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
             isUploading()
         }
     }
-    var EXTRA_URI  = ""
+    private var EXTRA_URI = ""
     private fun isUploading() {
         val progressDialog = ProgressDialog(this)
         val alertDialog = AlertDialog.Builder(this).create()
@@ -96,7 +96,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             alertDialog.setTitle("แจ้งเตือน")
             alertDialog.setMessage("กรุณาเลือกรูปภาพรถของคุณ")
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",DialogInterface.OnClickListener { dialogInterface, i ->
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
                 alertDialog.dismiss()
             })
             alertDialog.show()

@@ -25,7 +25,7 @@ class DisplayActivity : AppCompatActivity() {
         initFragment()
     }
 
-    fun initFragment() {
+    private fun initFragment() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MapsFragment.newInstance())
                 .commit()

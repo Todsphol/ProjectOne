@@ -55,7 +55,7 @@ class NewRegisterActivity : AppCompatActivity(){
         edtPhoneNumber.addTextChangedListener(PhoneNumberWatcher(edtPhoneNumber))
     }
 
-    val EXTRA_PHONE = "EXTRA_PHONE"
+    private val EXTRA_PHONE = "EXTRA_PHONE"
     @OnClick(R.id.btn_register)
     fun registerButtonClicked() {
         val checkBlankInEdiText = (edtFirstName.text.toString() == "" || edtLastName.text.toString() == ""
@@ -145,7 +145,7 @@ class NewRegisterActivity : AppCompatActivity(){
 
     }
 
-     var getItem : Any? = "Honda"
+     private var getItem : Any? = "Honda"
     @SuppressLint("ClickableViewAccessibility")
     fun spinnerBrand() {
 
@@ -167,7 +167,7 @@ class NewRegisterActivity : AppCompatActivity(){
     }
 
 
-    fun setToolbar() {
+    private fun setToolbar() {
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
