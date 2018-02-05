@@ -3,7 +3,6 @@ package th.co.todsphol.add.projectone.activity
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -24,8 +23,10 @@ import th.co.todsphol.add.projectone.R
 
 class LoginActivity : AppCompatActivity() {
 
-    @BindView(R.id.edt_phone_number) lateinit var edtPhone: EditText
-    @BindView(R.id.edt_password) lateinit var edtPassword: EditText
+    @BindView(R.id.edt_phone_number)
+    lateinit var edtPhone: EditText
+    @BindView(R.id.edt_password)
+    lateinit var edtPassword: EditText
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataReg = baseR.child("User").child("user1").child("DATA_REG")
     var dataStatus = baseR.child("User").child("user1").child("STATUS")
@@ -38,19 +39,24 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
-        if (!isConnected(this)) alertDialogIsNotConnect(this).show()
-        else {
-            setContentView(R.layout.activity_login)
+        if (!isConnected(this)) {
+            setEdittextPhone()
+            alertDialogIsNotConnect(this).show()
         }
+        else {
+            setEdittextPhone()
+        }
+    }
+
+    private fun setEdittextPhone() {
         onText(edtPhone.toString())
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
         edtPhone.setText(intent.getStringExtra(EXTRA_PHONE), TextView.BufferType.EDITABLE)
         edtPhone.setSelection(edtPhone.text.length)
-
     }
 
     fun isConnected(context: Context): Boolean {
-        val cm : ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = cm.activeNetworkInfo
 
         if (networkInfo != null && networkInfo.isConnectedOrConnecting) {
@@ -58,13 +64,13 @@ class LoginActivity : AppCompatActivity() {
             val mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
 
             return mobile != null && mobile.isConnectedOrConnecting || (wifi != null && wifi.isConnectedOrConnecting)
-        }else {
+        } else {
             return false
         }
     }
 
     fun alertDialogIsNotConnect(c: Context): AlertDialog.Builder {
-        val builder : AlertDialog.Builder = AlertDialog.Builder(c)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(c)
         builder.setTitle("ไม่มีการเชื่อมต่ออินเทอร์เน็ต")
         builder.setMessage("คุณต้องการต่ออินเทอร์เน็ตหรือ Wifi ")
         builder.setPositiveButton("Ok", { _, _ ->
@@ -89,46 +95,44 @@ class LoginActivity : AppCompatActivity() {
     fun checkLogin() {
         if (!isConnected(this)) {
             alertDialogIsNotConnect(this).show()
-        }
-        else {
-            setContentView(R.layout.activity_login)
-        }
-        dataReg.addValueEventListener(object : ValueEventListener {
+        } else {
+            dataReg.addValueEventListener(object : ValueEventListener {
 
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val regPhone = dataSnapshot.child("telephone").getValue(String::class.java)
-                val regPassword = dataSnapshot.child("password").getValue(String::class.java)
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val regPhone = dataSnapshot.child("telephone").getValue(String::class.java)
+                    val regPassword = dataSnapshot.child("password").getValue(String::class.java)
 
-                val replaceNumber = edtPhone.text.toString().replace("-".toRegex(), "")
-                        .replace("\\s+", "")
-                val checkTrue = replaceNumber == regPhone
-                        && edtPassword.text.toString() == regPassword
-                val checkPhoneTrue = replaceNumber == regPhone
-                        && edtPassword.text.toString() != regPassword
-                val checkEdtBlank = edtPhone.text.toString() == "" || edtPassword.text.toString() == ""
-                val checkLength = replaceNumber.length < 10 || edtPassword.text.toString().length < 6
-                val adminNumber = "0123456789"
-                val adminPassword = "123456"
-                val admin = replaceNumber == adminNumber && edtPassword.text.toString() == adminPassword
+                    val replaceNumber = edtPhone.text.toString().replace("-".toRegex(), "")
+                            .replace("\\s+", "")
+                    val checkTrue = replaceNumber == regPhone
+                            && edtPassword.text.toString() == regPassword
+                    val checkPhoneTrue = replaceNumber == regPhone
+                            && edtPassword.text.toString() != regPassword
+                    val checkEdtBlank = edtPhone.text.toString() == "" || edtPassword.text.toString() == ""
+                    val checkLength = replaceNumber.length < 10 || edtPassword.text.toString().length < 6
+                    val adminNumber = "0123456789"
+                    val adminPassword = "123456"
+                    val admin = replaceNumber == adminNumber && edtPassword.text.toString() == adminPassword
 
-                when {
-                    checkTrue -> isCorrect()
-                    checkPhoneTrue -> Toast.makeText(this@LoginActivity, "Password ของคุณไม่ถูกต้อง", Toast.LENGTH_SHORT).show()
-                    checkEdtBlank || checkLength -> Toast.makeText(this@LoginActivity
-                            , "กรุณากรอกเบอร์โทรหรือ password ให้ครบ"
-                            , Toast.LENGTH_SHORT).show()
-                    admin -> isCorrect()
-                    else -> Toast.makeText(this@LoginActivity, "ไม่มีเบอร์นี้อยู่ในระบบ", Toast.LENGTH_SHORT).show()
+                    when {
+                        checkTrue -> isCorrect()
+                        checkPhoneTrue -> Toast.makeText(this@LoginActivity, "Password ของคุณไม่ถูกต้อง", Toast.LENGTH_SHORT).show()
+                        checkEdtBlank || checkLength -> Toast.makeText(this@LoginActivity
+                                , "กรุณากรอกเบอร์โทรหรือ password ให้ครบ"
+                                , Toast.LENGTH_SHORT).show()
+                        admin -> isCorrect()
+                        else -> Toast.makeText(this@LoginActivity, "ไม่มีเบอร์นี้อยู่ในระบบ", Toast.LENGTH_SHORT).show()
 
+
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError?) {
 
                 }
-            }
+            })
 
-            override fun onCancelled(p0: DatabaseError?) {
-
-            }
-        })
-
+        }
     }
 
     private fun isCorrect() {
