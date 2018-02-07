@@ -269,8 +269,8 @@
                 android:textOff="เปิดการแจ้งเตือน"
                 android:textOn="ปิดการแจ้งเตือน"
                 app:radius="0dp"
-                app:checkedColor="@color/colorIsChecked"
-                app:uncheckedColor="@color/colorIsNotChecked"/>
+                app:checkedColor="@color/colorPink"
+                app:uncheckedColor="@color/colorStrongPink"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

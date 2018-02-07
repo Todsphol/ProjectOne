@@ -14,14 +14,13 @@
 
     <Button
         android:id="@+id/btn_data"
-        style="@style/ButtonGreen"
+        style="@style/ButtonPink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp8"
         android:layout_marginLeft="@dimen/dp8"
         android:layout_marginRight="@dimen/dp8"
-        android:background="#d73e81"
         android:drawableEnd="@drawable/ic_arrow_right"
         android:drawableLeft="@drawable/ic_arrow_right_green"
         android:drawableRight="@drawable/ic_arrow_right"

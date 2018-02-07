@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -30,19 +31,30 @@ import me.rishabhkhanna.customtogglebutton.CustomToggleButton
 
 
 @Suppress("DEPRECATION")
-class DataShowFragment : Fragment() {
+class DataShowFragment : Fragment(), View.OnClickListener {
 
-    @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var title: TextView
-    @BindView(R.id.tv_name_client) lateinit var nameClient: TextView
-    @BindView(R.id.tv_surname_client) lateinit var surNameClient: TextView
-    @BindView(R.id.tv_color_client) lateinit var colorCar: TextView
-    @BindView(R.id.tv_brand_client) lateinit var brandCar: TextView
-    @BindView(R.id.tv_county) lateinit var licencePlate: TextView
-    @BindView(R.id.tv_status) lateinit var alarmStatus: TextView
-    @BindView(R.id.imv_status) lateinit var imViewStatus: ImageView
-    @BindView(R.id.imageViewShow) lateinit var ivShowImage : ImageView
-    @BindView(R.id.tg_noti) lateinit var tgNotification : CustomToggleButton
+    @BindView(R.id.toolbar)
+    lateinit var toolBar: Toolbar
+    @BindView(R.id.tv_toolbar_title)
+    lateinit var title: TextView
+    @BindView(R.id.tv_name_client)
+    lateinit var nameClient: TextView
+    @BindView(R.id.tv_surname_client)
+    lateinit var surNameClient: TextView
+    @BindView(R.id.tv_color_client)
+    lateinit var colorCar: TextView
+    @BindView(R.id.tv_brand_client)
+    lateinit var brandCar: TextView
+    @BindView(R.id.tv_county)
+    lateinit var licencePlate: TextView
+    @BindView(R.id.tv_status)
+    lateinit var alarmStatus: TextView
+    @BindView(R.id.imv_status)
+    lateinit var imViewStatus: ImageView
+    @BindView(R.id.imageViewShow)
+    lateinit var ivShowImage: ImageView
+    @BindView(R.id.tg_noti)
+    lateinit var tgNotification: CustomToggleButton
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -52,50 +64,98 @@ class DataShowFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_data_show, container, false)
         ButterKnife.bind(this, view)
+
         setToolbar()
         getDataCar()
         getDataname()
         getDataStatus()
+        tgNotification.setOnClickListener(this)
         return view
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        isCheckToggleStatus()
+    override fun onClick(p0: View?) {
+        val alertDialog = AlertDialog.Builder(context).create()
+        alertDialog.setTitle("ข้อความ")
+        if (p0 == tgNotification) {
+            if (tgNotification.isChecked) {
+                alertDialog.setMessage("ต้องการเปิดการแจ้งเตือนหรือไม่?")
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
+
+                    if (tgNotification.isChecked) {
+                        tgNotification.isChecked = false
+                    }
+                    alertDialog.dismiss()
+                })
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
+                    dataStatus.child("Sowner").setValue("1")
+                    alertDialog.dismiss()
+                })
+            } else if (!tgNotification.isChecked) {
+                alertDialog.setMessage("ต้องการปิดการแจ้งเตือนหรือไม่?")
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
+                    if (!tgNotification.isChecked) {
+                        tgNotification.isChecked = true
+                    }
+                    alertDialog.dismiss()
+                })
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
+                    dataStatus.child("Sowner").setValue("0")
+                    alertDialog.dismiss()
+                })
+            }
+            alertDialog.show()
+        } else if (p0 == p0) {
+            alertDialog.setOnDismissListener {
+                if (tgNotification.isChecked) {
+                    tgNotification.isChecked = false
+                } else if (!tgNotification.isChecked) {
+                    tgNotification.isChecked = true
+                }
+            }
+        }
     }
 
     fun isCheckToggleStatus() {
-            tgNotification.setOnClickListener {
-                val alertDialog = AlertDialog.Builder(context).create()
-                alertDialog.setTitle("ข้อความ")
-                if (tgNotification.isChecked) {
-                    alertDialog.setMessage("ต้องการเปิดการแจ้งเตือนหรือไม่?")
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
-                        if (tgNotification.isChecked) {
-                            tgNotification.isChecked = false
-                        }
-                        alertDialog.dismiss()
-                    })
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
-                        dataStatus.child("Sowner").setValue("1")
-                        alertDialog.dismiss()
-                    })
-                } else if (!tgNotification.isChecked) {
-                    alertDialog.setMessage("ต้องการปิดการแจ้งเตือนหรือไม่?")
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
-                        if (!tgNotification.isChecked) {
-                            tgNotification.isChecked = true
-                        }
-                        alertDialog.dismiss()
-                    })
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
-                        dataStatus.child("Sowner").setValue("0")
-                        alertDialog.dismiss()
-                    })
-                }
-                alertDialog.show()
+        val alertDialog = AlertDialog.Builder(context).create()
+        alertDialog.setTitle("ข้อความ")
+        tgNotification.setOnClickListener {
+            if (tgNotification.isChecked) {
+                alertDialog.setMessage("ต้องการเปิดการแจ้งเตือนหรือไม่?")
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
+
+                    if (tgNotification.isChecked) {
+                        tgNotification.isChecked = false
+                    }
+                    alertDialog.dismiss()
+                })
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
+                    dataStatus.child("Sowner").setValue("1")
+                    alertDialog.dismiss()
+                })
+            } else if (!tgNotification.isChecked) {
+                alertDialog.setMessage("ต้องการปิดการแจ้งเตือนหรือไม่?")
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
+                    if (!tgNotification.isChecked) {
+                        tgNotification.isChecked = true
+                    }
+                    alertDialog.dismiss()
+                })
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
+                    dataStatus.child("Sowner").setValue("0")
+                    alertDialog.dismiss()
+                })
             }
+            alertDialog.show()
+        }
+        alertDialog.setOnDismissListener {
+            if (tgNotification.isChecked) {
+                tgNotification.isChecked = false
+            } else if (!tgNotification.isChecked) {
+                tgNotification.isChecked = true
+            }
+        }
+
     }
 
     private fun setToolbar() {
@@ -121,7 +181,7 @@ class DataShowFragment : Fragment() {
                     licencePlate.text = dataLicencePlate.toString()
                     generateImage(dataUri)
 
-                }catch (e : IllegalArgumentException) {
+                } catch (e: IllegalArgumentException) {
 
                 }
             }
@@ -201,6 +261,7 @@ class DataShowFragment : Fragment() {
     private fun getMainActivity(): DisplayActivity {
         return activity as DisplayActivity
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dialog = ProgressDialog.show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)

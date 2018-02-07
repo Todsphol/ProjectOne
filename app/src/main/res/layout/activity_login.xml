@@ -94,16 +94,13 @@
 
             <Button
                 android:id="@+id/btn_login"
-                style="@style/ButtonGreen"
+                style="@style/ButtonPink"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/edt_password"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/dp20"
                 android:layout_marginLeft="@dimen/dp12"
                 android:layout_marginRight="@dimen/dp12"
                 android:layout_marginTop="10dp"
-                android:background="#d73e81"
                 android:text="เข้าสู่ระบบ" />
 
 

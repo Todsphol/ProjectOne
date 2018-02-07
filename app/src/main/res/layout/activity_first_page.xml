@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/btn_back_to_login"
-            style="@style/ButtonGreen"
+            style="@style/ButtonPink"
             android:background="#e6b40e"
             android:layout_width="300dp"
             android:layout_height="50dp"
@@ -34,7 +34,7 @@
 
         <Button
             android:id="@+id/btn_new_register"
-            style="@style/ButtonGreen"
+            style="@style/ButtonPink"
             android:background="#535353"
             android:layout_width="300dp"
             android:layout_height="50dp"

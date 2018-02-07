@@ -13,13 +13,12 @@
         android:id="@+id/btn_back_to_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/ButtonGreen"
+        style="@style/ButtonPink"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dp20"
         android:layout_marginRight="@dimen/dp12"
         android:layout_marginLeft="@dimen/dp12"
         android:text="ไปหน้าล็อกอิน"
-        android:background="#d73e81"
         />
     <ImageView
         android:id="@+id/bg"
