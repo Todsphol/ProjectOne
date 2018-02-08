@@ -18,7 +18,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
-import butterknife.OnClick
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -81,12 +80,12 @@ class DataShowFragment : Fragment(), View.OnClickListener {
             if (tgNotification.isChecked) {
                 alertDialog.setMessage("ต้องการเปิดการแจ้งเตือนหรือไม่?")
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
-
                     if (tgNotification.isChecked) {
                         tgNotification.isChecked = false
                     }
                     alertDialog.dismiss()
                 })
+
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
                     dataStatus.child("Sowner").setValue("1")
                     alertDialog.dismiss()
@@ -105,14 +104,6 @@ class DataShowFragment : Fragment(), View.OnClickListener {
                 })
             }
             alertDialog.show()
-        } else if (p0 == p0) {
-            alertDialog.setOnDismissListener {
-                if (tgNotification.isChecked) {
-                    tgNotification.isChecked = false
-                } else if (!tgNotification.isChecked) {
-                    tgNotification.isChecked = true
-                }
-            }
         }
     }
 
