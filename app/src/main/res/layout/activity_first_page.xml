@@ -32,15 +32,13 @@
 
         <Button
             android:id="@+id/btn_new_register"
-            style="@style/ButtonPink"
-            android:background="#535353"
+            style="@style/ButtonGray"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/dp8"
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
-            android:textSize="20sp"
             android:text="ลงทะเบียน" />
 
         <TextView

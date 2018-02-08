@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorYellow">#FFEB3B</color>
-    <color name="colorGray">#ECEFF1</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGreen">#689F38</color>
     <color name="colorStrongGreen">#33691E</color>
@@ -21,4 +20,6 @@
     <color name="colorStrongPink">#880E4F</color>
     <color name="colorAmber">#FFCA28</color>
     <color name="colorDeepAmber">#FFB300</color>
+    <color name="colorGray">#535353</color>
+    <color name="colorDeepGray">#424242</color>
 </resources>
