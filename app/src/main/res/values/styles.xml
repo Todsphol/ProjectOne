@@ -37,7 +37,12 @@
     </style>
 
     <style name="ButtonPink" parent="ButtonBase">
-        <item name="android:background">@drawable/s_bg_button_green</item>
+        <item name="android:background">@drawable/s_bg_button_pink</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ButtonYellow" parent="ButtonBase">
+        <item name="android:background">@drawable/s_bg_button_yellow</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

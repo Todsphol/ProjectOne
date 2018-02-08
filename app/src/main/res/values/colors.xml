@@ -19,4 +19,6 @@
     <color name="colorGreenlearm">#64DD17</color>
     <color name="colorPink">#d73e82</color>
     <color name="colorStrongPink">#880E4F</color>
+    <color name="colorAmber">#FFCA28</color>
+    <color name="colorDeepAmber">#FFB300</color>
 </resources>
