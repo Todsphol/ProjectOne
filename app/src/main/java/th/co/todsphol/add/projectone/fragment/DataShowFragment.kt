@@ -25,7 +25,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
 import com.nex3z.togglebuttongroup.SingleSelectToggleGroup
 import com.nex3z.togglebuttongroup.button.LabelToggle
-import kotlinx.android.synthetic.main.fragment_data_show.view.*
 
 
 @Suppress("DEPRECATION")
@@ -51,7 +50,7 @@ class DataShowFragment : Fragment() {
     lateinit var imViewStatus: ImageView
     @BindView(R.id.imageViewShow)
     lateinit var ivShowImage: ImageView
-//    @BindView(R.id.group_choices) lateinit var toggleGroup: SingleSelectToggleGroup
+    @BindView(R.id.group_choices) lateinit var toggleGroup: SingleSelectToggleGroup
     @BindView(R.id.choice_a) lateinit var choiceA : LabelToggle
     @BindView(R.id.choice_b) lateinit var choiceB : LabelToggle
     private var baseR = FirebaseDatabase.getInstance().reference
@@ -68,7 +67,17 @@ class DataShowFragment : Fragment() {
         getDataCar()
         getDataname()
         getDataStatus()
+        toggleClick()
         return view
+    }
+
+    private fun toggleClick() {
+        toggleGroup.setOnCheckedChangeListener { group, _ ->
+            when (group.checkedId) {
+                R.id.choice_a -> dataStatus.child("Sowner").setValue("0")
+                R.id.choice_b -> dataStatus.child("Sowner").setValue("1")
+            }
+        }
     }
 
 
