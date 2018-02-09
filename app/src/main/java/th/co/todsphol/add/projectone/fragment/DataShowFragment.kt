@@ -24,7 +24,6 @@ import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.DisplayActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
-import me.rishabhkhanna.customtogglebutton.CustomToggleButton
 
 
 @Suppress("DEPRECATION")
@@ -50,8 +49,6 @@ class DataShowFragment : Fragment() {
     lateinit var imViewStatus: ImageView
     @BindView(R.id.imageViewShow)
     lateinit var ivShowImage: ImageView
-    @BindView(R.id.tg_noti)
-    lateinit var tgNotification: CustomToggleButton
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -65,46 +62,9 @@ class DataShowFragment : Fragment() {
         setToolbar()
         getDataCar()
         getDataname()
-        getDataStatus()
-        isCheckToggleStatus()
 
         return view
 
-    }
-
-    fun isCheckToggleStatus() {
-        val alertDialog = AlertDialog.Builder(context).create()
-        alertDialog.setTitle("ข้อความ")
-        tgNotification.setOnClickListener {
-            if (tgNotification.isChecked) {
-                alertDialog.setMessage("ต้องการเปิดการแจ้งเตือนหรือไม่?")
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
-
-                    if (tgNotification.isChecked) {
-                        tgNotification.isChecked = false
-                    }
-                    alertDialog.dismiss()
-                })
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
-                    dataStatus.child("Sowner").setValue("1")
-                    alertDialog.dismiss()
-                })
-            } else if (!tgNotification.isChecked) {
-                alertDialog.setMessage("ต้องการปิดการแจ้งเตือนหรือไม่?")
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
-                    if (!tgNotification.isChecked) {
-                        tgNotification.isChecked = true
-                    }
-                    alertDialog.dismiss()
-                })
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
-                    dataStatus.child("Sowner").setValue("0")
-                    alertDialog.dismiss()
-                })
-            }
-            alertDialog.show()
-
-        }
     }
 
 
@@ -176,9 +136,9 @@ class DataShowFragment : Fragment() {
                 val dataOwnerStatus = dataSnapshot.child("Sowner").getValue(String::class.java)
                 changeColorStatus(dataStatusAlarm)
                 if (dataOwnerStatus == "0") {
-                    tgNotification.isChecked = false
+
                 } else if (dataOwnerStatus == "1") {
-                    tgNotification.isChecked = true
+
                 }
             }
 

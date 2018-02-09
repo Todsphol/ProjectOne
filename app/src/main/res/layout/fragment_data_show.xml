@@ -252,25 +252,49 @@
                 android:id="@+id/imageViewShow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/tg_noti"
+                android:layout_above="@+id/li_tg_noti"
                 android:layout_below="@id/tv_image"
                 android:layout_marginBottom="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
                 android:contentDescription="showImage"
                 android:src="@drawable/im_border" />
 
-            <me.rishabhkhanna.customtogglebutton.CustomToggleButton
-                android:id="@+id/tg_noti"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/li_tg_noti"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/dp12"
-                android:textOff="เปิดการแจ้งเตือน"
-                android:textOn="ปิดการแจ้งเตือน"
-                app:radius="0dp"
-                app:checkedColor="@color/colorPink"
-                app:uncheckedColor="@color/colorStrongPink"/>
+                android:layout_marginBottom="@dimen/dp12">
+                <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
+                    android:id="@+id/tg_noti"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tbgCheckedButton="@+id/choice_a"
+                    android:layout_gravity="center_horizontal">
+                    <com.nex3z.togglebuttongroup.button.LabelToggle
+                        android:id="@+id/choice_a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ปิดระบบการแจ้งเตือน"
+                        android:layout_marginLeft="@dimen/dp12"
+                        android:layout_marginStart="@dimen/dp12"
+                        android:textSize="14sp"/>
+
+                    <com.nex3z.togglebuttongroup.button.LabelToggle
+                        android:id="@+id/choice_b"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="เปิดระบบการแจ้งเตือน"
+                        android:layout_marginLeft="@dimen/dp12"
+                        android:layout_marginStart="@dimen/dp12"
+                        android:layout_marginRight="@dimen/dp12"
+                        android:layout_marginEnd="@dimen/dp12"
+                        android:textSize="14sp" />
+
+                </com.nex3z.togglebuttongroup.SingleSelectToggleGroup>
+            </LinearLayout>
+
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
