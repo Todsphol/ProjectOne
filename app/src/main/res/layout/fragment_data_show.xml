@@ -267,7 +267,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/dp12">
                 <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
-                    android:id="@+id/tg_noti"
+                    android:id="@+id/group_choices"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:tbgCheckedButton="@+id/choice_a"

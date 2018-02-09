@@ -2,7 +2,6 @@ package th.co.todsphol.add.projectone.fragment
 
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.os.Build
 import android.os.Bundle
@@ -24,6 +23,9 @@ import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.activity.DisplayActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.util.Util
+import com.nex3z.togglebuttongroup.SingleSelectToggleGroup
+import com.nex3z.togglebuttongroup.button.LabelToggle
+import kotlinx.android.synthetic.main.fragment_data_show.view.*
 
 
 @Suppress("DEPRECATION")
@@ -49,6 +51,9 @@ class DataShowFragment : Fragment() {
     lateinit var imViewStatus: ImageView
     @BindView(R.id.imageViewShow)
     lateinit var ivShowImage: ImageView
+//    @BindView(R.id.group_choices) lateinit var toggleGroup: SingleSelectToggleGroup
+    @BindView(R.id.choice_a) lateinit var choiceA : LabelToggle
+    @BindView(R.id.choice_b) lateinit var choiceB : LabelToggle
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -62,9 +67,8 @@ class DataShowFragment : Fragment() {
         setToolbar()
         getDataCar()
         getDataname()
-
+        getDataStatus()
         return view
-
     }
 
 
@@ -135,10 +139,12 @@ class DataShowFragment : Fragment() {
                 val dataStatusAlarm = dataSnapshot.child("Salarm").getValue(Int::class.java)
                 val dataOwnerStatus = dataSnapshot.child("Sowner").getValue(String::class.java)
                 changeColorStatus(dataStatusAlarm)
+
                 if (dataOwnerStatus == "0") {
+                    choiceA.isChecked = true
 
                 } else if (dataOwnerStatus == "1") {
-
+                    choiceB.isChecked = true
                 }
             }
 
