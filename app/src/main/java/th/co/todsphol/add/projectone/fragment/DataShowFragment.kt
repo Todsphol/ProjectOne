@@ -11,9 +11,7 @@ import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
@@ -30,7 +28,7 @@ import me.rishabhkhanna.customtogglebutton.CustomToggleButton
 
 
 @Suppress("DEPRECATION")
-class DataShowFragment : Fragment(), View.OnClickListener {
+class DataShowFragment : Fragment() {
 
     @BindView(R.id.toolbar)
     lateinit var toolBar: Toolbar
@@ -68,43 +66,10 @@ class DataShowFragment : Fragment(), View.OnClickListener {
         getDataCar()
         getDataname()
         getDataStatus()
-        tgNotification.setOnClickListener(this)
+        isCheckToggleStatus()
+
         return view
 
-    }
-
-    override fun onClick(p0: View?) {
-        val alertDialog = AlertDialog.Builder(context).create()
-        alertDialog.setTitle("ข้อความ")
-        if (p0 == tgNotification) {
-            if (tgNotification.isChecked) {
-                alertDialog.setMessage("ต้องการเปิดการแจ้งเตือนหรือไม่?")
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
-                    if (tgNotification.isChecked) {
-                        tgNotification.isChecked = false
-                    }
-                    alertDialog.dismiss()
-                })
-
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
-                    dataStatus.child("Sowner").setValue("1")
-                    alertDialog.dismiss()
-                })
-            } else if (!tgNotification.isChecked) {
-                alertDialog.setMessage("ต้องการปิดการแจ้งเตือนหรือไม่?")
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", { _, _ ->
-                    if (!tgNotification.isChecked) {
-                        tgNotification.isChecked = true
-                    }
-                    alertDialog.dismiss()
-                })
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", { _, _ ->
-                    dataStatus.child("Sowner").setValue("0")
-                    alertDialog.dismiss()
-                })
-            }
-            alertDialog.show()
-        }
     }
 
     fun isCheckToggleStatus() {
@@ -138,16 +103,10 @@ class DataShowFragment : Fragment(), View.OnClickListener {
                 })
             }
             alertDialog.show()
-        }
-        alertDialog.setOnDismissListener {
-            if (tgNotification.isChecked) {
-                tgNotification.isChecked = false
-            } else if (!tgNotification.isChecked) {
-                tgNotification.isChecked = true
-            }
-        }
 
+        }
     }
+
 
     private fun setToolbar() {
         getMainActivity().setSupportActionBar(toolBar)
