@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var edtPassword: EditText
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataReg = baseR.child("User").child("user1").child("DATA_REG")
-    var dataStatus = baseR.child("User").child("user1").child("STATUS")
+    private var dataStatus = baseR.child("User").child("user1").child("STATUS")
 
     companion object {
         const val EXTRA_PHONE = "EXTRA_PHONE"

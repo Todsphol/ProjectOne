@@ -9,13 +9,8 @@ import butterknife.BindView
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import th.co.todsphol.add.projectone.R
-import android.content.Intent
-import android.net.Uri
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.TextView
 import butterknife.ButterKnife
 import com.google.android.gms.maps.model.MarkerOptions
