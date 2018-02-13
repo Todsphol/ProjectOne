@@ -10,8 +10,10 @@ import th.co.todsphol.add.projectone.R
 
 class FirstPageActivity : AppCompatActivity() {
 
-    @BindView(R.id.btn_new_register) lateinit var newRegister : Button
-    @BindView(R.id.btn_back_to_login) lateinit var gotoLogin : Button
+    @BindView(R.id.btn_new_register)
+    lateinit var newRegister: Button
+    @BindView(R.id.btn_back_to_login)
+    lateinit var gotoLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +22,16 @@ class FirstPageActivity : AppCompatActivity() {
         onClickGotoLogin()
         onClickNewRegister()
     }
+
     private fun onClickGotoLogin() {
         gotoLogin.setOnClickListener {
-            val nextLogin = Intent(this,LoginActivity::class.java)
+            val nextLogin = Intent(this, LoginActivity::class.java)
             startActivity(nextLogin)
             overridePendingTransition(R.anim.slide_right, R.anim.slide_left)
         }
 
     }
+
     private fun onClickNewRegister() {
 
         newRegister.setOnClickListener {

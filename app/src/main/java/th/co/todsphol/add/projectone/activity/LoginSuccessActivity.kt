@@ -1,6 +1,5 @@
 package th.co.todsphol.add.projectone.activity
 
-import android.R.*
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -27,7 +26,7 @@ class LoginSuccessActivity : AppCompatActivity() {
         gotoLoginIntent.putExtra("EXTRA_PHONE",tvSuccess.text.toString())
         gotoLoginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(gotoLoginIntent)
-        overridePendingTransition(anim.fade_in, anim.fade_out)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
     companion object {
         const val EXTRA_PHONE = "EXTRA_PHONE"

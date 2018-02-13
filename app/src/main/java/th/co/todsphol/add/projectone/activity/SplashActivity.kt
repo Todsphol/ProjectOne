@@ -21,16 +21,18 @@ class SplashActivity : AppCompatActivity() {
     private var mDelayHandler: Handler? = null
     private val SPLASH_DELAY: Long = 3000
 
-    private val mRunnable : Runnable = Runnable {
+    private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
-            val firstPageIntent = Intent(this,FirstPageActivity::class.java)
+            val firstPageIntent = Intent(this, FirstPageActivity::class.java)
             startActivity(firstPageIntent)
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
     }
 
-    @BindView(R.id.bg) lateinit var imageBG : ImageView
+    @BindView(R.id.bg)
+    lateinit var imageBG: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)

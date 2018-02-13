@@ -14,7 +14,6 @@ import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.fragment.MapsFragment
 
 
-
 class DisplayActivity : AppCompatActivity() {
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
@@ -31,12 +30,13 @@ class DisplayActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun changeFragment(fragment : Fragment) {
+    fun changeFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit()
     }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> onBackPressed()
@@ -49,7 +49,7 @@ class DisplayActivity : AppCompatActivity() {
     }
 
     private fun history() {
-        val intentHistory = Intent(this,MapsActivity::class.java)
+        val intentHistory = Intent(this, MapsActivity::class.java)
         startActivity(intentHistory)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
@@ -60,6 +60,7 @@ class DisplayActivity : AppCompatActivity() {
         logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(logoutIntent)
     }
+
     @SuppressLint("MissingPermission")
     private fun call() {
         val callPhone = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getString(R.string.phoneNumber)))

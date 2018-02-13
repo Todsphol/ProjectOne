@@ -50,9 +50,12 @@ class DataShowFragment : Fragment() {
     lateinit var imViewStatus: ImageView
     @BindView(R.id.imageViewShow)
     lateinit var ivShowImage: ImageView
-    @BindView(R.id.group_choices) lateinit var toggleGroup: SingleSelectToggleGroup
-    @BindView(R.id.choice_a) lateinit var choiceA : LabelToggle
-    @BindView(R.id.choice_b) lateinit var choiceB : LabelToggle
+    @BindView(R.id.group_choices)
+    lateinit var toggleGroup: SingleSelectToggleGroup
+    @BindView(R.id.choice_a)
+    lateinit var choiceA: LabelToggle
+    @BindView(R.id.choice_b)
+    lateinit var choiceB: LabelToggle
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")

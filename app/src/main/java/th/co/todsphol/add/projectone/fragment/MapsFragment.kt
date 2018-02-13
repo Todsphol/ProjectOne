@@ -32,10 +32,14 @@ import th.co.todsphol.add.projectone.activity.DisplayActivity
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
-    @BindView(R.id.mapView) lateinit var mMapView: MapView
-    @BindView(R.id.btn_data) lateinit var nextData: Button
-    @BindView(R.id.btn_zoom_in) lateinit var zoomIn: Button
-    @BindView(R.id.btn_zoom_out) lateinit var zoomOut: Button
+    @BindView(R.id.mapView)
+    lateinit var mMapView: MapView
+    @BindView(R.id.btn_data)
+    lateinit var nextData: Button
+    @BindView(R.id.btn_zoom_in)
+    lateinit var zoomIn: Button
+    @BindView(R.id.btn_zoom_out)
+    lateinit var zoomOut: Button
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
     private var dataCar = baseR.child("USer").child("user1").child("DATA_CAR").child("Type")
@@ -53,6 +57,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         return view
     }
+
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(context!!,
                         android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -80,17 +85,17 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap?) {
         val height = 100
         val width = 100
-        val bitmapdraw : BitmapDrawable = resources.getDrawable(R.mipmap.ic_launcher) as BitmapDrawable
-        val b : Bitmap = bitmapdraw.bitmap
-        val smallMarker : Bitmap = Bitmap.createScaledBitmap(b,width,height, false)
+        val bitmapdraw: BitmapDrawable = resources.getDrawable(R.mipmap.ic_launcher) as BitmapDrawable
+        val b: Bitmap = bitmapdraw.bitmap
+        val smallMarker: Bitmap = Bitmap.createScaledBitmap(b, width, height, false)
         dataLocation.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
                 val dataLongitude = dataSnapshot.child("Longtitude").getValue(String::class.java)!!.toDouble()
                 val testCheck = LatLng(dataLatitude, dataLongitude)
-                dataCar.addValueEventListener(object : ValueEventListener{
+                dataCar.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val dataType = dataSnapshot.getValue(String::class.java)?:"Honda"
+                        val dataType = dataSnapshot.getValue(String::class.java) ?: "Honda"
                         val marker = MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle")
                         if (dataType == "Honda") {
                             mgoogleMap?.addMarker(MarkerOptions().position(testCheck)
@@ -128,8 +133,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
 
-
-
     companion object {
         fun newInstance(): Fragment {
             val bundle = Bundle()
@@ -137,6 +140,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             fragment.arguments = bundle
             return fragment
         }
+
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 

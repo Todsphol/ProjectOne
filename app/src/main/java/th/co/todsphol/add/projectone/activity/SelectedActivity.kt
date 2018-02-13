@@ -23,17 +23,23 @@ import java.util.*
 @Suppress("DEPRECATION")
 open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
 
-    @BindView(R.id.tv_show_success) lateinit var tvSuccess : TextView
-    @BindView(R.id.btn_select) lateinit var btnSelected : Button
-    @BindView(R.id.imageView) lateinit var ivSelected : ImageView
-    @BindView(R.id.btn_confirm_register) lateinit var btnConfirm : Button
-    @BindView(R.id.toolbar) lateinit var toolBar : Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var tvTitle : TextView
+    @BindView(R.id.tv_show_success)
+    lateinit var tvSuccess: TextView
+    @BindView(R.id.btn_select)
+    lateinit var btnSelected: Button
+    @BindView(R.id.imageView)
+    lateinit var ivSelected: ImageView
+    @BindView(R.id.btn_confirm_register)
+    lateinit var btnConfirm: Button
+    @BindView(R.id.toolbar)
+    lateinit var toolBar: Toolbar
+    @BindView(R.id.tv_toolbar_title)
+    lateinit var tvTitle: TextView
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
-    private var filePath : Uri? = null
-    private var storage : FirebaseStorage? = null
-    private var storageReference : StorageReference? = null
+    private var filePath: Uri? = null
+    private var storage: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
     private val PICK_IMAGE_REQUEST = 1234
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +67,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
             isUploading()
         }
     }
+
     private var EXTRA_URI = ""
     private fun isUploading() {
         val progressDialog = ProgressDialog(this)
@@ -77,7 +84,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                         EXTRA_URI = it.downloadUrl.toString()
                         dataCar.child("Images").setValue(EXTRA_URI)
                         val gotoLoginSucIntent = Intent(this, LoginSuccessActivity::class.java)
-                        gotoLoginSucIntent.putExtra("EXTRA_PHONE",tvSuccess.text.toString())
+                        gotoLoginSucIntent.putExtra("EXTRA_PHONE", tvSuccess.text.toString())
                         gotoLoginSucIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(gotoLoginSucIntent)
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -87,9 +94,9 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                         progressDialog.dismiss()
                         Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
                     }
-                    .addOnProgressListener {taskSnapShot ->
-                        val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
-                        progressDialog.setMessage("Uploaded"+ progress.toInt() + "%...")
+                    .addOnProgressListener { taskSnapShot ->
+                        val progress = 100.0 * taskSnapShot.bytesTransferred / taskSnapShot.totalByteCount
+                        progressDialog.setMessage("Uploaded" + progress.toInt() + "%...")
                     }
 
         } else {
@@ -107,8 +114,9 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent,"SELECT PICTURE"),PICK_IMAGE_REQUEST)
+        startActivityForResult(Intent.createChooser(intent, "SELECT PICTURE"), PICK_IMAGE_REQUEST)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST &&
@@ -116,9 +124,9 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                 data != null && data.data != null) {
             filePath = data.data
             try {
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,filePath)
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                 ivSelected.setImageBitmap(bitmap)
-            }catch (e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
             }
         }

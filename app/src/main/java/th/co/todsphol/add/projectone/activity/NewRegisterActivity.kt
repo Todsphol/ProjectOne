@@ -60,10 +60,14 @@ class NewRegisterActivity : AppCompatActivity(){
     private val EXTRA_PHONE = "EXTRA_PHONE"
     @OnClick(R.id.btn_register)
     fun registerButtonClicked() {
-        val checkBlankInEdiText = (edtFirstName.text.toString() == "" || edtLastName.text.toString() == ""
-                || edtAge.text.toString() == "" || edtColor.text.toString() == ""
-                || edtLicencePlate.text.toString() == "" || edtPhoneNumber.text.toString() == ""
-                || edtPassword.text.toString() == "" || edtConfirmPassword.text.toString() == "")
+        val checkBlankInEdiText = (edtFirstName.text.toString() == ""
+                || edtLastName.text.toString() == ""
+                || edtAge.text.toString() == ""
+                || edtColor.text.toString() == ""
+                || edtLicencePlate.text.toString() == ""
+                || edtPhoneNumber.text.toString() == ""
+                || edtPassword.text.toString() == ""
+                || edtConfirmPassword.text.toString() == "")
         val replacePhone = edtPhoneNumber.text.toString().replace("-".toRegex(), "")
                 .replace("\\s+", "")
         val checkLenPhone =  replacePhone.length < 10

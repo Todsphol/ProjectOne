@@ -42,8 +42,7 @@ class LoginActivity : AppCompatActivity() {
         if (!isConnected(this)) {
             setEdittextPhone()
             alertDialogIsNotConnect(this).show()
-        }
-        else {
+        } else {
             setEdittextPhone()
         }
     }
