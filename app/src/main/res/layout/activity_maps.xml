@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.MapsActivity">
 
+    <include layout="@layout/custom_toolbar" />
 
-    <LinearLayout
-        android:id="@+id/liner_map"
+    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent" />
 
-        <include layout="@layout/custom_toolbar" />
-
-        <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            map:cameraBearing="0"
-            map:cameraTargetLat="13.904098"
-            map:cameraTargetLng="100.528136"
-            map:cameraTilt="30"
-            map:cameraZoom="2" />
-    </LinearLayout>
-
-
-</RelativeLayout>
+</LinearLayout>
