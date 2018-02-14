@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.PhoneNumberWatcher
 import th.co.todsphol.add.projectone.R
 
+@Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
 
     @BindView(R.id.edt_phone_number)
@@ -40,21 +41,21 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
         if (!isConnected(this)) {
-            setEdittextPhone()
+            setPhoneEdittext()
             alertDialogIsNotConnect(this).show()
         } else {
-            setEdittextPhone()
+            setPhoneEdittext()
         }
     }
 
-    private fun setEdittextPhone() {
+    private fun setPhoneEdittext() {
         onText(edtPhone.toString())
         edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
         edtPhone.setText(intent.getStringExtra(EXTRA_PHONE), TextView.BufferType.EDITABLE)
         edtPhone.setSelection(edtPhone.text.length)
     }
 
-    fun isConnected(context: Context): Boolean {
+    private fun isConnected(context: Context): Boolean {
         val cm: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = cm.activeNetworkInfo
 
@@ -68,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun alertDialogIsNotConnect(c: Context): AlertDialog.Builder {
+    private fun alertDialogIsNotConnect(c: Context): AlertDialog.Builder {
         val builder: AlertDialog.Builder = AlertDialog.Builder(c)
         builder.setTitle("ไม่มีการเชื่อมต่ออินเทอร์เน็ต")
         builder.setMessage("คุณต้องการต่ออินเทอร์เน็ตหรือ Wifi ")

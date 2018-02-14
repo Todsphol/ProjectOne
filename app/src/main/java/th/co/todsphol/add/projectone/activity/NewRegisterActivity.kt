@@ -181,7 +181,7 @@ class NewRegisterActivity : AppCompatActivity(){
         supportActionBar?.setDisplayShowTitleEnabled(false)
         titleToolbar.text = getString(R.string.register)
     }
-    fun isConnected(context: Context): Boolean {
+    private fun isConnected(context: Context): Boolean {
         val cm : ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = cm.activeNetworkInfo
 
@@ -195,7 +195,7 @@ class NewRegisterActivity : AppCompatActivity(){
         }
     }
 
-    fun alertDialogIsNotConnect(c: Context): AlertDialog.Builder {
+    private fun alertDialogIsNotConnect(c: Context): AlertDialog.Builder {
         val builder : AlertDialog.Builder = AlertDialog.Builder(c)
         builder.setTitle("ไม่มีการเชื่อมต่ออินเทอร์เน็ต")
         builder.setMessage("คุณต้องการต่ออินเทอร์เน็ตหรือ Wifi ")

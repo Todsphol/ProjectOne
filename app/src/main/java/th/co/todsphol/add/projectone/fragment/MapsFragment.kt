@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.activity.DisplayActivity
 
 
+@Suppress("DEPRECATION")
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
     @BindView(R.id.mapView)
@@ -77,7 +78,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
 
-    fun getMainActivity(): DisplayActivity {
+    private fun getMainActivity(): DisplayActivity {
         return activity as DisplayActivity
     }
 
@@ -96,7 +97,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 dataCar.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val dataType = dataSnapshot.getValue(String::class.java) ?: "Honda"
-                        val marker = MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle")
+//                        val marker = MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle")
                         if (dataType == "Honda") {
                             mgoogleMap?.addMarker(MarkerOptions().position(testCheck)
                                     .title("Your Motorcycle")

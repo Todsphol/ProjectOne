@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package th.co.todsphol.add.projectone.activity
 
 import android.app.Activity

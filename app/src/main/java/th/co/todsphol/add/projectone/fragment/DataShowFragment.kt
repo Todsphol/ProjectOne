@@ -1,8 +1,8 @@
+@file:Suppress("DEPRECATION")
+
 package th.co.todsphol.add.projectone.fragment
 
-
-import android.annotation.SuppressLint
-import android.app.ProgressDialog
+import android.app.ProgressDialog.*
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -93,7 +93,7 @@ class DataShowFragment : Fragment() {
 
     }
 
-    fun getDataCar() {
+    private fun getDataCar() {
         dataCar.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataColorCar = dataSnapshot.child("color").getValue(String::class.java)
@@ -127,7 +127,7 @@ class DataShowFragment : Fragment() {
                 .into(ivShowImage)
     }
 
-    fun getDataname() {
+    private fun getDataname() {
         dataName.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val namePer = dataSnapshot.child("name").getValue(String::class.java)
@@ -143,10 +143,8 @@ class DataShowFragment : Fragment() {
         })
     }
 
-
-    fun getDataStatus() {
+    private fun getDataStatus() {
         dataStatus.addListenerForSingleValueEvent(object : ValueEventListener {
-            @SuppressLint("ResourceAsColor")
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataStatusAlarm = dataSnapshot.child("Salarm").getValue(Int::class.java)
                 val dataOwnerStatus = dataSnapshot.child("Sowner").getValue(String::class.java)
@@ -192,10 +190,10 @@ class DataShowFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dialog = ProgressDialog.show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)
+        val dialog = show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)
         dialog.show()
         val handler = Handler()
-        handler.postDelayed(Runnable { dialog.dismiss() }, 1750)
+        handler.postDelayed({ dialog.dismiss() }, 1750)
     }
 
 
