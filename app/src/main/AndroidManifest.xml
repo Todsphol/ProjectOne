@@ -14,8 +14,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <permission
         android:name="com.pkg.map.permission.MAPS_RECEIVE"
@@ -40,7 +39,7 @@
 
         <activity
             android:name=".activity.MapsActivity"
-            android:label="@string/title_activity_maps"/>
+            android:label="@string/title_activity_maps" />
 
         <service
             android:name=".activity.LocationTrackingService"
@@ -53,6 +52,7 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -70,6 +70,7 @@
 
         <activity android:name=".activity.DisplayActivity" />
         <activity android:name=".activity.SelectedActivity" />
+        <activity android:name=".activity.ShowLocationActivity" />
     </application>
 
 </manifest>
