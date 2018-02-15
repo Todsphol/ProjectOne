@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ShowLocationActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_show_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp12"
+            android:layout_marginStart="@dimen/dp12"
+            android:layout_marginTop="@dimen/dp12"
+            android:text="ประวัติการเดินทางของคุณเมื่อ 1 ชั่วโมงที่แล้ว"
+            android:textColor="@color/colorBlueGray"
+            android:textSize="@dimen/textSize" />
+
+        <th.co.todsphol.add.projectone.custom.CustomRecyclerView
+            android:id="@+id/rc_show_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_show_history"
+            tools:listitem="@layout/view_item">
+
+        </th.co.todsphol.add.projectone.custom.CustomRecyclerView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:background="@color/colorBlueGray" />
+
+        <Button
+            android:id="@+id/btn_history"
+            style="@style/ButtonPink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="@dimen/dp12"
+            android:text="ไปที่แผนที่"
+            android:layout_marginLeft="@dimen/dp12"
+            android:layout_marginRight="@dimen/dp12"
+            />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

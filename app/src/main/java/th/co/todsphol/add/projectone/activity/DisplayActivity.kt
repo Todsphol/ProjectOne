@@ -49,7 +49,7 @@ class DisplayActivity : AppCompatActivity() {
     }
 
     private fun history() {
-        val intentHistory = Intent(this, MapsActivity::class.java)
+        val intentHistory = Intent(this, ShowLocationActivity::class.java)
         startActivity(intentHistory)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
