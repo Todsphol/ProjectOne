@@ -1,6 +1,7 @@
 package th.co.todsphol.add.projectone.activity;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     @Override
-    public void onBindViewHolder(UserViewHolder holder, int position) {
+    public void onBindViewHolder(final UserViewHolder holder, int position) {
         UserModel user = list.get(position);
-        holder.tvLatitude.setText(user.latitude);
-        holder.tvLongitude.setText(user.longitude);
+        holder.tvLatitude.setText(user.LAT);
+        holder.tvLongitude.setText(user.LON);
+
+        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                contextMenu.add(holder.getAdapterPosition(), 0, 0, "don't");
+                contextMenu.add(holder.getAdapterPosition(), 1, 0, "know");
+
+            }
+        });
     }
 
     @Override

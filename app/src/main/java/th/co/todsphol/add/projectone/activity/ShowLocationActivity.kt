@@ -5,32 +5,103 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.google.firebase.database.*
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.UserModel
 
 class ShowLocationActivity : AppCompatActivity() {
-    @BindView(R.id.btn_history) lateinit var btnHistory : Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var result : MutableList<UserModel>
     private lateinit var adapter: UserAdapter
+
+    private var database  = FirebaseDatabase.getInstance()
+    private var reference = database.reference.child("User").child("user1").child("HISTORY_LOC")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_location)
         ButterKnife.bind(this)
+
         result = mutableListOf()
         recyclerView = findViewById(R.id.rc_show_location)
         recyclerView.setHasFixedSize(true)
-        createResult()
+//        createResult()
         val llm = LinearLayoutManager(this)
         llm.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = llm
         adapter = UserAdapter(result)
         recyclerView.adapter = adapter
+        updateList()
     }
+
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+
+        when (item?.itemId) {
+            0 -> Toast.makeText(this,"0", Toast.LENGTH_SHORT).show()
+            1 -> Toast.makeText(this,"1", Toast.LENGTH_SHORT).show()
+        }
+
+        return super.onContextItemSelected(item)
+    }
+
+    fun updateList() {
+
+        reference.addChildEventListener(object :ChildEventListener {
+            override fun onCancelled(databaseError: DatabaseError?) {
+
+            }
+
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {
+
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                val model : UserModel = dataSnapshot.getValue(UserModel::class.java)!!
+                val index = getItemIndex(model)
+
+                result[index] = model
+                adapter.notifyItemChanged(index)
+
+            }
+
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                result.add(dataSnapshot.getValue(UserModel::class.java)!!)
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+                val model : UserModel = dataSnapshot.getValue(UserModel::class.java)!!
+                val index = getItemIndex(model)
+
+                result.removeAt(index)
+                adapter.notifyItemRemoved(index)
+            }
+
+        })
+
+    }
+
+    fun getItemIndex(user : UserModel): Int {
+        var index : Int = -1
+
+        for (i in 1..result.size) {
+            if (result[i].key == user.key) {
+                index = 1
+            }
+        }
+        return index
+    }
+
+
+
+
     @OnClick(R.id.btn_history)
     fun goMap() {
             val intentHistory = Intent(this, MapsActivity::class.java)
@@ -40,7 +111,7 @@ class ShowLocationActivity : AppCompatActivity() {
 
     fun createResult() {
         for (i in 1..6) {
-            result.add(UserModel("333.333","222.222"))
+            result.add(UserModel("333.333","222.222",""))
         }
     }
 
