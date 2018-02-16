@@ -5,8 +5,8 @@
     android:id="@+id/card_view_location"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="6dp"
-    app:contentPadding="@dimen/dp12"
+    app:cardElevation="4dp"
+    app:contentPadding="@dimen/dp8"
     app:cardCornerRadius="6dp">
 
     <RelativeLayout

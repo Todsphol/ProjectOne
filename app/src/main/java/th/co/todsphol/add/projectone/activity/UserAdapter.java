@@ -27,7 +27,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(UserViewHolder holder, int position) {
         UserModel user = list.get(position);
         holder.tvLatitude.setText(user.latitude);
-        holder.tvLatitude.setText(user.longitude);
+        holder.tvLongitude.setText(user.longitude);
     }
 
     @Override

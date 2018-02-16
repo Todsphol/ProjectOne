@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -20,7 +20,8 @@
             android:layout_marginTop="@dimen/dp12"
             android:text="ประวัติการเดินทางของคุณเมื่อ 1 ชั่วโมงที่แล้ว"
             android:textColor="@color/colorBlueGray"
-            android:textSize="@dimen/textSize" />
+            android:textSize="@dimen/textSize"
+            android:layout_marginBottom="@dimen/dp12"/>
 
         <th.co.todsphol.add.projectone.custom.CustomRecyclerView
             android:id="@+id/rc_show_location"
@@ -33,7 +34,10 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.4dp"
-            android:background="@color/colorGray" />
+            android:background="@color/colorGray"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginRight="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp12"/>
 
         <Button
             android:id="@+id/btn_history"
@@ -47,4 +51,4 @@
             android:layout_marginRight="@dimen/dp12"
             />
     </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</ScrollView>
