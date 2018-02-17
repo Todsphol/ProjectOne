@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import th.co.todsphol.add.projectone.R;
-import th.co.todsphol.add.projectone.UserModel;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
     private List<UserModel> list;

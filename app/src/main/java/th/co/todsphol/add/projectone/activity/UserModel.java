@@ -1,4 +1,4 @@
-package th.co.todsphol.add.projectone;
+package th.co.todsphol.add.projectone.activity;
 
 public class UserModel {
     public String LAT, LON;

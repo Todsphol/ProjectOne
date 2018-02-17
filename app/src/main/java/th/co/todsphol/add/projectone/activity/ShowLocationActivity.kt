@@ -11,7 +11,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.firebase.database.*
 import th.co.todsphol.add.projectone.R
-import th.co.todsphol.add.projectone.UserModel
 
 class ShowLocationActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -25,15 +24,19 @@ class ShowLocationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_location)
         ButterKnife.bind(this)
+        setRecyclerView()
+        updateListView()
+    }
+
+    private fun setRecyclerView() {
         result = mutableListOf()
         recyclerView = findViewById(R.id.rc_show_location)
         recyclerView.setHasFixedSize(true)
-        val llm = LinearLayoutManager(this)
-        llm.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = llm
+        val layout = LinearLayoutManager(this)
+        layout.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = layout
         adapter = UserAdapter(result)
         recyclerView.adapter = adapter
-        updateList()
     }
 
 
@@ -47,7 +50,7 @@ class ShowLocationActivity : AppCompatActivity() {
         return super.onContextItemSelected(item)
     }
 
-    fun updateList() {
+    private fun updateListView() {
         try {
 
             reference.addChildEventListener(object : ChildEventListener {
@@ -61,8 +64,8 @@ class ShowLocationActivity : AppCompatActivity() {
 
                 override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
                     val model: UserModel = dataSnapshot.getValue(UserModel::class.java)!!
-                    val posi = dataSnapshot.key.toInt()
-                    val index = getItemIndex(model) - 2 + posi
+                    val position = dataSnapshot.key.toInt()
+                    val index = getItemIndex(model) - 2 + position
                     result[index] = model
                     adapter.notifyItemChanged(index)
 
