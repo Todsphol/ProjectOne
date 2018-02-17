@@ -14,20 +14,21 @@ import android.view.MenuItem
 import android.widget.TextView
 import butterknife.ButterKnife
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import com.google.firebase.database.GenericTypeIndicator
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
 
 
-    @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var title: TextView
+    @BindView(R.id.toolbar)
+    lateinit var toolBar: Toolbar
+    @BindView(R.id.tv_toolbar_title)
+    lateinit var title: TextView
     lateinit var mMap: GoogleMap
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
+    private var dataPastPosition = baseR.child("User").child("user1").child("HISTORY_LOC")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +51,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
 
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
-        dataLocation.addValueEventListener(object : ValueEventListener {
+        dataPastPosition.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
-                val dataLongitude = dataSnapshot.child("Longtitude").getValue(String::class.java)!!.toDouble()
-                val testCheck = LatLng(dataLatitude, dataLongitude)
-                mMap.addMarker(MarkerOptions().position(testCheck).title("Test"))
+                val dataLo10 = dataSnapshot.child("1")
+                val dataLatitude10 = dataLo10.child("LAT").getValue(String::class.java)!!.toDouble()
+                val dataLongitude10 = dataLo10.child("LON").getValue(String::class.java)!!.toDouble()
+                val dataLo20 = dataSnapshot.child("2")
+                val dataLatitude20 = dataLo20.child("LAT").getValue(String::class.java)!!.toDouble()
+                val dataLongitude20 = dataLo20.child("LON").getValue(String::class.java)!!.toDouble()
+                val dataLo30 = dataSnapshot.child("3")
+                val dataLatitude30 = dataLo30.child("LAT").getValue(String::class.java)!!.toDouble()
+                val dataLongitude30 = dataLo30.child("LON").getValue(String::class.java)!!.toDouble()
+                val dataLo40 = dataSnapshot.child("4")
+                val dataLatitude40 = dataLo40.child("LAT").getValue(String::class.java)!!.toDouble()
+                val dataLongitude40 = dataLo40.child("LON").getValue(String::class.java)!!.toDouble()
+                val dataLo50 = dataSnapshot.child("5")
+                val dataLatitude50 = dataLo50.child("LAT").getValue(String::class.java)!!.toDouble()
+                val dataLongitude50 = dataLo50.child("LON").getValue(String::class.java)!!.toDouble()
+                val dataLo60 = dataSnapshot.child("6")
+                val dataLatitude60 = dataLo60.child("LAT").getValue(String::class.java)!!.toDouble()
+                val dataLongitude60 = dataLo60.child("LON").getValue(String::class.java)!!.toDouble()
+                mMap.addMarker(MarkerOptions().position(LatLng(dataLatitude10, dataLongitude10)).title("10 นาที่ที่ผ่านมา"))
+                mMap.addMarker(MarkerOptions().position(LatLng(dataLatitude20, dataLongitude20)).title("20 นาที่ที่ผ่านมา"))
+                mMap.addMarker(MarkerOptions().position(LatLng(dataLatitude30, dataLongitude30)).title("30 นาที่ที่ผ่านมา"))
+                mMap.addMarker(MarkerOptions().position(LatLng(dataLatitude40, dataLongitude40)).title("40 นาที่ที่ผ่านมา"))
+                mMap.addMarker(MarkerOptions().position(LatLng(dataLatitude50, dataLongitude50)).title("50 นาที่ที่ผ่านมา"))
+                mMap.addMarker(MarkerOptions().position(LatLng(dataLatitude60, dataLongitude60)).title("60 นาที่ที่ผ่านมา"))
+                val testCheck = LatLng(dataLatitude10, dataLongitude10)
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(testCheck))
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f))
+
             }
 
             override fun onCancelled(p0: DatabaseError?) {
