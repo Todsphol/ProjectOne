@@ -12,6 +12,7 @@ import butterknife.OnClick
 import com.google.firebase.database.*
 import th.co.todsphol.add.projectone.R
 
+
 class ShowLocationActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var result: MutableList<UserModel>

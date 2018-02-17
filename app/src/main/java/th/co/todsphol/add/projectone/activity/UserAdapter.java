@@ -32,7 +32,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                contextMenu.add(holder.getAdapterPosition(), 0, 0, "don't");
+                contextMenu.add(holder.getAdapterPosition(), 0, 0, "Copy Latitude, Longitude 1");
                 contextMenu.add(holder.getAdapterPosition(), 1, 0, "know");
 
             }
@@ -47,7 +47,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvLatitude, tvLongitude;
 
-        public UserViewHolder(View itemView) {
+        UserViewHolder(View itemView) {
             super(itemView);
 
             tvLatitude = itemView.findViewById(R.id.tv_latitude);

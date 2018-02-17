@@ -8,22 +8,53 @@
     app:cardElevation="4dp"
     app:contentPadding="@dimen/dp8"
     app:cardCornerRadius="6dp"
-    android:background="?attr/selectableItemBackground">
+    android:layout_marginLeft="@dimen/dp8"
+    android:layout_marginRight="@dimen/dp8">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <TextView
+            android:id="@+id/tv_show_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="เมื่อ"
+            android:textSize="@dimen/textSize"
+            android:textColor="@color/colorGray"
+            android:layout_marginLeft="@dimen/dp12"
+            android:layout_marginStart="@dimen/dp12"
+            />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:layout_toRightOf="@+id/tv_show_time"
+            android:layout_toEndOf="@+id/tv_show_time"
+            android:layout_alignBottom="@+id/tv_show_time"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginRight="@dimen/dp8"
+            />
+        <TextView
+            android:id="@+id/tv_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="นาทีที่แล้ว"
+            android:layout_toRightOf="@+id/tv_time"
+            android:layout_toEndOf="@+id/tv_time"
+            android:layout_alignBottom="@+id/tv_time"
+            />
         <TextView
             android:id="@+id/tv_show_latitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp12"
             android:layout_marginStart="@dimen/dp12"
-            android:layout_marginTop="@dimen/dp12"
+            android:layout_marginTop="@dimen/dp8"
             android:text="Latitude"
             android:textColor="@color/colorBlueGray"
-            android:textSize="@dimen/textSize" />
+            android:textSize="@dimen/textSize"
+            android:layout_below="@+id/tv_show_time"/>
 
         <TextView
             android:id="@+id/tv_show_longitude"
@@ -32,8 +63,7 @@
             android:layout_alignLeft="@+id/tv_show_latitude"
             android:layout_alignStart="@+id/tv_show_latitude"
             android:layout_below="@+id/tv_show_latitude"
-            android:layout_marginBottom="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp12"
+            android:layout_marginTop="@dimen/dp8"
             android:text="Longitude"
             android:textColor="@color/colorBlueGray"
             android:textSize="@dimen/textSize" />
