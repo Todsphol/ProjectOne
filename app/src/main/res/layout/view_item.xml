@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="เมื่อ"
-            android:textSize="@dimen/textSize"
+            android:textSize="14sp"
             android:textColor="@color/colorGray"
             android:layout_marginLeft="@dimen/dp12"
             android:layout_marginStart="@dimen/dp12"
@@ -34,6 +34,7 @@
             android:layout_alignBottom="@+id/tv_show_time"
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
+            android:textSize="14sp"
             />
         <TextView
             android:id="@+id/tv_minute"
@@ -43,6 +44,7 @@
             android:layout_toRightOf="@+id/tv_time"
             android:layout_toEndOf="@+id/tv_time"
             android:layout_alignBottom="@+id/tv_time"
+            android:textSize="14sp"
             />
         <TextView
             android:id="@+id/tv_show_latitude"
@@ -77,6 +79,7 @@
             android:layout_alignBottom="@+id/tv_show_latitude"
             android:layout_marginRight="@dimen/dp12"
             android:layout_marginEnd="@dimen/dp12"
+            android:textSize="@dimen/textSize"
             />
         <TextView
             android:id="@+id/tv_longitude"
@@ -86,6 +89,7 @@
             android:layout_alignRight="@+id/tv_latitude"
             android:layout_alignEnd="@+id/tv_latitude"
             android:layout_alignBottom="@+id/tv_show_longitude"
+            android:textSize="@dimen/textSize"
             />
     </RelativeLayout>
 

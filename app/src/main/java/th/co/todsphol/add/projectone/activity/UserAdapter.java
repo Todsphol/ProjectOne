@@ -1,5 +1,6 @@
 package th.co.todsphol.add.projectone.activity;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -23,12 +24,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         return new UserViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final UserViewHolder holder, int position) {
         UserModel user = list.get(position);
         holder.tvLatitude.setText(user.LAT);
         holder.tvLongitude.setText(user.LON);
-
+        Integer index = (list.indexOf(user) + 1) * 10;
+        holder.tvTime.setText(index.toString());
         holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
@@ -45,13 +48,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLatitude, tvLongitude;
+        TextView tvLatitude, tvLongitude, tvTime;
 
         UserViewHolder(View itemView) {
             super(itemView);
 
             tvLatitude = itemView.findViewById(R.id.tv_latitude);
             tvLongitude = itemView.findViewById(R.id.tv_longitude);
+            tvTime = itemView.findViewById(R.id.tv_time);
         }
     }
 }

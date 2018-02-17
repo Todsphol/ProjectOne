@@ -97,6 +97,7 @@ class ShowLocationActivity : AppCompatActivity() {
     }
 
 
+
     @OnClick(R.id.btn_history)
     fun goMap() {
         val intentHistory = Intent(this, MapsActivity::class.java)
