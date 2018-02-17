@@ -15,7 +15,6 @@ import android.widget.TextView
 import butterknife.ButterKnife
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
-import com.google.firebase.database.GenericTypeIndicator
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
@@ -27,7 +26,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     lateinit var title: TextView
     lateinit var mMap: GoogleMap
     private var baseR = FirebaseDatabase.getInstance().reference
-    private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
     private var dataPastPosition = baseR.child("User").child("user1").child("HISTORY_LOC")
 
     override fun onCreate(savedInstanceState: Bundle?) {
