@@ -1,7 +1,10 @@
 package th.co.todsphol.add.projectone.activity
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -30,6 +33,10 @@ class ShowLocationActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
+        val dialog = show(this,"กำลังโหลด","กรุณารอสักครู่",true)
+        dialog.show()
+        val handler = Handler()
+        handler.postDelayed({dialog.dismiss()}, 1750)
         result = mutableListOf()
         recyclerView = findViewById(R.id.rc_show_location)
         recyclerView.setHasFixedSize(true)
@@ -96,13 +103,12 @@ class ShowLocationActivity : AppCompatActivity() {
         return if ((1..result.size).any { result[it].key == user.key }) 1 else -1
     }
 
-
-
     @OnClick(R.id.btn_history)
     fun goMap() {
         val intentHistory = Intent(this, MapsActivity::class.java)
         startActivity(intentHistory)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
+
 
 }
