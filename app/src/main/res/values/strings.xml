@@ -9,4 +9,10 @@
     <string name="title_activity_test_maps">Map</string>
     <string name="title_activity_test_maps2">Map</string>
     <string name="phoneNumber">0821945021</string>
+    <string name="title_activity_maps_ten_minute">Map</string>
+    <string name="title_activity_maps_twenty_minute">Map</string>
+    <string name="title_activity_maps_thirty_minute">Map</string>
+    <string name="title_activity_maps_forty_minute">Map</string>
+    <string name="title_activity_maps_fifty_minute">Map</string>
+    <string name="title_activity_maps_sixty_minute">Map</string>
 </resources>

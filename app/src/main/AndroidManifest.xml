@@ -71,6 +71,24 @@
         <activity android:name=".activity.DisplayActivity" />
         <activity android:name=".activity.SelectedActivity" />
         <activity android:name=".activity.ShowLocationActivity" />
+        <activity
+            android:name=".activity.maptimes.MapsTenMinuteActivity"
+            android:label="@string/title_activity_maps_ten_minute" />
+        <activity
+            android:name=".activity.maptimes.MapsTwentyMinuteActivity"
+            android:label="@string/title_activity_maps_twenty_minute" />
+        <activity
+            android:name=".activity.maptimes.MapsThirtyMinuteActivity"
+            android:label="@string/title_activity_maps_thirty_minute" />
+        <activity
+            android:name=".activity.maptimes.MapsFortyMinuteActivity"
+            android:label="@string/title_activity_maps_forty_minute" />
+        <activity
+            android:name=".activity.maptimes.MapsFiftyMinuteActivity"
+            android:label="@string/title_activity_maps_fifty_minute" />
+        <activity
+            android:name=".activity.maptimes.MapsSixtyMinuteActivity"
+            android:label="@string/title_activity_maps_sixty_minute"></activity>
     </application>
 
 </manifest>

@@ -14,6 +14,12 @@ import android.widget.Toast;
 import java.util.List;
 
 import th.co.todsphol.add.projectone.R;
+import th.co.todsphol.add.projectone.activity.maptimes.MapsFiftyMinuteActivity;
+import th.co.todsphol.add.projectone.activity.maptimes.MapsFortyMinuteActivity;
+import th.co.todsphol.add.projectone.activity.maptimes.MapsSixtyMinuteActivity;
+import th.co.todsphol.add.projectone.activity.maptimes.MapsTenMinuteActivity;
+import th.co.todsphol.add.projectone.activity.maptimes.MapsThirtyMinuteActivity;
+import th.co.todsphol.add.projectone.activity.maptimes.MapsTwentyMinuteActivity;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
     private List<UserModel> list;
@@ -42,9 +48,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if (position == 0) {
-                    Intent t = new Intent(context, MapsActivity.class);
-                    context.startActivity(t);
-
+                    Intent tenMinute = new Intent(context, MapsTenMinuteActivity.class);
+                    context.startActivity(tenMinute);
+                } else if (position == 1) {
+                    Intent twentyMinute = new Intent(context, MapsTwentyMinuteActivity.class);
+                    context.startActivities(new Intent[]{twentyMinute});
+                } else if (position == 2) {
+                    Intent thirtyMinute = new Intent(context, MapsThirtyMinuteActivity.class);
+                    context.startActivities(new Intent[]{thirtyMinute});
+                } else if (position == 3) {
+                    Intent fortyMinute = new Intent(context, MapsFortyMinuteActivity.class);
+                    context.startActivities(new Intent[]{fortyMinute});
+                } else if (position == 4) {
+                    Intent fiftyMinute = new Intent(context, MapsFiftyMinuteActivity.class);
+                    context.startActivities(new Intent[]{fiftyMinute});
+                } else if (position == 5) {
+                    Intent sixtyMinute = new Intent(context, MapsSixtyMinuteActivity.class);
+                    context.startActivities(new Intent[]{sixtyMinute});
                 }
             }
         });
