@@ -57,19 +57,8 @@ class ShowLocationActivity : AppCompatActivity() {
         val layout = LinearLayoutManager(this)
         layout.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = layout
-        adapter = UserAdapter(result)
+        adapter = UserAdapter(result, this)
         recyclerView.adapter = adapter
-    }
-
-
-    override fun onContextItemSelected(item: MenuItem?): Boolean {
-
-        when (item?.itemId) {
-            0 -> Toast.makeText(this, "0", Toast.LENGTH_SHORT).show()
-            1 -> Toast.makeText(this, "1", Toast.LENGTH_SHORT).show()
-        }
-
-        return super.onContextItemSelected(item)
     }
 
     private fun updateListView() {

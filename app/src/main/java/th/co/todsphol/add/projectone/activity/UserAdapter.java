@@ -1,12 +1,15 @@
 package th.co.todsphol.add.projectone.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,9 +17,12 @@ import th.co.todsphol.add.projectone.R;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
     private List<UserModel> list;
+    private Context context;
 
-    public UserAdapter(List<UserModel> list) {
+
+    public UserAdapter(List<UserModel> list, Context context) {
         this.list = list;
+        this.context = context;
     }
 
     @Override
@@ -32,12 +38,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tvLongitude.setText(user.LON);
         Integer index = (list.indexOf(user) + 1) * 10;
         holder.tvTime.setText(index.toString());
-        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+        holder.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                contextMenu.add(holder.getAdapterPosition(), 0, 0, "Copy Latitude, Longitude 1");
-                contextMenu.add(holder.getAdapterPosition(), 1, 0, "know");
+            public void onClick(View view, int position, boolean isLongClick) {
+                if (position == 0) {
+                    Intent t = new Intent(context, MapsActivity.class);
+                    context.startActivity(t);
 
+                }
             }
         });
     }
@@ -47,8 +55,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         return list.size();
     }
 
-    class UserViewHolder extends RecyclerView.ViewHolder {
+
+    class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView tvLatitude, tvLongitude, tvTime;
+        ItemClickListener itemClickListener;
 
         UserViewHolder(View itemView) {
             super(itemView);
@@ -56,6 +66,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvLatitude = itemView.findViewById(R.id.tv_latitude);
             tvLongitude = itemView.findViewById(R.id.tv_longitude);
             tvTime = itemView.findViewById(R.id.tv_time);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
+        }
+
+        public void setItemClickListener(ItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.onClick(view, getAdapterPosition(), false);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            itemClickListener.onClick(view, getAdapterPosition(), true);
+            return true;
         }
     }
 }
