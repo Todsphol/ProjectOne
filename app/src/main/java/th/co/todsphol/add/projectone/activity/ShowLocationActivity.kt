@@ -9,13 +9,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.firebase.database.*
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.custom.CustomRecyclerView
+import th.co.todsphol.add.projectone.recyclerview.UserAdapter
+import th.co.todsphol.add.projectone.recyclerview.UserModel
 
 
 class ShowLocationActivity : AppCompatActivity() {
