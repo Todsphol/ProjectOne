@@ -47,7 +47,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
-        dataPastPosition.addValueEventListener(object : ValueEventListener {
+        dataPastPosition.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataLo10 = dataSnapshot.child("1")
                 val dataLatitude10 = dataLo10.child("LAT").getValue(String::class.java)!!.toDouble()
