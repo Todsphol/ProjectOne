@@ -40,20 +40,23 @@
         android:layout_marginBottom="@dimen/dp12"
         android:layout_marginEnd="@dimen/dp12"
         android:layout_marginRight="@dimen/dp12"
-        android:padding="8dp"
         android:text="-"
-        android:textSize="@dimen/textSize" />
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold"
+
+        />
 
     <Button
         android:id="@+id/btn_zoom_in"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_zoom_out"
-        android:layout_alignEnd="@+id/btn_zoom_out"
-        android:layout_alignRight="@+id/btn_zoom_out"
-        android:padding="@dimen/dp8"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/btn_zoom_out"
+        android:layout_alignLeft="@+id/btn_zoom_out"
+        android:layout_marginBottom="111dp"
         android:text="+"
-        android:textSize="@dimen/textSize" />
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold" />
 
 </RelativeLayout>

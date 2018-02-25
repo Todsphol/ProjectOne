@@ -4,12 +4,14 @@ import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
+import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.firebase.database.*
@@ -17,6 +19,8 @@ import th.co.todsphol.add.projectone.R
 
 
 class ShowLocationActivity : AppCompatActivity() {
+    @BindView(R.id.toolbar) lateinit var tb_toolbar : Toolbar
+    @BindView(R.id.tv_toolbar_title) lateinit var titleToolbar : TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var result: MutableList<UserModel>
     private lateinit var adapter: UserAdapter
@@ -30,6 +34,16 @@ class ShowLocationActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         setRecyclerView()
         updateListView()
+        setToolbar()
+
+    }
+
+    private fun setToolbar() {
+        setSupportActionBar(tb_toolbar)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        titleToolbar.text = "ประวัติการเดินทาง"
     }
 
     private fun setRecyclerView() {
@@ -108,6 +122,13 @@ class ShowLocationActivity : AppCompatActivity() {
         val intentHistory = Intent(this, MapsActivity::class.java)
         startActivity(intentHistory)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

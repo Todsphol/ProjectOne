@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <include layout="@layout/custom_toolbar" />
+
         <TextView
             android:id="@+id/tv_show_history"
             android:layout_width="wrap_content"
