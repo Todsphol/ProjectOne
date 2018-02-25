@@ -244,7 +244,7 @@
                 android:id="@+id/btn_register"
                 style="@style/ButtonPink"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_alignEnd="@id/liner_view_two"
                 android:layout_alignLeft="@id/liner_view_two"
                 android:layout_alignRight="@id/liner_view_two"
@@ -253,7 +253,6 @@
                 android:layout_marginBottom="@dimen/dp12"
                 android:layout_marginTop="@dimen/dp12"
                 android:maxLength="15"
-                android:textSize="20sp"
                 android:text="ลงทะเบียน" />
 
         </RelativeLayout>
