@@ -43,7 +43,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     lateinit var zoomOut: Button
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
-    private var dataCar = baseR.child("USer").child("user1").child("DATA_CAR").child("Type")
+    private var dataCar = baseR.child("User").child("user1").child("DATA_CAR").child("Type")
     var mgoogleMap: GoogleMap? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_maps, container, false)
@@ -93,16 +93,20 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
                 val dataLongitude = dataSnapshot.child("Longtitude").getValue(String::class.java)!!.toDouble()
-                val testCheck = LatLng(dataLatitude, dataLongitude)
+                val location = LatLng(dataLatitude, dataLongitude)
                 dataCar.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val dataType = dataSnapshot.getValue(String::class.java) ?: "Honda"
+                        val dataType = dataSnapshot.getValue(String::class.java)
 //                        val marker = MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle")
                         if (dataType == "Honda") {
-                            mgoogleMap?.addMarker(MarkerOptions().position(testCheck)
+                            mgoogleMap?.addMarker(MarkerOptions().position(location)
                                     .title("Your Motorcycle")
                                     .snippet("Stay Here")
                                     .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)))
+                        } else {
+                            mgoogleMap?.addMarker(MarkerOptions().position(location)
+                                    .title("Your Motorcycle")
+                                    .snippet("Stay Here"))
                         }
 
                     }
@@ -112,7 +116,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     }
 
                 })
-                mgoogleMap?.animateCamera(CameraUpdateFactory.newLatLng(testCheck))
+                mgoogleMap?.animateCamera(CameraUpdateFactory.newLatLng(location))
 
             }
 
