@@ -1,10 +1,8 @@
 package th.co.todsphol.add.projectone.activity
 
 import android.annotation.SuppressLint
-import android.location.Location
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import butterknife.BindView
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
@@ -17,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
 
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     @BindView(R.id.toolbar)
@@ -92,17 +90,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         mMap.uiSettings.isScrollGesturesEnabled = true
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isMyLocationButtonEnabled = true
-        mMap.setOnMyLocationButtonClickListener(this)
-        mMap.setOnMyLocationClickListener(this)
-    }
-
-    override fun onMyLocationClick(location: Location) {
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show()
-    }
-
-    override fun onMyLocationButtonClick(): Boolean {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
-        return false
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

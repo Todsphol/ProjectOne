@@ -41,9 +41,6 @@
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps" />
 
-        <service
-            android:name=".activity.LocationTrackingService"
-            android:process=":my_service" />
 
         <activity android:name=".activity.LoginSuccessActivity" />
         <activity
@@ -88,7 +85,7 @@
             android:label="@string/title_activity_maps_fifty_minute" />
         <activity
             android:name=".activity.maptimes.MapsSixtyMinuteActivity"
-            android:label="@string/title_activity_maps_sixty_minute"></activity>
+            android:label="@string/title_activity_maps_sixty_minute"/>
     </application>
 
 </manifest>
