@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.TextView
@@ -16,12 +15,13 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.firebase.database.*
 import th.co.todsphol.add.projectone.R
+import th.co.todsphol.add.projectone.custom.CustomRecyclerView
 
 
 class ShowLocationActivity : AppCompatActivity() {
     @BindView(R.id.toolbar) lateinit var tb_toolbar : Toolbar
     @BindView(R.id.tv_toolbar_title) lateinit var titleToolbar : TextView
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: CustomRecyclerView
     private lateinit var result: MutableList<UserModel>
     private lateinit var adapter: UserAdapter
 
