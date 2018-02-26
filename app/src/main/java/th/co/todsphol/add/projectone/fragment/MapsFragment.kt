@@ -91,16 +91,19 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val bitmapHonda = resources.getDrawable(R.drawable.honda) as BitmapDrawable
         val bitmapSuzuki = resources.getDrawable(R.drawable.suzuki) as BitmapDrawable
         val bitmapDucati = resources.getDrawable(R.drawable.ducati) as BitmapDrawable
+        val bitmapBMW = resources.getDrawable(R.drawable.bmw) as BitmapDrawable
         val yamaha = bitmapYamaha.bitmap
         val kawasaki = bitmapKawasaki.bitmap
         val honda = bitmapHonda.bitmap
         val suzuki = bitmapSuzuki.bitmap
         val ducati = bitmapDucati.bitmap
+        val bmw = bitmapBMW.bitmap
         val yamahaMarker = Bitmap.createScaledBitmap(yamaha, width, height, false)
         val kawasakiMarker = Bitmap.createScaledBitmap(kawasaki, width, height, false)
         val hondaMarker = Bitmap.createScaledBitmap(honda, width, height, false)
         val suzukiMarker = Bitmap.createScaledBitmap(suzuki, width, height, false)
         val ducatiMarker = Bitmap.createScaledBitmap(ducati, width, height, false)
+        val bwmMarker = Bitmap.createScaledBitmap(bmw, width, height, false)
         dataLocation.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
@@ -133,7 +136,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                             mgoogleMap?.addMarker(MarkerOptions().position(location)
                                     .title("Your Motorcycle")
                                     .snippet("Stay Here")
-                                    .icon(BitmapDescriptorFactory.fromBitmap(ducati)))
+                                    .icon(BitmapDescriptorFactory.fromBitmap(ducatiMarker)))
+                        } else if (dataType == "BMW") {
+                            mgoogleMap?.addMarker(MarkerOptions().position(location)
+                                    .title("Your Motorcycle")
+                                    .snippet("Stay Here")
+                                    .icon(BitmapDescriptorFactory.fromBitmap(bwmMarker)))
                         }
 
                     }
@@ -155,7 +163,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mgoogleMap = googleMap
         MapsInitializer.initialize(context)
         mgoogleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
-        mgoogleMap?.animateCamera(CameraUpdateFactory.zoomTo(15.0f))
+        mgoogleMap?.animateCamera(CameraUpdateFactory.zoomTo(17.0f))
         mgoogleMap?.uiSettings?.isTiltGesturesEnabled = true
         mgoogleMap?.uiSettings?.isRotateGesturesEnabled = true
         mgoogleMap?.uiSettings?.isScrollGesturesEnabled = true
