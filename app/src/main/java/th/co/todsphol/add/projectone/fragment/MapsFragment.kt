@@ -4,7 +4,6 @@ package th.co.todsphol.add.projectone.fragment
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -90,12 +89,18 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         val bitmapYamaha = resources.getDrawable(R.drawable.yamaha1) as BitmapDrawable
         val bitmapKawasaki = resources.getDrawable(R.drawable.kawasaki) as BitmapDrawable
         val bitmapHonda = resources.getDrawable(R.drawable.honda) as BitmapDrawable
+        val bitmapSuzuki = resources.getDrawable(R.drawable.suzuki) as BitmapDrawable
+        val bitmapDucati = resources.getDrawable(R.drawable.ducati) as BitmapDrawable
         val yamaha = bitmapYamaha.bitmap
         val kawasaki = bitmapKawasaki.bitmap
         val honda = bitmapHonda.bitmap
+        val suzuki = bitmapSuzuki.bitmap
+        val ducati = bitmapDucati.bitmap
         val yamahaMarker = Bitmap.createScaledBitmap(yamaha, width, height, false)
         val kawasakiMarker = Bitmap.createScaledBitmap(kawasaki, width, height, false)
         val hondaMarker = Bitmap.createScaledBitmap(honda, width, height, false)
+        val suzukiMarker = Bitmap.createScaledBitmap(suzuki, width, height, false)
+        val ducatiMarker = Bitmap.createScaledBitmap(ducati, width, height, false)
         dataLocation.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
@@ -104,22 +109,31 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                 dataCar.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val dataType = dataSnapshot.getValue(String::class.java)
-//                        val marker = MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle")
                         if (dataType == "YAMAHA") {
                             mgoogleMap?.addMarker(MarkerOptions().position(location)
                                     .title("Your Motorcycle")
                                     .snippet("Stay Here")
                                     .icon(BitmapDescriptorFactory.fromBitmap(yamahaMarker)))
-                        } else if (dataType == "Kawasaki"){
+                        } else if (dataType == "Kawasaki") {
                             mgoogleMap?.addMarker(MarkerOptions().position(location)
                                     .title("Your Motorcycle")
                                     .snippet("Stay Here")
                                     .icon(BitmapDescriptorFactory.fromBitmap(kawasakiMarker)))
-                        } else if (dataType == "Honda"){
+                        } else if (dataType == "Honda") {
                             mgoogleMap?.addMarker(MarkerOptions().position(location)
                                     .title("Your Motorcycle")
                                     .snippet("Stay Here")
                                     .icon(BitmapDescriptorFactory.fromBitmap(hondaMarker)))
+                        } else if (dataType == "SUZUKI") {
+                            mgoogleMap?.addMarker(MarkerOptions().position(location)
+                                    .title("Your Motorcycle")
+                                    .snippet("Stay Here")
+                                    .icon(BitmapDescriptorFactory.fromBitmap(suzukiMarker)))
+                        } else if (dataType == "DUCATI") {
+                            mgoogleMap?.addMarker(MarkerOptions().position(location)
+                                    .title("Your Motorcycle")
+                                    .snippet("Stay Here")
+                                    .icon(BitmapDescriptorFactory.fromBitmap(ducati)))
                         }
 
                     }

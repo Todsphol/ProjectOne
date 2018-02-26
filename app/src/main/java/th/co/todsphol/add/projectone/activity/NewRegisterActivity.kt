@@ -160,7 +160,7 @@ class NewRegisterActivity : AppCompatActivity(){
         spinnerBrand.setArrowColor(resources.getColor(R.color.colorPink))
         spinnerBrand.textSize = resources.getDimension(R.dimen.textSizeInSpinner)
         spinnerBrand.setItems("Honda", "YAMAHA", "SUZUKI", "Kawasaki"
-                , "DUCATI", "Vespa", "HARLEY", "SHOPPER","BMW")
+                , "DUCATI","BMW")
         spinnerBrand.setOnTouchListener { _, _ ->
             val inputMethodManager : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken,0)
