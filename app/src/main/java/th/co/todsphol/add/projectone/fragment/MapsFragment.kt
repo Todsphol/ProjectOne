@@ -87,12 +87,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap?) {
         val height = 96
         val width = 96
-        val bitmapYamaha: BitmapDrawable = resources.getDrawable(R.drawable.yamaha1) as BitmapDrawable
-        val bitmapKawasaki: BitmapDrawable = resources.getDrawable(R.drawable.kawasaki) as BitmapDrawable
-        val yamaha: Bitmap = bitmapYamaha.bitmap
-        val kawasaki: Bitmap = bitmapKawasaki.bitmap
-        val yamahaMarker: Bitmap = Bitmap.createScaledBitmap(yamaha, width, height, false)
-        val kawasakiMarker: Bitmap = Bitmap.createScaledBitmap(kawasaki, width, height, false)
+        val bitmapYamaha = resources.getDrawable(R.drawable.yamaha1) as BitmapDrawable
+        val bitmapKawasaki = resources.getDrawable(R.drawable.kawasaki) as BitmapDrawable
+        val bitmapHonda = resources.getDrawable(R.drawable.honda) as BitmapDrawable
+        val yamaha = bitmapYamaha.bitmap
+        val kawasaki = bitmapKawasaki.bitmap
+        val honda = bitmapHonda.bitmap
+        val yamahaMarker = Bitmap.createScaledBitmap(yamaha, width, height, false)
+        val kawasakiMarker = Bitmap.createScaledBitmap(kawasaki, width, height, false)
+        val hondaMarker = Bitmap.createScaledBitmap(honda, width, height, false)
         dataLocation.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
@@ -112,6 +115,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                                     .title("Your Motorcycle")
                                     .snippet("Stay Here")
                                     .icon(BitmapDescriptorFactory.fromBitmap(kawasakiMarker)))
+                        } else if (dataType == "Honda"){
+                            mgoogleMap?.addMarker(MarkerOptions().position(location)
+                                    .title("Your Motorcycle")
+                                    .snippet("Stay Here")
+                                    .icon(BitmapDescriptorFactory.fromBitmap(hondaMarker)))
                         }
 
                     }
