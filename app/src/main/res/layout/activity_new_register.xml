@@ -10,11 +10,13 @@
     <ScrollView
         android:id="@+id/scr_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#313131">
         <RelativeLayout
             android:id="@+id/rela_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#313131">
 
             <TextView
                 android:id="@+id/tv_name"

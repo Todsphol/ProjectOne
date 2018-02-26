@@ -86,7 +86,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap?) {
         val height = 100
         val width = 100
-        val bitmapdraw: BitmapDrawable = resources.getDrawable(R.mipmap.ic_launcher) as BitmapDrawable
+        val bitmapdraw: BitmapDrawable = resources.getDrawable(R.drawable.ic_honda) as BitmapDrawable
         val b: Bitmap = bitmapdraw.bitmap
         val smallMarker: Bitmap = Bitmap.createScaledBitmap(b, width, height, false)
         dataLocation.addValueEventListener(object : ValueEventListener {
