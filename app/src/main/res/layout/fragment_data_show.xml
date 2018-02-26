@@ -1,10 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="th.co.todsphol.add.projectone.fragment.DataShowFragment"
-    >
+    tools:context="th.co.todsphol.add.projectone.fragment.DataShowFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,14 +21,13 @@
                 android:id="@+id/tv_show_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp12"
+                android:layout_marginStart="@dimen/dp12"
                 android:layout_marginTop="@dimen/dp8"
                 android:text="ชื่อเจ้าของ"
                 android:textColor="@color/colorBlueGray"
                 android:textSize="@dimen/textSize"
-                android:textStyle="bold"
-                android:layout_marginLeft="@dimen/dp12"
-                android:layout_marginStart="@dimen/dp12"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_colon_name"
@@ -65,11 +63,11 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/tv_show_name"
+                android:layout_marginEnd="@dimen/dp12"
+                android:layout_marginRight="@dimen/dp12"
                 android:text="Surname"
                 android:textColor="@color/colorBlueGray"
-                android:textSize="@dimen/textSize"
-                android:layout_marginRight="@dimen/dp12"
-                android:layout_marginEnd="@dimen/dp12"/>
+                android:textSize="@dimen/textSize" />
 
             <TextView
                 android:id="@+id/tv_show_brand"
@@ -102,11 +100,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_brand"
+                android:layout_alignEnd="@+id/tv_surname_client"
+                android:layout_alignRight="@+id/tv_surname_client"
                 android:text="Brand"
                 android:textColor="@color/colorBlueGray"
-                android:textSize="@dimen/textSize"
-                android:layout_alignRight="@+id/tv_surname_client"
-                android:layout_alignEnd="@+id/tv_surname_client"/>
+                android:textSize="@dimen/textSize" />
 
             <TextView
                 android:id="@+id/tv_show_color"
@@ -139,12 +137,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_color"
+                android:layout_alignEnd="@+id/tv_surname_client"
+                android:layout_alignRight="@+id/tv_surname_client"
                 android:text="เขียว"
                 android:textColor="@color/colorBlueGray"
-                android:textSize="@dimen/textSize"
-                android:layout_alignRight="@+id/tv_surname_client"
-                android:layout_alignEnd="@+id/tv_surname_client"
-                />
+                android:textSize="@dimen/textSize" />
 
             <TextView
                 android:id="@+id/tv_show_licence_plate"
@@ -180,8 +177,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_licence_plate"
-                android:layout_alignRight="@+id/tv_surname_client"
                 android:layout_alignEnd="@+id/tv_surname_client"
+                android:layout_alignRight="@+id/tv_surname_client"
                 android:text="กทม"
                 android:textColor="@color/colorBlueGray"
                 android:textSize="@dimen/textSize" />
@@ -217,8 +214,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_show_status"
-                android:layout_alignRight="@+id/tv_surname_client"
                 android:layout_alignEnd="@+id/tv_surname_client"
+                android:layout_alignRight="@+id/tv_surname_client"
                 android:text="ปลอดภัย"
                 android:textColor="@color/colorBlueGray"
                 android:textSize="@dimen/textSize" />
@@ -259,41 +256,43 @@
                 android:contentDescription="showImage"
                 android:src="@drawable/im_border" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/li_tg_noti"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/dp12">
+                android:layout_marginBottom="@dimen/dp12"
+                android:layout_centerHorizontal="true">
+
                 <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
                     android:id="@+id/group_choices"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:tbgCheckedButton="@+id/choice_a"
-                    android:layout_gravity="center_horizontal">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:tbgCheckedButton="@+id/choice_a">
+
                     <com.nex3z.togglebuttongroup.button.LabelToggle
                         android:id="@+id/choice_a"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ปิดระบบการแจ้งเตือน"
                         android:layout_marginLeft="@dimen/dp12"
                         android:layout_marginStart="@dimen/dp12"
-                        android:textSize="14sp"/>
+                        android:text="ปิดระบบการแจ้งเตือน"
+                        android:textSize="14sp" />
 
                     <com.nex3z.togglebuttongroup.button.LabelToggle
                         android:id="@+id/choice_b"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="เปิดระบบการแจ้งเตือน"
-                        android:layout_marginLeft="@dimen/dp12"
-                        android:layout_marginStart="@dimen/dp12"
-                        android:layout_marginRight="@dimen/dp12"
                         android:layout_marginEnd="@dimen/dp12"
+                        android:layout_marginLeft="@dimen/dp12"
+                        android:layout_marginRight="@dimen/dp12"
+                        android:layout_marginStart="@dimen/dp12"
+                        android:text="เปิดระบบการแจ้งเตือน"
                         android:textSize="14sp" />
 
                 </com.nex3z.togglebuttongroup.SingleSelectToggleGroup>
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
     </LinearLayout>
