@@ -4,6 +4,7 @@ package th.co.todsphol.add.projectone.fragment
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -84,11 +85,14 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap?) {
-        val height = 100
-        val width = 100
-        val bitmapdraw: BitmapDrawable = resources.getDrawable(R.drawable.ic_honda) as BitmapDrawable
-        val b: Bitmap = bitmapdraw.bitmap
-        val smallMarker: Bitmap = Bitmap.createScaledBitmap(b, width, height, false)
+        val height = 96
+        val width = 96
+        val bitmapYamaha: BitmapDrawable = resources.getDrawable(R.drawable.yamaha1) as BitmapDrawable
+        val bitmapKawasaki: BitmapDrawable = resources.getDrawable(R.drawable.kawasaki) as BitmapDrawable
+        val yamaha: Bitmap = bitmapYamaha.bitmap
+        val kawasaki: Bitmap = bitmapKawasaki.bitmap
+        val yamahaMarker: Bitmap = Bitmap.createScaledBitmap(yamaha, width, height, false)
+        val kawasakiMarker: Bitmap = Bitmap.createScaledBitmap(kawasaki, width, height, false)
         dataLocation.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dataLatitude = dataSnapshot.child("Latitude").getValue(String::class.java)!!.toDouble()
@@ -98,15 +102,16 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val dataType = dataSnapshot.getValue(String::class.java)
 //                        val marker = MarkerOptions().position(testCheck).title("Test").snippet("My Bicycle")
-                        if (dataType == "Honda") {
+                        if (dataType == "YAMAHA") {
                             mgoogleMap?.addMarker(MarkerOptions().position(location)
                                     .title("Your Motorcycle")
                                     .snippet("Stay Here")
-                                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)))
-                        } else {
+                                    .icon(BitmapDescriptorFactory.fromBitmap(yamahaMarker)))
+                        } else if (dataType == "Kawasaki"){
                             mgoogleMap?.addMarker(MarkerOptions().position(location)
                                     .title("Your Motorcycle")
-                                    .snippet("Stay Here"))
+                                    .snippet("Stay Here")
+                                    .icon(BitmapDescriptorFactory.fromBitmap(kawasakiMarker)))
                         }
 
                     }
