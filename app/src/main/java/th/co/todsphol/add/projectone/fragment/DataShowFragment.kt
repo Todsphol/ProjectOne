@@ -31,31 +31,31 @@ import com.nex3z.togglebuttongroup.button.LabelToggle
 class DataShowFragment : Fragment() {
 
     @BindView(R.id.toolbar)
-    lateinit var toolBar: Toolbar
+    private lateinit var toolBar: Toolbar
     @BindView(R.id.tv_toolbar_title)
-    lateinit var title: TextView
+    private lateinit var title: TextView
     @BindView(R.id.tv_name_client)
-    lateinit var nameClient: TextView
+    private lateinit var nameClient: TextView
     @BindView(R.id.tv_surname_client)
-    lateinit var surNameClient: TextView
+    private lateinit var surNameClient: TextView
     @BindView(R.id.tv_color_client)
-    lateinit var colorCar: TextView
+    private lateinit var colorCar: TextView
     @BindView(R.id.tv_brand_client)
-    lateinit var brandCar: TextView
+    private lateinit var brandCar: TextView
     @BindView(R.id.tv_county)
-    lateinit var licencePlate: TextView
+    private lateinit var licencePlate: TextView
     @BindView(R.id.tv_status)
-    lateinit var alarmStatus: TextView
+    private lateinit var alarmStatus: TextView
     @BindView(R.id.imv_status)
-    lateinit var imViewStatus: ImageView
+    private lateinit var imViewStatus: ImageView
     @BindView(R.id.imageViewShow)
-    lateinit var ivShowImage: ImageView
+    private lateinit var ivShowImage: ImageView
     @BindView(R.id.group_choices)
-    lateinit var toggleGroup: SingleSelectToggleGroup
+    private lateinit var toggleGroup: SingleSelectToggleGroup
     @BindView(R.id.choice_a)
-    lateinit var choiceA: LabelToggle
+    private lateinit var choiceA: LabelToggle
     @BindView(R.id.choice_b)
-    lateinit var choiceB: LabelToggle
+    private lateinit var choiceB: LabelToggle
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -166,7 +166,8 @@ class DataShowFragment : Fragment() {
     }
 
     private fun changeColorStatus(dataStatusAlarm: Int?) {
-        if (dataStatusAlarm == 0) {
+        val dangerous = 0
+        if (dataStatusAlarm == dangerous) {
             try {
                 imViewStatus.setColorFilter(ContextCompat.getColor(context!!, R.color.colorGreen))
                 alarmStatus.text = "ปลอดภัย"
@@ -193,7 +194,8 @@ class DataShowFragment : Fragment() {
         val dialog = show(activity, "กำลังโหลด", "กรุณารอสักครู่", true)
         dialog.show()
         val handler = Handler()
-        handler.postDelayed({ dialog.dismiss() }, 1750)
+        val time: Long = 1750
+        handler.postDelayed({ dialog.dismiss() }, time)
     }
 
 
