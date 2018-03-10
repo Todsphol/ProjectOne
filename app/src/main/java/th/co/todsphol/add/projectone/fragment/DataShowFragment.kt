@@ -30,32 +30,19 @@ import com.nex3z.togglebuttongroup.button.LabelToggle
 @Suppress("DEPRECATION")
 class DataShowFragment : Fragment() {
 
-    @BindView(R.id.toolbar)
-    private lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title)
-    private lateinit var title: TextView
-    @BindView(R.id.tv_name_client)
-    private lateinit var nameClient: TextView
-    @BindView(R.id.tv_surname_client)
-    private lateinit var surNameClient: TextView
-    @BindView(R.id.tv_color_client)
-    private lateinit var colorCar: TextView
-    @BindView(R.id.tv_brand_client)
-    private lateinit var brandCar: TextView
-    @BindView(R.id.tv_county)
-    private lateinit var licencePlate: TextView
-    @BindView(R.id.tv_status)
-    private lateinit var alarmStatus: TextView
-    @BindView(R.id.imv_status)
-    private lateinit var imViewStatus: ImageView
-    @BindView(R.id.imageViewShow)
-    private lateinit var ivShowImage: ImageView
-    @BindView(R.id.group_choices)
-    private lateinit var toggleGroup: SingleSelectToggleGroup
-    @BindView(R.id.choice_a)
-    private lateinit var choiceA: LabelToggle
-    @BindView(R.id.choice_b)
-    private lateinit var choiceB: LabelToggle
+    @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
+    @BindView(R.id.tv_toolbar_title) lateinit var title: TextView
+    @BindView(R.id.tv_name_client) lateinit var nameClient: TextView
+    @BindView(R.id.tv_surname_client) lateinit var surNameClient: TextView
+    @BindView(R.id.tv_color_client) lateinit var colorCar: TextView
+    @BindView(R.id.tv_brand_client) lateinit var brandCar: TextView
+    @BindView(R.id.tv_county) lateinit var licencePlate: TextView
+    @BindView(R.id.tv_status) lateinit var alarmStatus: TextView
+    @BindView(R.id.imv_status) lateinit var imViewStatus: ImageView
+    @BindView(R.id.imageViewShow) lateinit var ivShowImage: ImageView
+    @BindView(R.id.group_choices) lateinit var toggleGroup: SingleSelectToggleGroup
+    @BindView(R.id.choice_a) lateinit var choiceA: LabelToggle
+    @BindView(R.id.choice_b) lateinit var choiceB: LabelToggle
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataName = baseR.child("User").child("user1").child("DATA_PERS")
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")

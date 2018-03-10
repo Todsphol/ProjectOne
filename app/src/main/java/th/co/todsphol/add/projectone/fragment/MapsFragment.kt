@@ -168,7 +168,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mgoogleMap?.uiSettings?.isRotateGesturesEnabled = true
         mgoogleMap?.uiSettings?.isScrollGesturesEnabled = true
         mgoogleMap?.uiSettings?.isMyLocationButtonEnabled = true
-        mgoogleMap?.isMyLocationEnabled = true
+//        mgoogleMap?.isMyLocationEnabled = true
         setUpMap()
     }
 
