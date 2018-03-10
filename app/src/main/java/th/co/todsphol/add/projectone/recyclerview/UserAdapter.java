@@ -89,7 +89,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         }
 
-        public void setItemClickListener(ItemClickListener itemClickListener) {
+        void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
         }
 
