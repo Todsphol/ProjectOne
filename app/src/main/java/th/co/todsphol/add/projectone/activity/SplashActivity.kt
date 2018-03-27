@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    @BindView(R.id.bg)
+    @BindView(R.id.bg_splash)
     lateinit var imageBG: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {

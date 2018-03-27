@@ -9,11 +9,9 @@
     tools:context=".activity.SplashActivity">
 
     <ImageView
-        android:id="@+id/bg"
+        android:id="@+id/bg_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="splash"
-
-        />
+        android:contentDescription="splash" />
 
 </RelativeLayout>

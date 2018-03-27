@@ -37,12 +37,14 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var toolBar: Toolbar
     @BindView(R.id.tv_toolbar_title)
     lateinit var tvTitle: TextView
+
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
     private var filePath: Uri? = null
     private var storage: FirebaseStorage? = null
     private var storageReference: StorageReference? = null
     private val PICK_IMAGE_REQUEST = 1234
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selected)
