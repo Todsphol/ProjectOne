@@ -25,27 +25,26 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.google.android.gms:play-services-maps:15.0.0'
+    implementation "com.android.support:support-v4:$supportLibraryVersion"
+    implementation "com.google.android.gms:play-services-maps:$firebaseLibraryVersion"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation "com.android.support:design:$supportLibraryVersion"
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
     implementation "com.android.support:cardview-v7:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
     implementation 'com.jaredrummler:material-spinner:1.2.4'
-    implementation 'com.google.firebase:firebase-core:15.0.0'
-    implementation 'com.google.firebase:firebase-database:15.0.0'
-    implementation 'com.google.firebase:firebase-messaging:15.0.0'
+    implementation "com.google.firebase:firebase-core:$firebaseLibraryVersion"
+    implementation "com.google.firebase:firebase-database:$firebaseLibraryVersion"
+    implementation "com.google.firebase:firebase-messaging:$firebaseLibraryVersion"
     implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.google.firebase:firebase-storage:15.0.0'
-    implementation 'com.google.firebase:firebase-auth:15.0.0'
+    implementation "com.google.firebase:firebase-storage:$firebaseLibraryVersion"
+    implementation "com.google.firebase:firebase-auth:$firebaseLibraryVersion"
     implementation 'com.nex3z:toggle-button-group:1.1.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 }
 apply plugin: 'com.google.gms.google-services'

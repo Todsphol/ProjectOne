@@ -27,4 +27,5 @@ task clean(type: Delete) {
 ext {
     butterKnifeVersion = '8.8.1'
     supportLibraryVersion = '27.1.1'
+    firebaseLibraryVersion = '15.0.0'
 }
