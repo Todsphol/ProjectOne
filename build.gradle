@@ -28,4 +28,5 @@ ext {
     butterKnifeVersion = '8.8.1'
     supportLibraryVersion = '27.1.1'
     firebaseLibraryVersion = '15.0.0'
+    gildeLibraryVersion = '3.7.0'
 }
