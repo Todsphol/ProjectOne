@@ -20,14 +20,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.numbermanager.PhoneNumberWatcher
 import th.co.todsphol.add.projectone.R
+import kotlinx.android.synthetic.main.activity_login.*
 
 @Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
 
-    @BindView(R.id.edt_phone_number)
-    lateinit var edtPhone: EditText
-    @BindView(R.id.edt_password)
-    lateinit var edtPassword: EditText
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataReg = baseR.child("User").child("user1").child("DATA_REG")
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
@@ -49,10 +46,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setPhoneEdittext() {
-        onText(edtPhone.toString())
-        edtPhone.addTextChangedListener(PhoneNumberWatcher(edtPhone))
-        edtPhone.setText(intent.getStringExtra(EXTRA_PHONE), TextView.BufferType.EDITABLE)
-        edtPhone.setSelection(edtPhone.text.length)
+        onText(edt_phone_number.toString())
+        edt_phone_number.addTextChangedListener(PhoneNumberWatcher(edt_phone_number))
+        edt_phone_number.setText(intent.getStringExtra(EXTRA_PHONE), TextView.BufferType.EDITABLE)
+        edt_phone_number.setSelection(edt_phone_number.text.length)
     }
 
     private fun isConnected(context: Context): Boolean {
@@ -84,10 +81,10 @@ class LoginActivity : AppCompatActivity() {
     @OnTextChanged(R.id.edt_phone_number, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     fun onText(phoneNumber: CharSequence) {
         if (phoneNumber.toString().length == 12) {
-            edtPassword.visibility = android.view.View.VISIBLE
+            edt_password.visibility = android.view.View.VISIBLE
             return
         }
-        edtPassword.visibility = android.view.View.GONE
+        edt_password.visibility = android.view.View.GONE
     }
 
 
@@ -102,17 +99,17 @@ class LoginActivity : AppCompatActivity() {
                     val regPhone = dataSnapshot.child("telephone").getValue(String::class.java)
                     val regPassword = dataSnapshot.child("password").getValue(String::class.java)
 
-                    val replaceNumber = edtPhone.text.toString().replace("-".toRegex(), "")
+                    val replaceNumber = edt_phone_number.text.toString().replace("-".toRegex(), "")
                             .replace("\\s+", "")
                     val checkTrue = replaceNumber == regPhone
-                            && edtPassword.text.toString() == regPassword
+                            && edt_password.text.toString() == regPassword
                     val checkPhoneTrue = replaceNumber == regPhone
-                            && edtPassword.text.toString() != regPassword
-                    val checkEdtBlank = edtPhone.text.toString() == "" || edtPassword.text.toString() == ""
-                    val checkLength = replaceNumber.length < 10 || edtPassword.text.toString().length < 6
+                            && edt_password.text.toString() != regPassword
+                    val checkEdtBlank = edt_phone_number.text.toString() == "" || edt_password.text.toString() == ""
+                    val checkLength = replaceNumber.length < 10 || edt_password.text.toString().length < 6
                     val adminNumber = "0123456789"
                     val adminPassword = "123456"
-                    val admin = replaceNumber == adminNumber && edtPassword.text.toString() == adminPassword
+                    val admin = replaceNumber == adminNumber && edt_password.text.toString() == adminPassword
 
                     when {
                         checkTrue -> isCorrect()
