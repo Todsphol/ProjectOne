@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import th.co.todsphol.add.projectone.numbermanager.PhoneNumberWatcher
+import kotlinx.android.synthetic.main.activity_new_register.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 
 @Suppress("DEPRECATION")
@@ -35,43 +37,32 @@ class NewRegisterActivity : AppCompatActivity(){
     private var dataStatus = baseR.child("User").child("user1").child("STATUS")
     private var dataREG = baseR.child("User").child("user1").child("DATA_REG")
     private var dataLocation = baseR.child("User").child("user1").child("DATA_LOCATION")
-    @BindView(R.id.toolbar) lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var titleToolbar: TextView
-    @BindView(R.id.edt_first_name) lateinit var edtFirstName: EditText
-    @BindView(R.id.edt_last_name) lateinit var edtLastName: EditText
-    @BindView(R.id.edt_age) lateinit var edtAge: EditText
-    @BindView(R.id.spinner_brand) lateinit var spinnerBrand: MaterialSpinner
-    @BindView(R.id.edt_color) lateinit var edtColor: EditText
-    @BindView(R.id.edt_licence_plate) lateinit var edtLicencePlate: EditText
-    @BindView(R.id.edt_phone_number) lateinit var edtPhoneNumber: EditText
-    @BindView(R.id.edt_password) lateinit var edtPassword: EditText
-    @BindView(R.id.edt_confirm_password) lateinit var edtConfirmPassword: EditText
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_register)
         ButterKnife.bind(this)
         setToolbar()
-        spinnerBrand()
+        spinner_brand()
 
-        edtPhoneNumber.addTextChangedListener(PhoneNumberWatcher(edtPhoneNumber))
+        edt_phone_number.addTextChangedListener(PhoneNumberWatcher(edt_phone_number))
     }
 
     private val EXTRA_PHONE = "EXTRA_PHONE"
     @OnClick(R.id.btn_register)
     fun registerButtonClicked() {
-        val checkBlankInEdiText = (edtFirstName.text.toString() == ""
-                || edtLastName.text.toString() == ""
-                || edtAge.text.toString() == ""
-                || edtColor.text.toString() == ""
-                || edtLicencePlate.text.toString() == ""
-                || edtPhoneNumber.text.toString() == ""
-                || edtPassword.text.toString() == ""
-                || edtConfirmPassword.text.toString() == "")
-        val replacePhone = edtPhoneNumber.text.toString().replace("-".toRegex(), "")
+        val checkBlankInEdiText = (edt_first_name.text.toString() == ""
+                || edt_last_name.text.toString() == ""
+                || edt_age.text.toString() == ""
+                || edt_color.text.toString() == ""
+                || edt_licence_plate.text.toString() == ""
+                || edt_phone_number.text.toString() == ""
+                || edt_password.text.toString() == ""
+                || edt_confirm_password.text.toString() == "")
+        val replacePhone = edt_phone_number.text.toString().replace("-".toRegex(), "")
                 .replace("\\s+", "")
         val checkLenPhone =  replacePhone.length < 10
-        val checkPassword = edtPassword.text.toString() != edtConfirmPassword.text.toString()
+        val checkPassword = edt_password.text.toString() != edt_confirm_password.text.toString()
         when {
             checkBlankInEdiText -> Toast.makeText(this, "กรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show()
             checkLenPhone -> Toast.makeText(this, "กรอกเบอร์โทรให้ครบ", Toast.LENGTH_SHORT).show()
@@ -81,9 +72,9 @@ class NewRegisterActivity : AppCompatActivity(){
                 else {
                     dataName.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            dataName.child("name").setValue(edtFirstName.text.toString())
-                            dataName.child("surname").setValue(edtLastName.text.toString())
-                            dataName.child("age").setValue(edtAge.text.toString())
+                            dataName.child("name").setValue(edt_first_name.text.toString())
+                            dataName.child("surname").setValue(edt_last_name.text.toString())
+                            dataName.child("age").setValue(edt_age.text.toString())
 
                         }
 
@@ -94,9 +85,9 @@ class NewRegisterActivity : AppCompatActivity(){
                     })
                     dataCar.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot?) {
-                            spinnerBrand()
-                            dataCar.child("color").setValue(edtColor.text.toString())
-                            dataCar.child("LP").setValue(edtLicencePlate.text.toString())
+                            spinner_brand()
+                            dataCar.child("color").setValue(edt_color.text.toString())
+                            dataCar.child("LP").setValue(edt_licence_plate.text.toString())
                         }
 
                         override fun onCancelled(p0: DatabaseError?) {
@@ -106,13 +97,13 @@ class NewRegisterActivity : AppCompatActivity(){
                     })
                     dataREG.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(p0: DataSnapshot?) {
-                            val edt = edtPhoneNumber.text.toString().replace("-".toRegex(), "")
+                            val edt = edt_phone_number.text.toString().replace("-".toRegex(), "")
                                     .replace("\\s+", "")
                             dataREG.child("telephone").setValue(edt)
-                            if (edtPassword.text.toString() != edtConfirmPassword.text.toString()) {
+                            if (edt_password.text.toString() != edt_confirm_password.text.toString()) {
                                 Toast.makeText(this@NewRegisterActivity, "กรุณากรอก Password ให้เหมือนกัน", Toast.LENGTH_SHORT).show()
                             } else {
-                                dataREG.child("password").setValue(edtPassword.text.toString())
+                                dataREG.child("password").setValue(edt_password.text.toString())
                             }
                         }
 
@@ -141,7 +132,7 @@ class NewRegisterActivity : AppCompatActivity(){
                     })
 
                     val loginSuccess = Intent(this, SelectedActivity::class.java)
-                    loginSuccess.putExtra(EXTRA_PHONE, edtPhoneNumber.text.toString())
+                    loginSuccess.putExtra(EXTRA_PHONE, edt_phone_number.text.toString())
                     loginSuccess.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(loginSuccess)
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -154,18 +145,18 @@ class NewRegisterActivity : AppCompatActivity(){
 
      private var getItem : Any? = "Honda"
     @SuppressLint("ClickableViewAccessibility")
-    fun spinnerBrand() {
+    fun spinner_brand() {
 
-        spinnerBrand.setTextColor(resources.getColor(R.color.colorPink))
-        spinnerBrand.setArrowColor(resources.getColor(R.color.colorPink))
-        spinnerBrand.textSize = resources.getDimension(R.dimen.textSizeInSpinner)
-        spinnerBrand.setItems("Honda", "YAMAHA", "SUZUKI", "Kawasaki"
+        spinner_brand.setTextColor(resources.getColor(R.color.colorPink))
+        spinner_brand.setArrowColor(resources.getColor(R.color.colorPink))
+        spinner_brand.textSize = resources.getDimension(R.dimen.textSizeInSpinner)
+        spinner_brand.setItems("Honda", "YAMAHA", "SUZUKI", "Kawasaki"
                 , "DUCATI","BMW")
-        spinnerBrand.setOnTouchListener { _, _ ->
+        spinner_brand.setOnTouchListener { _, _ ->
             val inputMethodManager : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken,0)
         }
-        spinnerBrand.setOnItemSelectedListener { view, _, _,
+        spinner_brand.setOnItemSelectedListener { view, _, _,
                                                  item ->
             Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show()
             getItem = item
@@ -175,11 +166,11 @@ class NewRegisterActivity : AppCompatActivity(){
 
 
     private fun setToolbar() {
-        setSupportActionBar(toolBar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        titleToolbar.text = getString(R.string.register)
+        tv_toolbar_title.text = getString(R.string.register)
     }
     private fun isConnected(context: Context): Boolean {
         val cm : ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
