@@ -10,10 +10,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.*
-import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -21,22 +19,12 @@ import com.google.firebase.storage.StorageReference
 import th.co.todsphol.add.projectone.R
 import java.io.IOException
 import java.util.*
+import kotlinx.android.synthetic.main.activity_selected.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 @Suppress("DEPRECATION")
 open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
 
-    @BindView(R.id.tv_show_success)
-    lateinit var tvSuccess: TextView
-    @BindView(R.id.btn_select)
-    lateinit var btnSelected: Button
-    @BindView(R.id.imageView)
-    lateinit var ivSelected: ImageView
-    @BindView(R.id.btn_confirm_register)
-    lateinit var btnConfirm: Button
-    @BindView(R.id.toolbar)
-    lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title)
-    lateinit var tvTitle: TextView
 
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataCar = baseR.child("User").child("user1").child("DATA_CAR")
@@ -49,25 +37,25 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selected)
         ButterKnife.bind(this)
-        tvSuccess.text = intent.getStringExtra(EXTRA_PHONE)
+        tv_show_success.text = intent.getStringExtra(EXTRA_PHONE)
         storage = FirebaseStorage.getInstance()
         storageReference = storage?.reference
-        btnSelected.setOnClickListener(this)
-        btnConfirm.setOnClickListener(this)
+        btn_select.setOnClickListener(this)
+        btn_confirm_register.setOnClickListener(this)
         setToolBar()
 
     }
 
     private fun setToolBar() {
-        setSupportActionBar(toolBar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        tvTitle.text = "รูปภาพรถ"
+        tv_toolbar_title.text = "รูปภาพรถ"
     }
 
     override fun onClick(p0: View?) {
-        if (p0 == btnSelected) {
+        if (p0 == btn_select) {
             isSelected()
-        } else if (p0 == btnConfirm) {
+        } else if (p0 == btn_confirm_register) {
             isUploading()
         }
     }
@@ -88,7 +76,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
                         EXTRA_URI = it.downloadUrl.toString()
                         dataCar.child("Images").setValue(EXTRA_URI)
                         val gotoLoginSucIntent = Intent(this, LoginSuccessActivity::class.java)
-                        gotoLoginSucIntent.putExtra("EXTRA_PHONE", tvSuccess.text.toString())
+                        gotoLoginSucIntent.putExtra("EXTRA_PHONE", tv_show_success.text.toString())
                         gotoLoginSucIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(gotoLoginSucIntent)
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -129,7 +117,7 @@ open class SelectedActivity : AppCompatActivity(), View.OnClickListener {
             filePath = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
-                ivSelected.setImageBitmap(bitmap)
+                imageView.setImageBitmap(bitmap)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
