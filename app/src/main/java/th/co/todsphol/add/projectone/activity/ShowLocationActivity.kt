@@ -6,22 +6,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.firebase.database.*
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.custom.CustomRecyclerView
 import th.co.todsphol.add.projectone.recyclerview.UserAdapter
 import th.co.todsphol.add.projectone.recyclerview.UserModel
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 
 class ShowLocationActivity : AppCompatActivity() {
-    @BindView(R.id.toolbar) lateinit var tb_toolbar : Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var titleToolbar : TextView
     private lateinit var recyclerView: CustomRecyclerView
     private lateinit var result: MutableList<UserModel>
     private lateinit var adapter: UserAdapter
@@ -32,7 +27,6 @@ class ShowLocationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_location)
-        ButterKnife.bind(this)
         setRecyclerView()
         updateListView()
         setToolbar()
@@ -40,11 +34,11 @@ class ShowLocationActivity : AppCompatActivity() {
     }
 
     private fun setToolbar() {
-        setSupportActionBar(tb_toolbar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        titleToolbar.text = "ประวัติการเดินทาง"
+        tv_toolbar_title.text = "ประวัติการเดินทาง"
     }
 
     private fun setRecyclerView() {
