@@ -2,11 +2,7 @@ package th.co.todsphol.add.projectone.activity.maptimes
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,11 +14,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import th.co.todsphol.add.projectone.R
 
 class MapsSixtyMinuteActivity : AppCompatActivity(), OnMapReadyCallback {
-    @BindView(R.id.toolbar) lateinit var sixtyToolbar : Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var sixtyTitle : TextView
+
     private var baseR = FirebaseDatabase.getInstance().reference
     private var locationSixtyMinute = baseR.child("User").child("user1").child("HISTORY_LOC")
     private lateinit var mMap: GoogleMap
@@ -33,16 +29,15 @@ class MapsSixtyMinuteActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        ButterKnife.bind(this)
         setToolbar()
     }
 
     private fun setToolbar() {
-        setSupportActionBar(sixtyToolbar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        sixtyTitle.text = "เมื่อ 60 นาทีที่ผ่านมา"
+        tv_toolbar_title.text = "เมื่อ 60 นาทีที่ผ่านมา"
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

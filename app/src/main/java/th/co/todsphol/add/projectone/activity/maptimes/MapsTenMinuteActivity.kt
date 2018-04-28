@@ -3,11 +3,7 @@ package th.co.todsphol.add.projectone.activity.maptimes
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,12 +15,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.custom_toolbar.*
 import th.co.todsphol.add.projectone.R
 
 class MapsTenMinuteActivity : AppCompatActivity(), OnMapReadyCallback{
 
-    @BindView(R.id.toolbar) lateinit var tenToolBar : Toolbar
-    @BindView(R.id.tv_toolbar_title) lateinit var tenTitle : TextView
 
     private lateinit var mMap: GoogleMap
     private var baseR = FirebaseDatabase.getInstance().reference
@@ -36,16 +31,15 @@ class MapsTenMinuteActivity : AppCompatActivity(), OnMapReadyCallback{
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        ButterKnife.bind(this)
         setToolbar()
     }
 
     private fun setToolbar() {
-        setSupportActionBar(tenToolBar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        tenTitle.text = "เมื่อ 10 นาทีที่ผ่านมา"
+        tv_toolbar_title.text = "เมื่อ 10 นาทีที่ผ่านมา"
     }
 
     @SuppressLint("MissingPermission")
