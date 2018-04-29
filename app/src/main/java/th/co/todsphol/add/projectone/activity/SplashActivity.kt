@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_splash.*
 import th.co.todsphol.add.projectone.R
 
 class SplashActivity : AppCompatActivity() {
@@ -30,13 +31,9 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    @BindView(R.id.bg_splash)
-    lateinit var imageBG: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        ButterKnife.bind(this)
         checkStatusLogin()
         mDelayHandler = Handler()
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
@@ -44,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
         Glide.with(this).load(R.drawable.splashlogo)
                 .crossFade()
                 .error(R.drawable.splashlogo)
-                .into(imageBG)
+                .into(bg_splash)
 
     }
 

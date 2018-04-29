@@ -3,25 +3,17 @@ package th.co.todsphol.add.projectone.activity
 import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import butterknife.BindView
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import th.co.todsphol.add.projectone.R
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.TextView
-import butterknife.ButterKnife
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.custom_toolbar.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-
-    @BindView(R.id.toolbar)
-    lateinit var toolBar: Toolbar
-    @BindView(R.id.tv_toolbar_title)
-    lateinit var title: TextView
     lateinit var mMap: GoogleMap
     private var baseR = FirebaseDatabase.getInstance().reference
     private var dataPastPosition = baseR.child("User").child("user1").child("HISTORY_LOC")
@@ -32,16 +24,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        ButterKnife.bind(this)
         setToolBar()
     }
 
     private fun setToolBar() {
-        setSupportActionBar(toolBar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        title.text = "แผนที่แสดงตำแหน่งรถของคุณ"
+        tv_toolbar_title.text = "แผนที่แสดงตำแหน่งรถของคุณ"
     }
 
 

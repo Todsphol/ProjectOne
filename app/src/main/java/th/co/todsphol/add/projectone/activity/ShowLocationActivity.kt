@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import butterknife.OnClick
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_show_location.*
 import th.co.todsphol.add.projectone.R
 import th.co.todsphol.add.projectone.custom.CustomRecyclerView
 import th.co.todsphol.add.projectone.recyclerview.UserAdapter
@@ -30,6 +31,7 @@ class ShowLocationActivity : AppCompatActivity() {
         setRecyclerView()
         updateListView()
         setToolbar()
+        goMap()
 
     }
 
@@ -101,11 +103,12 @@ class ShowLocationActivity : AppCompatActivity() {
         return if ((1..result.size).any { result[it].key == user.key }) 1 else -1
     }
 
-    @OnClick(R.id.btn_history)
     fun goMap() {
-        val intentHistory = Intent(this, MapsActivity::class.java)
-        startActivity(intentHistory)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        btn_history.setOnClickListener {
+            val intentHistory = Intent(this, MapsActivity::class.java)
+            startActivity(intentHistory)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
